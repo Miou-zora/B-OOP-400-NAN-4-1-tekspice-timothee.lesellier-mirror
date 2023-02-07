@@ -5,7 +5,11 @@
 ## Makefile
 ##
 
-SRC			=
+SRC			=	src/AComponent.cpp								\
+				src/AndComponent.cpp							\
+				src/FalseComponent.cpp							\
+				src/NotComponent.cpp							\
+				src/TrueComponent.cpp							\
 
 MAIN		=	src/main.cpp
 

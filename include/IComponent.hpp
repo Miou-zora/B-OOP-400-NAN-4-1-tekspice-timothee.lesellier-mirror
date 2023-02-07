@@ -7,6 +7,9 @@
 
 
 #include <cstddef>
+#include <stdexcept>
+#include <ostream>
+#include <iostream>
 
 namespace nts
 {
@@ -27,5 +30,10 @@ namespace nts
             virtual nts::Tristate compute(std::size_t pin) = 0;
             virtual void setLink(std::size_t pin, nts::IComponent& other, std::size_t otherPin) = 0;
     };
-
 }
+
+std::ostream& operator<<(std::ostream& stream, nts::Tristate v);
+
+nts::Tristate ntsAnd(nts::Tristate v, nts::Tristate v2);
+
+nts::Tristate ntsNot(nts::Tristate v);
