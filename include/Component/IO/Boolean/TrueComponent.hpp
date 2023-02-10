@@ -10,7 +10,6 @@
 
 namespace nts
 {
-
     class TrueComponent : virtual public nts::AComponent {
         public:
             TrueComponent();
