@@ -1,25 +1,19 @@
 /*
 ** EPITECH PROJECT, 2023
-** B-OOP-400-NAN-4-1-bootstrap-tekspice
+** B-OOP-400-NAN-4-1-tekspice-timothee.lesellier-mirror
 ** File description:
 ** AComponent
 */
 
-#pragma once
-    #include "IComponent.hpp"
-    #include <map>
+#ifndef ACOMPONENT_HPP_
+    #define ACOMPONENT_HPP_
+
+#include "IComponent.hpp"
+#include "Link.hpp"
+#include <map>
 
 namespace nts
 {
-	class Link {
-        public:
-		    Link() {component = nullptr; otherPin = 0;};
-            ~Link() {};
-		    IComponent *component;
-		    size_t pin;
-            size_t otherPin;
-	};
-
     class AComponent : virtual public nts::IComponent {
         public:
             AComponent() = default;
@@ -42,3 +36,4 @@ namespace nts
 
 } // namespace nts
 
+#endif /* !ACOMPONENT_HPP_ */

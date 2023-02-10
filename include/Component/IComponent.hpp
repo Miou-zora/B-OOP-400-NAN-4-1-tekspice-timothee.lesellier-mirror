@@ -5,11 +5,10 @@
 ** IComponent
 */
 
+#ifndef ICOMPONENT_HPP_
+    #define ICOMPONENT_HPP_
 
 #include <cstddef>
-#include <stdexcept>
-#include <ostream>
-#include <iostream>
 
 namespace nts
 {
@@ -32,8 +31,4 @@ namespace nts
     };
 }
 
-std::ostream& operator<<(std::ostream& stream, nts::Tristate v);
-
-nts::Tristate ntsAnd(nts::Tristate v, nts::Tristate v2);
-
-nts::Tristate ntsNot(nts::Tristate v);
+#endif /* !ICOMPONENT_HPP_ */

@@ -6,11 +6,12 @@
 */
 
 #pragma once
-    #include "AComponent.hpp"
+
+#include "../AIO.hpp"
 
 namespace nts
 {
-    class FalseComponent : virtual public nts::AComponent {
+    class FalseComponent : virtual public nts::AIO {
         public:
             FalseComponent();
             ~FalseComponent();
