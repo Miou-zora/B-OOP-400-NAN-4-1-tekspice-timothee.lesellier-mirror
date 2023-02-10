@@ -25,5 +25,4 @@ namespace nts {
             ComponentFactory<std::string, std::unique_ptr<nts::IComponent>, std::string> _factory;
     };
 }
-
 #endif /* !MANAGEMENT_HPP_ */
