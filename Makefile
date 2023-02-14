@@ -27,6 +27,8 @@ INCLUDE		=	-I./include
 
 TEST_BINARY	=	test_bin
 
+UNWANTED_REGEX	=	(.*\.gc(no|da|ov))
+
 NAME		=	nanotekspice
 
 RM			=	rm -rf
@@ -43,6 +45,7 @@ tests_run:	tclean $(TESTS_OBJ)
 		$(CC) $(SRC) $(TESTS_OBJ) $(TESTS_FLAGS) $(LBFLAGS) \
 		-o $(TEST_BINARY) $(CFALGS) $(INCLUDE)
 		./$(TEST_BINARY)
+ifneq ("$(find . -type f -printf '%P\n' | { grep -P "${$(env.UNWANTED_REGEX)}" || true; })", "")
 		mv *.gcno tests/
 		mv *.gcda tests/
 		gcovr -e tests -u
@@ -50,6 +53,7 @@ tests_run:	tclean $(TESTS_OBJ)
 		./tests/memory_tests/memory_tests.sh
 		gcovr --html-details -o tests/html/index.html -e tests -bu \
 			--html-theme=blue
+endif
 
 clean:
 		$(RM) tests/html/*
