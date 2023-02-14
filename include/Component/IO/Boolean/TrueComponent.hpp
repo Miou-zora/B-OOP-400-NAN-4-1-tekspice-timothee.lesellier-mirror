@@ -6,12 +6,10 @@
 */
 
 #pragma once
-
 #include "../AIO.hpp"
 
 namespace nts
 {
-
     class TrueComponent : virtual public nts::AComponent {
         public:
             TrueComponent();

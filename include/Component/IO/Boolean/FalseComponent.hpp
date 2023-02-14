@@ -6,7 +6,6 @@
 */
 
 #pragma once
-
 #include "../AIO.hpp"
 
 namespace nts
