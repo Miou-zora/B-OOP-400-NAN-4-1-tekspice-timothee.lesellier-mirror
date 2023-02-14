@@ -39,10 +39,11 @@ all:	$(NAME)
 $(NAME):	$(OBJ) $(OBJ_MAIN)
 		$(CC) -o $(NAME) $(OBJ_MAIN) $(OBJ) $(CFALGS) $(INCLUDE)
 
-tests_run:	tclean $(TESTS_OBJ)
+tests_run: $(TESTS_OBJ)
 		$(CC) $(SRC) $(TESTS_OBJ) $(TESTS_FLAGS) $(LBFLAGS) \
 		-o $(TEST_BINARY) $(CFALGS) $(INCLUDE)
 		./$(TEST_BINARY)
+ifneq ("$(shell find . -name '*.gcno')", "")
 		mv *.gcno tests/
 		mv *.gcda tests/
 		gcovr -e tests -u
@@ -50,6 +51,7 @@ tests_run:	tclean $(TESTS_OBJ)
 		./tests/memory_tests/memory_tests.sh
 		gcovr --html-details -o tests/html/index.html -e tests -bu \
 			--html-theme=blue
+endif
 
 clean:
 		$(RM) tests/html/*
