@@ -12,8 +12,7 @@
     #include <string>
     #include <map>
     #include <list>
-    #include "IComponent.hpp"
-    #include "NTS.h"
+    #include "Component/IComponent.hpp"
 
 class Circuit : virtual public nts::IComponent{
     public:

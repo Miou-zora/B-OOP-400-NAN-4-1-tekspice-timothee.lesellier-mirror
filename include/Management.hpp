@@ -9,7 +9,7 @@
 #define MANAGEMENT_HPP_
 
 #include <memory>
-#include "Component/Component.h"
+#include "Component/IComponent.hpp"
 #include "ComponentFactory.hpp"
 
 namespace nts {
@@ -22,7 +22,7 @@ namespace nts {
             void loop(void) const;
         protected:
         private:
-            ComponentFactory<std::string, std::unique_ptr<nts::IComponent>, std::string> _factory;
+            ComponentFactory _factory;
     };
 }
 #endif /* !MANAGEMENT_HPP_ */

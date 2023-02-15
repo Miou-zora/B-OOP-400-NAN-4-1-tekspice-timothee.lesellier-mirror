@@ -10,5 +10,6 @@
 
 #include "FalseComponent.hpp"
 #include "TrueComponent.hpp"
+#include "UndefinedComponent.hpp"
 
 #endif /* !BOOLEAN_H_ */

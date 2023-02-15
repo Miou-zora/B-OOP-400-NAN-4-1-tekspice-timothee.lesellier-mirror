@@ -10,18 +10,18 @@
 
 #include <unordered_map>
 #include <functional>
+#include "Component/IComponent.hpp"
 
-template<class Key, class Object, class... Args>
-class ComponentFactory {
-    public:
-        using Creator = std::function<Object(Args...)>;
+namespace nts {
+    class ComponentFactory {
+        public:
+            void addConstr(std::string const& key, std::function<std::unique_ptr<nts::IComponent>()> const& creator);
 
-        void register(Key const& key, Creator const& creator);
+            std::unique_ptr<nts::IComponent> create(std::string const& key);
 
-        Object create(Key const& key, Args &&... args) const;
-
-    private:
-        std::unordered_map<Key, Creator> m_creators;
-};
+        private:
+            std::unordered_map<std::string, std::function<std::unique_ptr<nts::IComponent>()>> m_creators;
+    };
+}
 
 #endif /* !COMPONENTFACTORY_HPP_ */
