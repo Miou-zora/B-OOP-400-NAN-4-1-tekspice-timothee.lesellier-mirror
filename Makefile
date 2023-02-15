@@ -5,7 +5,12 @@
 ## Makefile
 ##
 
-SRC			=
+SRC_NTS_DIR	=	src/nts
+
+SRC			=	ComponentFactory.cpp	\
+				Component/AComponent.cpp
+
+SRC			:=	$(addprefix $(SRC_NTS_DIR)/, $(SRC))
 
 MAIN		=	src/main.cpp
 
@@ -13,7 +18,8 @@ OBJ			=	$(SRC:%.cpp=%.o)
 
 OBJ_MAIN	=	$(MAIN:%.cpp=%.o)
 
-TESTS		=
+TESTS		=	ComponentFactoryTest.cpp
+TESTS		:=	$(addprefix tests/, $(TESTS))
 
 TESTS_OBJ	=	$(TESTS:%.cpp=%.o)
 
@@ -43,15 +49,12 @@ tests_run: $(TESTS_OBJ)
 		$(CC) $(SRC) $(TESTS_OBJ) $(TESTS_FLAGS) $(LBFLAGS) \
 		-o $(TEST_BINARY) $(CFALGS) $(INCLUDE)
 		./$(TEST_BINARY)
-ifneq ("$(shell find . -name '*.gcno')", "")
 		mv *.gcno tests/
 		mv *.gcda tests/
 		gcovr -e tests -u
 		gcovr -e tests -bu
-		./tests/memory_tests/memory_tests.sh
 		gcovr --html-details -o tests/html/index.html -e tests -bu \
 			--html-theme=blue
-endif
 
 clean:
 		$(RM) tests/html/*

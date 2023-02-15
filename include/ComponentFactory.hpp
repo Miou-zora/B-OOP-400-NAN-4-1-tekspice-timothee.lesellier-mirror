@@ -11,11 +11,13 @@
 #include <unordered_map>
 #include <functional>
 #include "Component/IComponent.hpp"
+#include <memory>
+#include <string>
 
 namespace nts {
     class ComponentFactory {
         public:
-            void addConstr(std::string const& key, std::function<std::unique_ptr<nts::IComponent>()> const& creator);
+            void addConstructor(std::string const& key, std::function<std::unique_ptr<nts::IComponent>()> const& creator);
 
             std::unique_ptr<nts::IComponent> create(std::string const& key);
 
