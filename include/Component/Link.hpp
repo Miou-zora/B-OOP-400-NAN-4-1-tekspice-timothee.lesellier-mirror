@@ -13,20 +13,20 @@
 namespace nts {
     class Link {
         public:
-            Link() {component = nullptr; otherPin = 0;};
+            Link() {_component = nullptr; _otherPin = 0;};
             ~Link() {};
 
-            void setComponent(IComponent *component);
-            void setPin(size_t pin);
-            void setOtherPin(size_t otherPin);
+            void setComponent(IComponent *component) { _component = component; };
+            void setPin(size_t pin) { _pin = pin; };
+            void setOtherPin(size_t otherPin) { _otherPin = otherPin; };
 
-            IComponent *getComponent() const;
-            size_t getPin() const;
-            size_t getOtherPin() const;
+            IComponent *getComponent() const { return (_component); };
+            size_t getPin() const { return (_pin); };
+            size_t getOtherPin() const { return (_otherPin); };
         private:
-            IComponent *component;
-            size_t pin;
-            size_t otherPin;
+            IComponent *_component;
+            size_t _pin;
+            size_t _otherPin;
     };
 }
 #endif /* !LINK_HPP_ */
