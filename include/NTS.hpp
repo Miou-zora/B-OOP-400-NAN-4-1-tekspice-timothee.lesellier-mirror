@@ -8,6 +8,11 @@
 #ifndef NTS_H_
 #define NTS_H_
 
-#include "Component/Component.h"
+#include "Component/Component.hpp"
+#include "Shell.hpp"
+#include "Management.hpp"
+#include "ComponentFactory.hpp"
+#include "Circuit.hpp"
+#include "Builder.hpp"
 
 #endif /* !NTS_H_ */

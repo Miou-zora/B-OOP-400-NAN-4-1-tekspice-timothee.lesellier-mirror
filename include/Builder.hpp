@@ -16,7 +16,7 @@
     #include <fstream>
     #include <list>
 
-    #include "IComponent.hpp"
+    #include "Component/Component.hpp"
     #include "Circuit.hpp"
 
 

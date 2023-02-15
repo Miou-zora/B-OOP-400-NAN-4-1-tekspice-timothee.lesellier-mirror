@@ -13,8 +13,7 @@
     #include <fstream>
     #include <list>
 
-    #include "IComponent.hpp"
-    #include "NTS.h"
+    #include "Component/Component.hpp"
 
 class Shell {
     public:

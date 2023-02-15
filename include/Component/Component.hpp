@@ -8,7 +8,10 @@
 #ifndef COMPONENT_H_
 #define COMPONENT_H_
 
-#include "IO/IO.h"
-#include "Chip/Chip.h"
+#include "IO/IO.hpp"
+#include "Chip/Chip.hpp"
+#include "Link.hpp"
+#include "IComponent.hpp"
+#include "AComponent.hpp"
 
 #endif /* !COMPONENT_H_ */
