@@ -9,6 +9,5 @@
 #define CHIP_H_
 
 #include "AndComponent.hpp"
-#include "NotComponent.hpp"
 
 #endif /* !CHIP_H_ */

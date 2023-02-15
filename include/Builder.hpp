@@ -18,47 +18,55 @@
 
     #include "Component/Component.hpp"
     #include "Circuit.hpp"
+    #include "ComponentFactory.hpp"
+    #include <memory>
 
+namespace nts {
+    class FileError : public std::exception {
+        public:
+            FileError(std::string const &message, const std::string &component="unknown") : _message(message), _component(component) {};
+            ~FileError() = default;
 
-class FileError : public std::exception {
-    public:
-        FileError(std::string const &message, std::string const &component="Unknown");
-        ~FileError() = default;
+            std::string const &GetComponent() const { return _component; };
+            virtual const char* what() const throw() { return _message.c_str(); };
 
-        std::string const &getComponent() const;
-        const char *what();
+        protected:
+        private:
+            std::string _message;
+            std::string _component;
+    };
+}
 
-    protected:
-    private:
-        std::string _message;
-        std::string _component;
-};
+namespace nts {
+    class Builder {
+        public:
+            Builder(std::string filepath);
+            ~Builder();
 
-class Builder {
-    public:
-        Builder(std::string filepath);
-        ~Builder();
+            Circuit *BuildCircuit();
 
-        Circuit *BuildCircuit();
+        protected:
+        private:
+            std::string _filepath;
+            std::list<std::string> _fileContent;
+            std::unique_ptr<Circuit> _circuit;
+            nts::ComponentFactory _factory;
 
-    protected:
-    private:
-        std::string _filepath;
-        std::list<std::string> _fileContent;
-        Circuit *_circuit;
+            void initFactory(void);
+            std::list<std::string> getFileContent(std::string filepath);
+            bool isChipset(std::string line);
+            bool isLink(std::string line);
+            bool isComment(std::string line);
+            bool isComponent(std::string line);
+            bool componentExist(std::string name);
+            bool isValidChipset(std::string line);
 
-        std::string getFileContent(std::string filepath);
-        bool isChipset(std::string line);
-        bool isLink(std::string line);
-        bool isComment(std::string line);
-        bool isComponent(std::string line);
-        bool componentExist(std::string name);
-
-        std::string getComponentName(std::string line);
-        bool setComponentsLinks(std::string line);
-        nts::IComponent buildComponent(std::string name);
-        std::string getComponentType(std::string name);
-        std::string clearComment(std::string line);
-};
+            std::string getComponentName(std::string line);
+            bool setComponentsLinks(std::string line);
+            std::unique_ptr<nts::IComponent> buildComponent(std::string chip);
+            std::string getComponentType(std::string name);
+            std::string clearComment(std::string line);
+    };
+}
 
 #endif /* !BUILDER_HPP_ */
