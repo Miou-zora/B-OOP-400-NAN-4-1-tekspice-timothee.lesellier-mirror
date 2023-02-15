@@ -18,7 +18,8 @@ OBJ			=	$(SRC:%.cpp=%.o)
 
 OBJ_MAIN	=	$(MAIN:%.cpp=%.o)
 
-TESTS		=	ComponentFactoryTest.cpp
+TESTS		=	ComponentFactoryTests.cpp	\
+				Component/LinkTests.cpp
 TESTS		:=	$(addprefix tests/, $(TESTS))
 
 TESTS_OBJ	=	$(TESTS:%.cpp=%.o)
