@@ -7,11 +7,13 @@
 
 SRC_NTS_DIR	=	src/nts
 
-SRC			=	ComponentFactory.cpp		\
-				Component/AComponent.cpp	\
-				Builder.cpp					\
+SRC			=	ComponentFactory.cpp			\
+				Component/AComponent.cpp		\
+				Builder.cpp						\
 				Component/Chip/AndComponent.cpp	\
-				Component/Circuit.cpp		\
+				Component/Circuit.cpp			\
+				Component/IO/Input.cpp			\
+				Component/IO/Output.cpp			\
 
 SRC			:=	$(addprefix $(SRC_NTS_DIR)/, $(SRC))
 

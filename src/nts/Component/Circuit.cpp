@@ -17,17 +17,27 @@ nts::Circuit::~Circuit(void)
 
 std::unique_ptr<nts::IComponent> nts::Circuit::getInput(std::string name)
 {
+    if (_input.find(name) == _input.end())
+        throw std::runtime_error("Input not found");
     return std::move(_input[name]);
 }
 
 std::unique_ptr<nts::IComponent> nts::Circuit::getOutput(std::string name)
 {
+    if (_output.find(name) == _output.end())
+        throw std::runtime_error("Output not found");
     return std::move(_output[name]);
 }
 
 std::unique_ptr<nts::IComponent> nts::Circuit::getComponent(std::string name)
 {
-    return std::move(_components[name]);
+    if (_components.find(name) != _components.end())
+        return std::move(_components[name]);
+    if (_input.find(name) != _input.end())
+        return std::move(_input[name]);
+    if (_output.find(name) != _output.end())
+        return std::move(_output[name]);
+    throw std::runtime_error("Component not found");
 }
 
 

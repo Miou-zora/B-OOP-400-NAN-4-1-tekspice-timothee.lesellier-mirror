@@ -28,6 +28,8 @@ nts::Builder::~Builder(void)
 void nts::Builder::initFactory(void)
 {
     _factory.addConstructor("and", []() { return std::make_unique<nts::AndComponent>(); });
+    _factory.addConstructor("output", []() { return std::make_unique<nts::Output>(); });
+    _factory.addConstructor("input", []() { return std::make_unique<nts::Input>(); });
 }
 
 std::list<std::string> nts::Builder::getFileContent(std::string filepath)

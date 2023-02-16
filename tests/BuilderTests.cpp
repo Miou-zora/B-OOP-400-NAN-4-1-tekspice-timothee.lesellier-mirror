@@ -181,7 +181,17 @@ Test(buildComponents, casual)
     std::list<std::string> fileContent = builder.getFileContent("tests/BuilderTestsFolder/test2");
     builder.buildComponents(fileContent);
 
+    cr_assert_eq(builder._circuit._components.size(), 2);
     builder._circuit.getComponent("hello");
+    builder._circuit.getComponent("helloo");
+    cr_assert_eq(builder._circuit._input.size(), 0);
+    cr_assert_eq(builder._circuit._output.size(), 0);
+    try {
+        builder._circuit.getComponent("hellooo");
+        cr_assert_fail();
+    } catch (std::runtime_error &e) {
+        cr_assert_str_eq(e.what(), "Component not found");
+    }
 }
 
 Test(buildComponents, invalidLine)
@@ -220,5 +230,59 @@ Test(buildComponents, noLinks)
         cr_assert_fail();
     } catch (std::runtime_error &e) {
         cr_assert_str_eq(e.what(), "No links found");
+    }
+}
+
+Test(buildComponents, input)
+{
+    nts::Builder builder("tests/BuilderTestsFolder/test6");
+    std::list<std::string> fileContent = builder.getFileContent("tests/BuilderTestsFolder/test6");
+
+    builder.buildComponents(fileContent);
+
+    cr_assert_eq(builder._circuit._components.size(), 1);
+    cr_assert_eq(builder._circuit._input.size(), 1);
+    cr_assert_eq(builder._circuit._output.size(), 1);
+
+    builder._circuit.getComponent("a");
+    builder._circuit.getInput("a");
+    try {
+        builder._circuit.getInput("b");
+        cr_assert_fail();
+    } catch (std::runtime_error &e) {
+        cr_assert_str_eq(e.what(), "Input not found");
+    }
+    try {
+        builder._circuit.getComponent("d");
+        cr_assert_fail();
+    } catch (std::runtime_error &e) {
+        cr_assert_str_eq(e.what(), "Component not found");
+    }
+}
+
+Test(buildComponents, output)
+{
+    nts::Builder builder("tests/BuilderTestsFolder/test6");
+    std::list<std::string> fileContent = builder.getFileContent("tests/BuilderTestsFolder/test6");
+
+    builder.buildComponents(fileContent);
+
+    cr_assert_eq(builder._circuit._components.size(), 1);
+    cr_assert_eq(builder._circuit._input.size(), 1);
+    cr_assert_eq(builder._circuit._output.size(), 1);
+
+    builder._circuit.getComponent("b");
+    builder._circuit.getOutput("b");
+    try {
+        builder._circuit.getOutput("c");
+        cr_assert_fail();
+    } catch (std::runtime_error &e) {
+        cr_assert_str_eq(e.what(), "Output not found");
+    }
+    try {
+        builder._circuit.getComponent("d");
+        cr_assert_fail();
+    } catch (std::runtime_error &e) {
+        cr_assert_str_eq(e.what(), "Component not found");
     }
 }
