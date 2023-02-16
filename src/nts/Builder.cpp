@@ -6,7 +6,6 @@
 */
 
 #include "Builder.hpp"
-#include "Circuit.hpp"
 #include <cstring>
 #include <algorithm>
 #include "Component/Component.hpp"

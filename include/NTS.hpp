@@ -12,7 +12,6 @@
 #include "Shell.hpp"
 #include "Management.hpp"
 #include "ComponentFactory.hpp"
-#include "Circuit.hpp"
 #include "Builder.hpp"
 
 #endif /* !NTS_H_ */

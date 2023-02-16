@@ -18,7 +18,7 @@
     #include <memory>
 
     #include "Component/Component.hpp"
-    #include "Circuit.hpp"
+    #include "Component/Circuit.hpp"
     #include "ComponentFactory.hpp"
     #include <memory>
 
