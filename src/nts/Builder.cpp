@@ -6,14 +6,12 @@
 */
 
 #include "Builder.hpp"
-#include "Circuit.hpp"
 #include <cstring>
 #include <algorithm>
 #include "Component/Component.hpp"
 
-nts::Builder::Builder(std::string filepath)
+nts::Builder::Builder(std::string filepath) : _filepath(filepath)
 {
-    _filepath = filepath;
     this->initFactory();
 }
 
@@ -21,11 +19,11 @@ nts::Builder::~Builder(void)
 {
 }
 
-std::unique_ptr<Circuit> nts::Builder::BuildCircuit(void)
-{
-    Circuit circuit();
-    std::list<std::string> fileContent = this->getFileContent(_filepath);
-}
+// std::unique_ptr<Circuit> nts::Builder::BuildCircuit(void)
+// {
+//     Circuit circuit();
+//     std::list<std::string> fileContent = this->getFileContent(_filepath);
+// }
 
 void nts::Builder::initFactory(void)
 {
@@ -123,22 +121,29 @@ std::unique_ptr<nts::IComponent> nts::Builder::buildComponent(std::string chip)
     }
 }
 
-std::unique_ptr<std::map<std::string, std::unique_ptr<nts::IComponent>>> nts::Builder::buildComponents(std::list<std::string> fileContent)
+void nts::Builder::buildComponents(std::list<std::string> fileContent)
 {
-    std::unique_ptr<std::map<std::string, std::unique_ptr<nts::IComponent>>> components = std::make_unique<std::map<std::string, std::unique_ptr<nts::IComponent>>>();
+    std::string name;
+    std::string type;
+
     for (std::string line : fileContent) {
         line = this->clearComment(line);
         if (this->isValidChipset(line) == true) {
-            std::string name = this->getComponentName(line);
-            std::string type = this->getComponentType(line);
+            name = this->getComponentName(line);
+            type = this->getComponentType(line);
             try {
-                std::unique_ptr<nts::IComponent> component = this->buildComponent(type);
-                (*components)[name] = std::move(component);
+                if (type.compare("input") == 0 || type.compare("clock") == 0 || type.compare("false") == 0 || type.compare("true") == 0) {
+                    _circuit.addInput(_factory.create(type), name);
+                } else if (type.compare("output") == 0) {
+                    _circuit.addOutput(_factory.create(type), name);
+                } else {
+                    _circuit.addComponent(_factory.create(type), name);
+                }
             } catch (std::runtime_error &e) {
                 throw e;
             }
         } else if (line.compare(".links:") == 0) {
-            return (components);
+            return;
         } else if (line.compare(".chipsets:") != 0 && line.compare("") != 0)
             throw nts::FileError("Invalid line", line);
     }

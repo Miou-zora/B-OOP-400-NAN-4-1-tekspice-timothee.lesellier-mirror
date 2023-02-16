@@ -18,7 +18,7 @@
     #include <memory>
 
     #include "Component/Component.hpp"
-    #include "Circuit.hpp"
+    #include "Component/Circuit.hpp"
     #include "ComponentFactory.hpp"
     #include <memory>
 
@@ -51,6 +51,7 @@ namespace nts {
             std::string _filepath;
             std::list<std::string> _fileContent;
             nts::ComponentFactory _factory;
+            nts::Circuit _circuit;
 
             void initFactory(void);
             std::list<std::string> getFileContent(std::string filepath);
@@ -60,7 +61,7 @@ namespace nts {
             std::string getComponentName(std::string line);
             bool setComponentsLinks(std::string line);
             std::unique_ptr<nts::IComponent> buildComponent(std::string chip);
-            std::unique_ptr<std::map<std::string, std::unique_ptr<nts::IComponent>>> buildComponents(std::list<std::string> fileContent);
+            void buildComponents(std::list<std::string> fileContent);
             std::string getComponentType(std::string name);
             std::string clearComment(std::string line);
     };

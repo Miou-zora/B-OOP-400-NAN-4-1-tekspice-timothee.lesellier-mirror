@@ -11,6 +11,7 @@ SRC			=	ComponentFactory.cpp		\
 				Component/AComponent.cpp	\
 				Builder.cpp					\
 				Component/Chip/AndComponent.cpp	\
+				Component/Circuit.cpp		\
 
 SRC			:=	$(addprefix $(SRC_NTS_DIR)/, $(SRC))
 
