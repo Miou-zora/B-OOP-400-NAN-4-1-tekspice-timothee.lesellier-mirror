@@ -1,0 +1,22 @@
+signal_cellular_connected_no_internet_4_bar
+addConstructor
+TESTCONSTRUCTOR
+EPITECH
+addConstructor
+<td-layout-nav sidenavTitle="MyApp" logo="assets:logo" icon="ligature">
+    <div td-toolbar-content>
+        Toolbar content
+    </div>
+    <td-layout-manage-list [opened]="true" mode="side" sidenavWidth="257px">
+        <mat-toolbar td-sidenav-content>
+            Inner sidenav toolbar
+        </mat-toolbar>
+        <mat-nav-list td-sidenav-content>
+            Inner sidenav content
+        </mat-nav-list>
+        <div td-toolbar-content>
+            Inner toolbar for body
+        </div>
+        Body
+    </td-layout-manage-list>
+</td-layout-nav>
