@@ -34,9 +34,9 @@ class Circuit : virtual public nts::IComponent{
 
     protected:
     private:
-        std::map<std::string, nts::IComponent> _components;
-        std::map<std::string, nts::IComponent> _output;
-        std::map<std::string, nts::IComponent> _input;
+        std::map<std::string, std::unique_ptr<nts::IComponent>> _components;
+        std::map<std::string, std::unique_ptr<nts::IComponent>> _output;
+        std::map<std::string, std::unique_ptr<nts::IComponent>> _input;
 
 };
 

@@ -15,6 +15,7 @@
     #include <string>
     #include <fstream>
     #include <list>
+    #include <memory>
 
     #include "Component/Component.hpp"
     #include "Circuit.hpp"
@@ -41,29 +42,25 @@ namespace nts {
     class Builder {
         public:
             Builder(std::string filepath);
-            ~Builder();
+            ~Builder(void);
 
-            Circuit *BuildCircuit();
+            std::unique_ptr<Circuit> BuildCircuit(void);
 
         protected:
         private:
             std::string _filepath;
             std::list<std::string> _fileContent;
-            std::unique_ptr<Circuit> _circuit;
             nts::ComponentFactory _factory;
 
             void initFactory(void);
             std::list<std::string> getFileContent(std::string filepath);
-            bool isChipset(std::string line);
-            bool isLink(std::string line);
-            bool isComment(std::string line);
-            bool isComponent(std::string line);
-            bool componentExist(std::string name);
             bool isValidChipset(std::string line);
+            bool isValidLink(std::string line);
 
             std::string getComponentName(std::string line);
             bool setComponentsLinks(std::string line);
             std::unique_ptr<nts::IComponent> buildComponent(std::string chip);
+            std::unique_ptr<std::map<std::string, std::unique_ptr<nts::IComponent>>> buildComponents(std::list<std::string> fileContent);
             std::string getComponentType(std::string name);
             std::string clearComment(std::string line);
     };
