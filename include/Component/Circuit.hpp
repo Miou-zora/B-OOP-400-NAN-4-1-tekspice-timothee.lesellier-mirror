@@ -12,24 +12,35 @@
     #include <string>
     #include <map>
     #include <list>
+    #include <memory>
     #include "Component/IComponent.hpp"
 
-class Circuit : virtual public nts::IComponent {
-    public:
-        Circuit(std::map<std::string, nts::IComponent> &components);
-        ~Circuit();
+namespace nts {
+    class Circuit : virtual public nts::IComponent{
+        public:
+            Circuit(void);
+            ~Circuit(void);
 
-        std::map<std::string, nts::IComponent> getComponents() const;
+            std::unique_ptr<nts::IComponent> getInput(std::string name);
+            std::unique_ptr<nts::IComponent> getOutput(std::string name);
+            std::unique_ptr<nts::IComponent> getComponent(std::string name);
 
-        void simulate(std::size_t tick);
-        nts::Tristate compute(std::size_t pin);
-        void setLink(std::string name, std::size_t pin, std::string other, std::size_t otherPin);
-        void setLink(std::pair<std::string, size_t> aComponent, std::pair<std::string, size_t> bComponent);
+            bool addInput(std::unique_ptr<nts::IComponent> input, std::string name);
+            bool addOutput(std::unique_ptr<nts::IComponent> output, std::string name);
+            bool addComponent(std::unique_ptr<nts::IComponent> component, std::string name);
 
-    protected:
-    private:
-        std::map<std::string, nts::IComponent> _components;
+            void simulate(std::size_t tick);
+            nts::Tristate compute(std::size_t pin);
+            void setLink(std::size_t pin, nts::IComponent& other, std::size_t otherPin);
+            void display();
 
-};
+        protected:
+        private:
+            std::map<std::string, std::unique_ptr<nts::IComponent>> _components;
+            std::map<std::string, std::unique_ptr<nts::IComponent>> _output;
+            std::map<std::string, std::unique_ptr<nts::IComponent>> _input;
+
+    };
+}
 
 #endif /* !CIRCUIT_HPP_ */

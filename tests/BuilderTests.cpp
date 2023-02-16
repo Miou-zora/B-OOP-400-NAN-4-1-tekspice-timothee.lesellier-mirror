@@ -179,12 +179,9 @@ Test(buildComponents, casual)
 {
     nts::Builder builder("tests/BuilderTestsFolder/test2");
     std::list<std::string> fileContent = builder.getFileContent("tests/BuilderTestsFolder/test2");
-    std::unique_ptr<std::map<std::string, std::unique_ptr<nts::IComponent>>> components = builder.buildComponents(fileContent);
+    builder.buildComponents(fileContent);
 
-    cr_assert_eq(components->size(), 1);
-
-    std::map<std::string, std::unique_ptr<nts::IComponent>>::iterator it = components->begin();
-    cr_assert_str_eq(it->first.c_str(), "hello");
+    builder._circuit.getComponent("hello");
 }
 
 Test(buildComponents, invalidLine)
@@ -193,7 +190,7 @@ Test(buildComponents, invalidLine)
     std::list<std::string> fileContent = builder.getFileContent("tests/BuilderTestsFolder/test3");
     fileContent.push_back("invalid line");
     try {
-        std::unique_ptr<std::map<std::string, std::unique_ptr<nts::IComponent>>> components = builder.buildComponents(fileContent);
+        builder.buildComponents(fileContent);
         cr_assert_fail();
     } catch (std::runtime_error &e) {
         cr_assert_str_eq(e.what(), "Component doesn't exist");
@@ -206,7 +203,7 @@ Test(buildComponents, invalidComponent)
     std::list<std::string> fileContent = builder.getFileContent("tests/BuilderTestsFolder/test4");
     fileContent.push_back("invalidComponent hello");
     try {
-        std::unique_ptr<std::map<std::string, std::unique_ptr<nts::IComponent>>> components = builder.buildComponents(fileContent);
+        builder.buildComponents(fileContent);
         cr_assert_fail();
     } catch (nts::FileError &e) {
         cr_assert_str_eq(e.what(), "Invalid line");
@@ -219,7 +216,7 @@ Test(buildComponents, noLinks)
     nts::Builder builder("tests/BuilderTestsFolder/test5");
     std::list<std::string> fileContent = builder.getFileContent("tests/BuilderTestsFolder/test5");
     try {
-        std::unique_ptr<std::map<std::string, std::unique_ptr<nts::IComponent>>> components = builder.buildComponents(fileContent);
+        builder.buildComponents(fileContent);
         cr_assert_fail();
     } catch (std::runtime_error &e) {
         cr_assert_str_eq(e.what(), "No links found");

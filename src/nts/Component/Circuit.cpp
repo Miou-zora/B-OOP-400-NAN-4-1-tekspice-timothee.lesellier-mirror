@@ -7,40 +7,67 @@
 
 #include "Component/Circuit.hpp"
 
-Circuit::Circuit(std::map<std::string, nts::IComponent> &components) : _components(components)
+nts::Circuit::Circuit(void)
 {
-
 }
 
-Circuit::~Circuit()
+nts::Circuit::~Circuit(void)
 {
-
 }
 
-std::map<std::string, nts::IComponent> Circuit::getComponents() const
+std::unique_ptr<nts::IComponent> nts::Circuit::getInput(std::string name)
 {
-    return _components;
+    return std::move(_input[name]);
+}
+
+std::unique_ptr<nts::IComponent> nts::Circuit::getOutput(std::string name)
+{
+    return std::move(_output[name]);
+}
+
+std::unique_ptr<nts::IComponent> nts::Circuit::getComponent(std::string name)
+{
+    return std::move(_components[name]);
 }
 
 
-void Circuit::simulate(std::size_t tick)
+bool nts::Circuit::addInput(std::unique_ptr<nts::IComponent> input, std::string name)
 {
-    for (auto &component : _components) {
-        component.second.simulate(tick);
-    }
+    if (_input.find(name) != _input.end())
+        return false;
+    _input[name] = std::move(input);
+    return true;
 }
 
-nts::Tristate Circuit::compute(std::size_t pin)
+bool nts::Circuit::addOutput(std::unique_ptr<nts::IComponent> output, std::string name)
 {
-
+    if (_output.find(name) != _output.end())
+        return false;
+    _output[name] = std::move(output);
+    return true;
 }
 
-void Circuit::setLink(std::string name, std::size_t pin, std::string other, std::size_t otherPin)
+bool nts::Circuit::addComponent(std::unique_ptr<nts::IComponent> component, std::string name)
 {
-
+    if (_components.find(name) != _components.end())
+        return false;
+    _components[name] = std::move(component);
+    return true;
 }
 
-void Circuit::setLink(std::pair<std::string, size_t> aComponent, std::pair<std::string, size_t> bComponent)
+void nts::Circuit::simulate(std::size_t tick)
 {
+    (void)tick;
+}
 
+nts::Tristate nts::Circuit::compute(std::size_t pin)
+{
+    (void)pin;
+}
+
+void nts::Circuit::setLink(std::size_t pin, nts::IComponent& other, std::size_t otherPin)
+{
+    (void)pin;
+    (void)other;
+    (void)otherPin;
 }
