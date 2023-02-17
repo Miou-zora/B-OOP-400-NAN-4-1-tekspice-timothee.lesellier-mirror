@@ -346,3 +346,17 @@ Test(buildLinks, invalidLink)
         cr_assert_str_eq(e.what(), "Invalid link");
     }
 }
+
+Test(build, casual, .init = cr_redirect_stdout)
+{
+    nts::Builder builder("tests/BuilderTestsFolder/test7");
+    std::unique_ptr<nts::Circuit> testCircuit = builder.BuildCircuit();
+
+    cr_assert_eq(testCircuit->_components.size(), 4);
+    cr_assert_eq(testCircuit->_input.size(), 2);
+    cr_assert_eq(testCircuit->_output.size(), 1);
+
+    testCircuit->compute(1);
+
+    cr_assert_stdout_eq_str("  outputA: U\n");
+}

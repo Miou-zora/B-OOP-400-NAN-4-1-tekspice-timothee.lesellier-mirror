@@ -160,7 +160,6 @@ void nts::Builder::buildLinks(std::list<std::string> fileContent)
     std::list<std::string>::iterator it = fileContent.begin();
 
     while (it != fileContent.end()) {
-
         if ((*it).compare(".links:") == 0) {
             it++;
             break;
@@ -171,11 +170,7 @@ void nts::Builder::buildLinks(std::list<std::string> fileContent)
         throw nts::FileError("No links found");
     while (it != fileContent.end()) {
         if (this->isValidLink(*it) == true) {
-            try {
-                this->buildLink(*it);
-            } catch (std::runtime_error &e) {
-                throw e;
-            }
+            this->buildLink(*it);
         } else if (it->compare("") != 0) {
             throw nts::FileError("Invalid link", *it);
         }
