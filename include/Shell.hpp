@@ -12,6 +12,7 @@
     #include <string>
     #include <fstream>
     #include <list>
+    #include <vector>
 
     #include "Component/Component.hpp"
 
@@ -25,18 +26,17 @@ class Shell {
     protected:
     private:
 
+        bool _exit;
+        std::string _command;
+        //nts::Circuit &_circuit;
+
         std::string getCommand();
         std::string getCommandName(std::string command);
         bool executeCommand(std::string command);
+        bool isValueAttriution(std::string command);
 
-        bool isCommandValid(std::string command);
-        bool isCommand(std::string command);
-        bool isInput(std::string command);
-        bool isOutput(std::string command);
-        bool isSimulate(std::string command);
-        bool isLoop(std::string command);
-        bool isExit(std::string command);
-        bool isDisplay(std::string command);
+        bool excecuteValueAttriution(std::string command);
+        std::vector<std::string> split(std::string str, std::string sep);
 };
 
 #endif /* !SHELL_HPP_ */

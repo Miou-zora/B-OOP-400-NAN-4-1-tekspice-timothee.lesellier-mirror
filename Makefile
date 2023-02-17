@@ -12,6 +12,7 @@ SRC			=	ComponentFactory.cpp		\
 				Builder.cpp					\
 				Component/Chip/AndComponent.cpp	\
 				Component/Circuit.cpp		\
+				Shell.cpp
 
 SRC			:=	$(addprefix $(SRC_NTS_DIR)/, $(SRC))
 
@@ -23,7 +24,9 @@ OBJ_MAIN	=	$(MAIN:%.cpp=%.o)
 
 TESTS		=	ComponentFactoryTests.cpp	\
 				Component/LinkTests.cpp		\
-				BuilderTests.cpp
+				BuilderTests.cpp			\
+				Shell.cpp
+
 TESTS		:=	$(addprefix tests/, $(TESTS))
 
 TESTS_OBJ	=	$(TESTS:%.cpp=%.o)

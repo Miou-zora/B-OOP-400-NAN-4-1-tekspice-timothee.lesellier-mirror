@@ -6,8 +6,11 @@
 */
 
 #include "NTS.hpp"
+#include "Shell.hpp"
 
 int main(void)
 {
+    Shell shell;
+    shell.run();
     return 0;
 }
