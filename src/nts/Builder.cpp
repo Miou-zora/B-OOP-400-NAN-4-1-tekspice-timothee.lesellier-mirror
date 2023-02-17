@@ -40,7 +40,7 @@ std::list<std::string> nts::Builder::getFileContent(std::string filepath)
     if (!myfile.is_open())
         throw nts::FileError("File not found");
     while (getline (myfile, myText)) {
-        _fileContent.push_back(myText);
+        _fileContent.push_back(this->clearComment(myText));
     }
     myfile.close();
     return (_fileContent);
@@ -109,21 +109,6 @@ std::string nts::Builder::getComponentName(std::string line)
     return (lineWithOutComment);
 }
 
-std::list<std::string>::iterator nts::Builder::goToLinks(std::list<std::string> fileContent)
-{
-    std::list<std::string>::iterator it = fileContent.begin();
-    while (it != fileContent.end()) {
-        if (*it == ".links:") {
-            it++;
-            break;
-        }
-        it++;
-    }
-    if (it == fileContent.end())
-        throw std::runtime_error("No links found");
-    return (it);
-}
-
 std::string nts::Builder::getLinkFirstName(std::string line)
 {
     std::string lineWithOutComment(this->clearComment(line));
@@ -165,13 +150,27 @@ void nts::Builder::buildLink(std::string line)
 
 void nts::Builder::buildLinks(std::list<std::string> fileContent)
 {
-    std::list<std::string>::iterator it = this->goToLinks(fileContent);
+    std::list<std::string>::iterator it = fileContent.begin();
 
     while (it != fileContent.end()) {
+
+        if ((*it).compare(".links:") == 0) {
+            it++;
+            break;
+        }
+        it++;
+    }
+    if (it == fileContent.end())
+        throw nts::FileError("No links found");
+    while (it != fileContent.end()) {
         if (this->isValidLink(*it) == true) {
-            this->buildLink(*it);
-        } else if (*it != "") {
-            throw nts::FileError("Invalid line", *it);
+            try {
+                this->buildLink(*it);
+            } catch (std::runtime_error &e) {
+                throw e;
+            }
+        } else if (it->compare("") != 0) {
+            throw nts::FileError("Invalid link", *it);
         }
         it++;
     }

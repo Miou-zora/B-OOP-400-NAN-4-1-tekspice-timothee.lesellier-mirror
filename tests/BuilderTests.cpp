@@ -294,7 +294,7 @@ Test(buildLinks, no_links)
     try {
         builder.buildLinks(fileContent);
         cr_assert_fail();
-    } catch (std::runtime_error &e) {
+    } catch (nts::FileError &e) {
         cr_assert_str_eq(e.what(), "No links found");
     }
 }
@@ -325,4 +325,11 @@ Test(getLinkSecondPin, casual)
     nts::Builder builder("tests/BuilderTestsFolder/test6");
     std::string link = "ab:12 ba:21";
     cr_assert_eq(builder.getLinkSecondPin(link), 21);
+}
+
+Test(buildLinks, casual)
+{
+    nts::Builder builder("tests/BuilderTestsFolder/test7");
+    std::list<std::string> fileContent = builder.getFileContent("tests/BuilderTestsFolder/test7");
+    builder.buildLinks(fileContent);
 }
