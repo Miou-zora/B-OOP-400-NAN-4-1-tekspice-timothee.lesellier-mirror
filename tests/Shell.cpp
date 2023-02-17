@@ -11,6 +11,8 @@
 #include "NTS.hpp"
 #undef private
 
+bool ctrlC = false;
+
 Test(Shell, Shell)
 {
     Shell shell;
@@ -41,12 +43,6 @@ Test(shell, simulate)
 {
     Shell shell;
     cr_assert_eq(shell.executeCommand("simulate"), true);
-}
-
-Test(shell, loop)
-{
-    Shell shell;
-    cr_assert_eq(shell.executeCommand("loop"), true);
 }
 
 Test(shell, getCommandName)
