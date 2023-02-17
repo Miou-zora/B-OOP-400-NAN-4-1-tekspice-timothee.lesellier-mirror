@@ -333,3 +333,15 @@ Test(buildLinks, casual)
     std::list<std::string> fileContent = builder.getFileContent("tests/BuilderTestsFolder/test7");
     builder.buildLinks(fileContent);
 }
+
+Test(buildLinks, invalidLink)
+{
+    nts::Builder builder("tests/BuilderTestsFolder/test4");
+    std::list<std::string> fileContent = builder.getFileContent("tests/BuilderTestsFolder/test4");
+    try {
+        builder.buildLinks(fileContent);
+        cr_assert_fail();
+    } catch (nts::FileError &e) {
+        cr_assert_str_eq(e.what(), "Invalid link");
+    }
+}
