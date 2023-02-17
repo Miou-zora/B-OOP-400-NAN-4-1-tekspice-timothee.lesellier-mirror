@@ -14,8 +14,5 @@ namespace nts {
             UndefinedComponent();
             ~UndefinedComponent();
             nts::Tristate compute(std::size_t pin);
-
-        protected:
-        private:
     };
 }

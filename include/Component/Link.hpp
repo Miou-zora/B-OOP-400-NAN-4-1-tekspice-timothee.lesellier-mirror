@@ -9,7 +9,6 @@
 #define LINK_HPP_
 
 #include "IComponent.hpp"
-#include "Boolean/UndefinedComponent.hpp"
 #include <memory>
 
 namespace nts {
