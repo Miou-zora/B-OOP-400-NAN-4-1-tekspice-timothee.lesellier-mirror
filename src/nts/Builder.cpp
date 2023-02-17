@@ -32,9 +32,9 @@ void nts::Builder::initFactory(void)
     _factory.addConstructor("input", []() { return std::make_unique<nts::Input>(); });
 }
 
-std::list<std::string> nts::Builder::getFileContent(std::string filepath)
+std::list<std::string> nts::Builder::getFileContent(void)
 {
-    std::ifstream myfile(filepath);
+    std::ifstream myfile(_filepath);
     std::string myText;
 
     if (!myfile.is_open())

@@ -14,7 +14,7 @@
 Test(getFileContent, casual)
 {
     nts::Builder builder("tests/BuilderTestsFolder/test1");
-    std::list<std::string> fileContent = builder.getFileContent("tests/BuilderTestsFolder/test1");
+    std::list<std::string> fileContent = builder.getFileContent();
     cr_assert_eq(fileContent.size(), 22);
 }
 
@@ -22,7 +22,7 @@ Test(getFileContent, noFile)
 {
     nts::Builder builder("No_file");
     try {
-        std::list<std::string> fileContent = builder.getFileContent("No_file");
+        std::list<std::string> fileContent = builder.getFileContent();
         cr_assert_fail();
     } catch (nts::FileError &e) {
         cr_assert_str_eq(e.what(), "File not found");
@@ -178,7 +178,7 @@ Test(isValidLink, noName2)
 Test(buildComponents, casual)
 {
     nts::Builder builder("tests/BuilderTestsFolder/test2");
-    std::list<std::string> fileContent = builder.getFileContent("tests/BuilderTestsFolder/test2");
+    std::list<std::string> fileContent = builder.getFileContent();
     builder.buildComponents(fileContent);
 
     cr_assert_eq(builder._circuit._components.size(), 2);
@@ -197,7 +197,7 @@ Test(buildComponents, casual)
 Test(buildComponents, invalidLine)
 {
     nts::Builder builder("tests/BuilderTestsFolder/test3");
-    std::list<std::string> fileContent = builder.getFileContent("tests/BuilderTestsFolder/test3");
+    std::list<std::string> fileContent = builder.getFileContent();
     fileContent.push_back("invalid line");
     try {
         builder.buildComponents(fileContent);
@@ -210,7 +210,7 @@ Test(buildComponents, invalidLine)
 Test(buildComponents, invalidComponent)
 {
     nts::Builder builder("tests/BuilderTestsFolder/test4");
-    std::list<std::string> fileContent = builder.getFileContent("tests/BuilderTestsFolder/test4");
+    std::list<std::string> fileContent = builder.getFileContent();
     fileContent.push_back("invalidComponent hello");
     try {
         builder.buildComponents(fileContent);
@@ -224,7 +224,7 @@ Test(buildComponents, invalidComponent)
 Test(buildComponents, noLinks)
 {
     nts::Builder builder("tests/BuilderTestsFolder/test5");
-    std::list<std::string> fileContent = builder.getFileContent("tests/BuilderTestsFolder/test5");
+    std::list<std::string> fileContent = builder.getFileContent();
     try {
         builder.buildComponents(fileContent);
         cr_assert_fail();
@@ -236,7 +236,7 @@ Test(buildComponents, noLinks)
 Test(buildComponents, input)
 {
     nts::Builder builder("tests/BuilderTestsFolder/test6");
-    std::list<std::string> fileContent = builder.getFileContent("tests/BuilderTestsFolder/test6");
+    std::list<std::string> fileContent = builder.getFileContent();
 
     builder.buildComponents(fileContent);
 
@@ -263,7 +263,7 @@ Test(buildComponents, input)
 Test(buildComponents, output)
 {
     nts::Builder builder("tests/BuilderTestsFolder/test6");
-    std::list<std::string> fileContent = builder.getFileContent("tests/BuilderTestsFolder/test6");
+    std::list<std::string> fileContent = builder.getFileContent();
 
     builder.buildComponents(fileContent);
 
@@ -290,7 +290,7 @@ Test(buildComponents, output)
 Test(buildLinks, no_links)
 {
     nts::Builder builder("tests/BuilderTestsFolder/test6");
-    std::list<std::string> fileContent = builder.getFileContent("tests/BuilderTestsFolder/test6");
+    std::list<std::string> fileContent = builder.getFileContent();
     try {
         builder.buildLinks(fileContent);
         cr_assert_fail();
@@ -330,14 +330,14 @@ Test(getLinkSecondPin, casual)
 Test(buildLinks, casual)
 {
     nts::Builder builder("tests/BuilderTestsFolder/test7");
-    std::list<std::string> fileContent = builder.getFileContent("tests/BuilderTestsFolder/test7");
+    std::list<std::string> fileContent = builder.getFileContent();
     builder.buildLinks(fileContent);
 }
 
 Test(buildLinks, invalidLink)
 {
     nts::Builder builder("tests/BuilderTestsFolder/test4");
-    std::list<std::string> fileContent = builder.getFileContent("tests/BuilderTestsFolder/test4");
+    std::list<std::string> fileContent = builder.getFileContent();
     try {
         builder.buildLinks(fileContent);
         cr_assert_fail();

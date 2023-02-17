@@ -54,7 +54,7 @@ namespace nts {
             nts::Circuit _circuit;
 
             void initFactory(void);
-            std::list<std::string> getFileContent(std::string filepath);
+            std::list<std::string> getFileContent(void);
             bool isValidChipset(std::string line);
             bool isValidLink(std::string line);
 
