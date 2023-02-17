@@ -16,17 +16,9 @@ namespace nts {
             nts::Tristate compute(std::size_t pin);
             void simulate(std::size_t tick);
 
-            nts::Tristate getNextState(void);
-            nts::Tristate getCurrentState(void);
-
-            void setNextState(nts::Tristate nextState);
-            void setCurrentState(nts::Tristate currentState);
-
             void display(void);
 
         protected:
         private:
-            nts::Tristate _currentState;
-            nts::Tristate _nextState;
     };
 }

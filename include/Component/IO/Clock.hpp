@@ -16,16 +16,9 @@ class Clock : public nts::AIO {
         ~Clock();
         nts::Tristate compute(std::size_t pin);
 
-        nts::Tristate getNextState(void);
-        nts::Tristate getCurrentState(void);
-
-        void setNextState(nts::Tristate nextState);
-        void setCurrentState(nts::Tristate currentState);
-
     protected:
     private:
-        nts::Tristate _currentState;
-        nts::Tristate _nextState;
+
 };
 
 #endif /* !CLOCK_HPP_ */

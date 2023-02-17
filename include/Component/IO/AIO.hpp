@@ -16,9 +16,17 @@ namespace nts {
             AIO() = default;
             virtual ~AIO() = default;
 
+            virtual nts::Tristate getNextState(void) {return (_nextState);};
+            virtual nts::Tristate getCurrentState(void) {return (_currentState);};
+
+            virtual void setNextState(nts::Tristate nextState) {_nextState = nextState;};
+            virtual void setCurrentState(nts::Tristate currentState) {_currentState = currentState;};
+
             virtual void display(void) = 0;
 
         protected:
+                nts::Tristate _currentState;
+                nts::Tristate _nextState;
         private:
     };
 }

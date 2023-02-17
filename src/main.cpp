@@ -6,8 +6,21 @@
 */
 
 #include "NTS.hpp"
+#include "Shell.hpp"
+#include <csignal>
+
+bool ctrlC = false;
+
+void sigintHandler(int sig_num)
+{
+    (void)sig_num;
+    ctrlC = true;
+}
 
 int main(void)
 {
+    signal(SIGINT, sigintHandler);
+    Shell shell;
+    shell.run();
     return 0;
 }

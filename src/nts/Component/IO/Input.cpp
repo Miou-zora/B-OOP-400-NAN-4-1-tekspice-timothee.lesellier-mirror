@@ -9,10 +9,12 @@
 #include <stdexcept>
 #include <iostream>
 
-nts::Input::Input() : _currentState(nts::Tristate::Undefined), _nextState(nts::Tristate::Undefined)
+nts::Input::Input()
 {
     _pinMax = 1;
     _state = nts::Tristate::Undefined;
+    _currentState = nts::Tristate::Undefined;
+    _nextState = nts::Tristate::Undefined;
 }
 
 nts::Input::~Input()
@@ -30,28 +32,6 @@ void nts::Input::simulate(std::size_t tick)
 {
     (void)tick;
     _state = _nextState;
-}
-
-
-nts::Tristate nts::Input::getNextState(void)
-{
-    return _nextState;
-}
-
-nts::Tristate nts::Input::getCurrentState(void)
-{
-    return _state;
-}
-
-
-void nts::Input::setNextState(nts::Tristate nextState)
-{
-    _nextState = nextState;
-}
-
-void nts::Input::setCurrentState(nts::Tristate currentState)
-{
-    _state = currentState;
 }
 
 void nts::Input::display(void)

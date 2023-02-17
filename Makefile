@@ -7,13 +7,14 @@
 
 SRC_NTS_DIR	=	src/nts
 
-SRC			=	ComponentFactory.cpp			\
-				Component/AComponent.cpp		\
-				Builder.cpp						\
-				Component/Chip/AndComponent.cpp	\
-				Component/Circuit.cpp			\
-				Component/IO/Input.cpp			\
-				Component/IO/Output.cpp			\
+SRC			=	ComponentFactory.cpp						\
+				Component/AComponent.cpp					\
+				Builder.cpp									\
+				Component/Chip/AndComponent.cpp				\
+				Component/Circuit.cpp						\
+				Shell.cpp									\
+				Component/IO/Input.cpp						\
+				Component/IO/Output.cpp						\
 				Component/Boolean/UndefinedComponent.cpp	\
 
 SRC			:=	$(addprefix $(SRC_NTS_DIR)/, $(SRC))
@@ -26,7 +27,9 @@ OBJ_MAIN	=	$(MAIN:%.cpp=%.o)
 
 TESTS		=	ComponentFactoryTests.cpp	\
 				Component/LinkTests.cpp		\
-				BuilderTests.cpp
+				BuilderTests.cpp			\
+				Shell.cpp
+
 TESTS		:=	$(addprefix tests/, $(TESTS))
 
 TESTS_OBJ	=	$(TESTS:%.cpp=%.o)
