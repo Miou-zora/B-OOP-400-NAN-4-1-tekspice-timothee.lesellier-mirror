@@ -202,11 +202,11 @@ void nts::Builder::buildComponents(std::list<std::string> fileContent)
             type = this->getComponentType(line);
             try {
                 if (type.compare("input") == 0 || type.compare("clock") == 0 || type.compare("false") == 0 || type.compare("true") == 0) {
-                    _circuit.addInput(_factory.create(type), name);
+                    _circuit.addInput(std::shared_ptr<nts::IComponent>(_factory.create(type)), name);
                 } else if (type.compare("output") == 0) {
-                    _circuit.addOutput(_factory.create(type), name);
+                    _circuit.addOutput(std::shared_ptr<nts::IComponent>(_factory.create(type)), name);
                 } else {
-                    _circuit.addComponent(_factory.create(type), name);
+                    _circuit.addComponent(std::shared_ptr<nts::IComponent>(_factory.create(type)), name);
                 }
             } catch (std::runtime_error &e) {
                 throw e;

@@ -333,7 +333,6 @@ Test(buildLinks, casual)
     std::list<std::string> fileContent = builder.getFileContent();
     builder.buildComponents(fileContent);
     builder.buildLinks(fileContent);
-    std::cout << "there is an error when we destruct all" << std::endl;
 }
 
 Test(buildLinks, invalidLink)
