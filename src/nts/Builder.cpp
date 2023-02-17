@@ -109,9 +109,21 @@ std::string nts::Builder::getComponentName(std::string line)
     return (lineWithOutComment);
 }
 
-bool nts::Builder::setComponentsLinks(std::string line)
-{
 
+
+void nts::Builder::buildLinks(std::list<std::string> fileContent)
+{
+    // Skip lines until ".links:" + 1 is found
+    std::list<std::string>::iterator it = fileContent.begin();
+    while (it != fileContent.end()) {
+        if (*it == ".links:") {
+            it++;
+            break;
+        }
+        it++;
+    }
+    if (it == fileContent.end())
+        throw std::runtime_error("No links found");
 }
 
 std::unique_ptr<nts::IComponent> nts::Builder::buildComponent(std::string chip)

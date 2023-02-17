@@ -286,3 +286,15 @@ Test(buildComponents, output)
         cr_assert_str_eq(e.what(), "Component not found");
     }
 }
+
+Test(buildLinks, no_links)
+{
+    nts::Builder builder("tests/BuilderTestsFolder/test6");
+    std::list<std::string> fileContent = builder.getFileContent("tests/BuilderTestsFolder/test6");
+    try {
+        builder.buildLinks(fileContent);
+        cr_assert_fail();
+    } catch (std::runtime_error &e) {
+        cr_assert_str_eq(e.what(), "No links found");
+    }
+}
