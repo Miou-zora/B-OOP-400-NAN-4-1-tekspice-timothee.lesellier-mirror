@@ -11,7 +11,7 @@
 
 nts::Output::Output()
 {
-
+    _pinMax = 1;
 }
 
 nts::Output::~Output()
@@ -24,7 +24,7 @@ nts::Tristate nts::Output::compute(std::size_t pin)
     if (pin != 1) {
         throw std::invalid_argument("Pin out of range");
     } else {
-        return _links[1].getComponent().compute(_links[1].getOtherPin());
+        return _links[1].getComponent()->compute(_links[1].getOtherPin());
     }
 }
 

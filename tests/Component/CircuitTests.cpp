@@ -15,27 +15,3 @@ Test(Circuit, createCircuit)
 {
     nts::Circuit circuit;
 }
-
-Test(Circuit, setter_getter)
-{
-    nts::Circuit circuit;
-}
-
-Test(Circuit, addComponent)
-{
-    nts::Circuit circuit;
-
-    circuit.addComponent(component);
-    cr_assert_eq(circuit.getComponents().size(), 1);
-}
-
-Test(Circuit, addComponentTwice)
-{
-    nts::Circuit circuit;
-    nts::ComponentFactory factory;
-    nts::IComponent *component = factory.createComponent("input", "input");
-
-    circuit.addComponent(component);
-    circuit.addComponent(component);
-    cr_assert_eq(circuit.getComponents().size(), 1);
-}

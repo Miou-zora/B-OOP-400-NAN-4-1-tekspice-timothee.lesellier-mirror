@@ -21,7 +21,7 @@ namespace nts {
             void setPin(size_t pin) { _pin = pin; };
             void setOtherPin(size_t otherPin) { _otherPin = otherPin; };
 
-            nts::IComponent &getComponent() const { return (*_component.get()); };
+            std::shared_ptr<nts::IComponent> getComponent() const { return (_component); };
             size_t getPin() const { return (_pin); };
             size_t getOtherPin() const { return (_otherPin); };
         private:

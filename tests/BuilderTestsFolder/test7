@@ -1,15 +1,15 @@
 .chipsets:
 
-input a
-input b
-and c
-output d
+input inputA
+input inputB
+and andA
+output outputA
 
 .links:
-a:1 c:1
+inputB:1 andA:1
 
 #   aze
-b:1 c:2#aze
+inputB:1 andA:2#aze
 
 
-c:3 d:1
+andA:3 outputA:1

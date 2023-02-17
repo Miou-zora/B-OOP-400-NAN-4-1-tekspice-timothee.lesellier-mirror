@@ -87,7 +87,12 @@ void nts::Circuit::simulate(std::size_t tick)
 
 nts::Tristate nts::Circuit::compute(std::size_t pin)
 {
-    (void)pin;
+    for (auto &it : _output) {
+        if (it.second != nullptr) {
+            // it.second->display();
+        }
+    }
+    return nts::Undefined;
 }
 
 void nts::Circuit::setLink(std::size_t pin, std::shared_ptr<nts::IComponent> other, std::size_t otherPin)
@@ -104,4 +109,5 @@ void nts::Circuit::setLink(std::string firstName, std::size_t firstPin, std::str
     if (_components.find(secondName) == _components.end() && _input.find(secondName) == _input.end() && _output.find(secondName) == _output.end())
         throw std::runtime_error("Component not found");
     _components[firstName]->setLink(firstPin, _components[secondName], secondPin);
+    _components[secondName]->setLink(secondPin, _components[firstName], firstPin);
 }
