@@ -57,12 +57,16 @@ bool nts::Circuit::addComponent(std::unique_ptr<nts::IComponent> component, std:
 
 void nts::Circuit::simulate(std::size_t tick)
 {
-    (void)tick;
+    _tick += tick;
+    for (auto &input : _input) {
+        input.second->simulate(tick);
+    }
 }
 
 nts::Tristate nts::Circuit::compute(std::size_t pin)
 {
     (void)pin;
+    return nts::Tristate::Undefined;
 }
 
 void nts::Circuit::setLink(std::size_t pin, nts::IComponent& other, std::size_t otherPin)
@@ -70,4 +74,19 @@ void nts::Circuit::setLink(std::size_t pin, nts::IComponent& other, std::size_t 
     (void)pin;
     (void)other;
     (void)otherPin;
+}
+
+void nts::Circuit::display()
+{
+    std::cout << "ticks: " << _tick << std::endl;
+    std::cout << "inputs(s): " << std::endl;
+
+    for (auto &input : _input) {
+        std::cout << "\t" << input.first << ": " << input.second->compute(1) << std::endl;
+    }
+
+    std::cout << "output(s): " << std::endl;
+    for (auto &output : _output) {
+        std::cout << "\t" << output.first << ": " << output.second->compute(1) << std::endl;
+    }
 }

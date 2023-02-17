@@ -8,11 +8,13 @@
 #include "Shell.hpp"
 #include <string.h>
 
+extern bool ctrlC;
+
 Shell::Shell()
 {
     _exit = false;
     _command = "";
-    //circuit = nullptr;
+    _circuit = std::make_unique<nts::Circuit>();
 }
 
 Shell::~Shell()
@@ -23,7 +25,7 @@ void Shell::run()
 {
     while (!this->_exit) {
         this->_command = this->getCommand();
-        if (!this->executeCommand(this->_command)) {
+        if (!this->executeCommand(this->_command) && !this->_exit) {
             std::cout << "Invalid command" << std::endl;
         }
     }
@@ -33,8 +35,11 @@ std::string Shell::getCommand()
 {
     std::string command;
 
-    std::cout << "$> ";
-    std::getline(std::cin, command);
+    std::cout << "> ";
+    if (!std::getline(std::cin, command)) {
+        this->_exit = true;
+        return "";
+    }
     return command;
 }
 
@@ -58,13 +63,20 @@ bool Shell::executeCommand(std::string command)
     if (commandName == "exit") {
         this->_exit = true;
         return true;
-    }
-    for (std::size_t i = 0; i < commands.size(); i++) {
-        if (commandName == commands[i]) {
-            std::cout << "Command " << commandName << " executed" << std::endl;
-            return true;
+    } else if (commandName == "simulate") {
+        _circuit->simulate(1);
+        return true;
+    } else if (commandName == "loop") {
+        std::cout << "Press Ctrl+C to exit loop" << std::endl;
+        while(!ctrlC) {
+            _circuit->simulate(1);
         }
-    }
+        ctrlC = false;
+        return true;
+    } else if (commandName == "display") {
+        _circuit->display();
+        return true;
+    } else
     if (this->isValueAttriution(command)) {
         return this->excecuteValueAttriution(command);
     }
@@ -101,7 +113,6 @@ bool Shell::excecuteValueAttriution(std::string command)
 
     if (commandSplit.size() < 2)
         return false;
-    std::cout << "Command " << commandSplit[0] << " = " << commandSplit[1] << " executed" << std::endl;
-    // make a safe get to the circuit and set the value (if it exists)
+    if (g)
     return true;
 }

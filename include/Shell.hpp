@@ -15,6 +15,7 @@
     #include <vector>
 
     #include "Component/Component.hpp"
+    #include "Component/Circuit.hpp"
 
 class Shell {
     public:
@@ -28,7 +29,8 @@ class Shell {
 
         bool _exit;
         std::string _command;
-        //nts::Circuit &_circuit;
+        std::unique_ptr<nts::Circuit> _circuit;
+        bool _ctrlC;
 
         std::string getCommand();
         std::string getCommandName(std::string command);

@@ -40,6 +40,8 @@ namespace nts {
             std::map<std::string, std::unique_ptr<nts::IComponent>> _output;
             std::map<std::string, std::unique_ptr<nts::IComponent>> _input;
 
+            size_t _tick;
+
     };
 }
 
