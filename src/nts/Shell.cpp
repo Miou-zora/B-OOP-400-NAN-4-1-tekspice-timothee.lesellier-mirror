@@ -7,6 +7,7 @@
 
 #include "Shell.hpp"
 #include <string.h>
+#include "Component/IO/AIO.hpp"
 
 extern bool ctrlC;
 
@@ -58,7 +59,6 @@ std::string Shell::getCommandName(std::string command)
 bool Shell::executeCommand(std::string command)
 {
     std::string commandName = this->getCommandName(command);
-    std::vector<std::string> commands = {"simulate", "loop", "display"};
 
     if (commandName == "exit") {
         this->_exit = true;
@@ -67,7 +67,6 @@ bool Shell::executeCommand(std::string command)
         _circuit->simulate(1);
         return true;
     } else if (commandName == "loop") {
-        std::cout << "Press Ctrl+C to exit loop" << std::endl;
         while(!ctrlC) {
             _circuit->simulate(1);
         }
@@ -98,10 +97,12 @@ std::vector<std::string> Shell::split(std::string str, std::string sep)
     char *cstr = const_cast<char *>(str.c_str());
     char *current;
     std::vector<std::string> arr;
+    std::string temp;
 
     current = strtok(cstr, sep.c_str());
     while (current != NULL) {
-        arr.push_back(current);
+        temp = current;
+        arr.push_back(temp);
         current = strtok(NULL, sep.c_str());
     }
     return arr;
@@ -110,9 +111,23 @@ std::vector<std::string> Shell::split(std::string str, std::string sep)
 bool Shell::excecuteValueAttriution(std::string command)
 {
     std::vector<std::string> commandSplit = this->split(command, "=");
+    std::vector<std::string> states = {"0", "1", "U"};
+    std::vector<nts::Tristate> ntsStates = {nts::False, nts::True, nts::Undefined};
+    nts::AIO *temp;
 
-    if (commandSplit.size() < 2)
+    if (commandSplit.size() != 2)
         return false;
-    if (g)
-    return true;
+
+    try {
+        temp = dynamic_cast<nts::AIO*>(&_circuit->getComponent(commandSplit.at(0)));
+    } catch (std::exception &e) {
+        return false;
+    }
+    for (int i = 0; i < 3; i++) {
+        if (commandSplit.at(1) == states[i]) {
+            temp->setNextState(ntsStates[i]);
+            return true;
+        }
+    }
+    return false;
 }

@@ -2,18 +2,17 @@
 ** EPITECH PROJECT, 2023
 ** B-OOP-400-NAN-4-1-tekspice-timothee.lesellier-mirror
 ** File description:
-** Output
+** UndefinedComponent
 */
 
 #pragma once
-#include "AIO.hpp"
+#include "../AComponent.hpp"
 
 namespace nts {
-    class Output : public virtual nts::AIO {
+    class UndefinedComponent : virtual public nts::AComponent {
         public:
-            Output();
-            ~Output();
+            UndefinedComponent();
+            ~UndefinedComponent();
             nts::Tristate compute(std::size_t pin);
-            void display(void);
     };
 }

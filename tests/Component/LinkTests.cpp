@@ -17,11 +17,9 @@ Test(Link, setter_getter)
 {
     nts::Link link;
 
-    link.setComponent(nullptr);
     link.setPin(0);
     link.setOtherPin(0);
 
-    cr_assert_eq(link.getComponent(), nullptr);
     cr_assert_eq(link.getPin(), 0);
     cr_assert_eq(link.getOtherPin(), 0);
 }

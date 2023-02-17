@@ -54,12 +54,18 @@ namespace nts {
             nts::Circuit _circuit;
 
             void initFactory(void);
-            std::list<std::string> getFileContent(std::string filepath);
+            std::list<std::string> getFileContent(void);
             bool isValidChipset(std::string line);
             bool isValidLink(std::string line);
 
+            std::string getLinkFirstName(std::string line);
+            std::string getLinkSecondName(std::string line);
+            std::size_t getLinkFirstPin(std::string line);
+            std::size_t getLinkSecondPin(std::string line);
+
             std::string getComponentName(std::string line);
-            bool setComponentsLinks(std::string line);
+            void buildLink(std::string line);
+            void buildLinks(std::list<std::string> fileContent);
             std::unique_ptr<nts::IComponent> buildComponent(std::string chip);
             void buildComponents(std::list<std::string> fileContent);
             std::string getComponentType(std::string name);

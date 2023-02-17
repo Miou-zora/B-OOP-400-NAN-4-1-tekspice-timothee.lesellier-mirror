@@ -13,6 +13,7 @@ bool ctrlC = false;
 
 void sigintHandler(int sig_num)
 {
+    (void)sig_num;
     ctrlC = true;
 }
 

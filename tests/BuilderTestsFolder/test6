@@ -1,0 +1,8 @@
+# three inputs and gate
+.chipsets:
+
+input a
+output b
+and c
+
+.links: #aze

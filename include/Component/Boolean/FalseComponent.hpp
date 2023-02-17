@@ -2,18 +2,18 @@
 ** EPITECH PROJECT, 2023
 ** B-OOP-400-NAN-4-1-bootstrap-tekspice
 ** File description:
-** TrueComponent
+** FalseComponent
 */
 
 #pragma once
-#include "../AIO.hpp"
+#include "../AComponent.hpp"
 
 namespace nts
 {
-    class TrueComponent : virtual public nts::AComponent {
+    class FalseComponent : virtual public nts::AComponent {
         public:
-            TrueComponent();
-            ~TrueComponent();
+            FalseComponent();
+            ~FalseComponent();
             nts::Tristate compute(std::size_t pin);
     };
 }

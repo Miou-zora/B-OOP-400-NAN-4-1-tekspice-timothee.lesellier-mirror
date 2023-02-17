@@ -9,7 +9,9 @@
 #define COMPONENT_H_
 
 #include "IO/IO.hpp"
+#include "Boolean/Boolean.hpp"
 #include "Chip/Chip.hpp"
+#include "Circuit.hpp"
 #include "Link.hpp"
 #include "IComponent.hpp"
 #include "AComponent.hpp"

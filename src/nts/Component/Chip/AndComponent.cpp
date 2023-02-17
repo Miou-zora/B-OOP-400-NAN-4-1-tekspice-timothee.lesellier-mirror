@@ -7,6 +7,7 @@
 
 #include "Component/Chip/AndComponent.hpp"
 #include <stdexcept>
+#include <iostream>
 
 nts::AndComponent::AndComponent()
 {
@@ -33,8 +34,6 @@ nts::Tristate nts::AndComponent::compute(std::size_t pin)
 {
     if (pin != _pinMax) {
         throw std::invalid_argument("Pin out of range");
-    } else if (_links[1].getComponent() == nullptr || _links[2].getComponent() == nullptr) {
-        return nts::Tristate::Undefined;
     } else {
         return ntsAnd(_links[1].getComponent()->compute(_links[1].getOtherPin()), _links[2].getComponent()->compute(_links[2].getOtherPin()));
     }

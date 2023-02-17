@@ -19,26 +19,30 @@ nts::Builder::~Builder(void)
 {
 }
 
-// std::unique_ptr<Circuit> nts::Builder::BuildCircuit(void)
-// {
-//     Circuit circuit();
-//     std::list<std::string> fileContent = this->getFileContent(_filepath);
-// }
+std::unique_ptr<nts::Circuit> nts::Builder::BuildCircuit(void)
+{
+    this->getFileContent();
+    this->buildComponents(_fileContent);
+    this->buildLinks(_fileContent);
+    return (std::make_unique<nts::Circuit>(_circuit));
+}
 
 void nts::Builder::initFactory(void)
 {
     _factory.addConstructor("and", []() { return std::make_unique<nts::AndComponent>(); });
+    _factory.addConstructor("output", []() { return std::make_unique<nts::Output>(); });
+    _factory.addConstructor("input", []() { return std::make_unique<nts::Input>(); });
 }
 
-std::list<std::string> nts::Builder::getFileContent(std::string filepath)
+std::list<std::string> nts::Builder::getFileContent(void)
 {
-    std::ifstream myfile(filepath);
+    std::ifstream myfile(_filepath);
     std::string myText;
 
     if (!myfile.is_open())
         throw nts::FileError("File not found");
     while (getline (myfile, myText)) {
-        _fileContent.push_back(myText);
+        _fileContent.push_back(this->clearComment(myText));
     }
     myfile.close();
     return (_fileContent);
@@ -107,9 +111,71 @@ std::string nts::Builder::getComponentName(std::string line)
     return (lineWithOutComment);
 }
 
-bool nts::Builder::setComponentsLinks(std::string line)
+std::string nts::Builder::getLinkFirstName(std::string line)
 {
+    std::string lineWithOutComment(this->clearComment(line));
+    std::string name = lineWithOutComment.substr(0, lineWithOutComment.find(':'));
+    return (name);
+}
 
+std::string nts::Builder::getLinkSecondName(std::string line)
+{
+    std::string lineWithOutComment(this->clearComment(line));
+    reverse(lineWithOutComment.begin(), lineWithOutComment.end());
+    std::string name = lineWithOutComment.substr(0, lineWithOutComment.find(' '));
+    reverse(name.begin(), name.end());
+    name = name.substr(0, name.find(':'));
+    return (name);
+}
+
+std::size_t nts::Builder::getLinkFirstPin(std::string line)
+{
+    std::string lineWithOutComment(this->clearComment(line));
+    std::string pin = lineWithOutComment.substr(lineWithOutComment.find(':') + 1, lineWithOutComment.find(' '));
+    return (std::stoi(pin));
+}
+
+std::size_t nts::Builder::getLinkSecondPin(std::string line)
+{
+    std::string lineWithOutComment(this->clearComment(line));
+    reverse(lineWithOutComment.begin(), lineWithOutComment.end());
+    std::string pin = lineWithOutComment.substr(0, lineWithOutComment.find(':'));
+    reverse(pin.begin(), pin.end());
+    return (std::stoi(pin));
+}
+
+
+void nts::Builder::buildLink(std::string line)
+{
+    std::string firstName = this->getLinkFirstName(line);
+    std::string secondName = this->getLinkSecondName(line);
+    std::size_t firstPin = this->getLinkFirstPin(line);
+    std::size_t secondPin = this->getLinkSecondPin(line);
+
+    _circuit.setLink(firstName, firstPin, secondName, secondPin);
+}
+
+void nts::Builder::buildLinks(std::list<std::string> fileContent)
+{
+    std::list<std::string>::iterator it = fileContent.begin();
+
+    while (it != fileContent.end()) {
+        if ((*it).compare(".links:") == 0) {
+            it++;
+            break;
+        }
+        it++;
+    }
+    if (it == fileContent.end())
+        throw nts::FileError("No links found");
+    while (it != fileContent.end()) {
+        if (this->isValidLink(*it) == true) {
+            this->buildLink(*it);
+        } else if (it->compare("") != 0) {
+            throw nts::FileError("Invalid link", *it);
+        }
+        it++;
+    }
 }
 
 std::unique_ptr<nts::IComponent> nts::Builder::buildComponent(std::string chip)
@@ -133,11 +199,11 @@ void nts::Builder::buildComponents(std::list<std::string> fileContent)
             type = this->getComponentType(line);
             try {
                 if (type.compare("input") == 0 || type.compare("clock") == 0 || type.compare("false") == 0 || type.compare("true") == 0) {
-                    _circuit.addInput(_factory.create(type), name);
+                    _circuit.addInput(std::shared_ptr<nts::IComponent>(_factory.create(type)), name);
                 } else if (type.compare("output") == 0) {
-                    _circuit.addOutput(_factory.create(type), name);
+                    _circuit.addOutput(std::shared_ptr<nts::IComponent>(_factory.create(type)), name);
                 } else {
-                    _circuit.addComponent(_factory.create(type), name);
+                    _circuit.addComponent(std::shared_ptr<nts::IComponent>(_factory.create(type)), name);
                 }
             } catch (std::runtime_error &e) {
                 throw e;
@@ -160,5 +226,10 @@ std::string nts::Builder::getComponentType(std::string line)
 
 std::string nts::Builder::clearComment(std::string line)
 {
-    return (line.substr(0, line.find('#')));
+    if (line.find('#') == std::string::npos)
+        return (line);
+    line = line.substr(0, line.find('#'));
+    while (line[line.size() - 1] == ' ')
+        line = line.substr(0, line.size() - 1);
+    return (line);
 }
