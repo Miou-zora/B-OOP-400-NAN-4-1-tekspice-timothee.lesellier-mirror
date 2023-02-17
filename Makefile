@@ -14,6 +14,7 @@ SRC			=	ComponentFactory.cpp			\
 				Component/Circuit.cpp			\
 				Component/IO/Input.cpp			\
 				Component/IO/Output.cpp			\
+				Component/Boolean/UndefinedComponent.cpp	\
 
 SRC			:=	$(addprefix $(SRC_NTS_DIR)/, $(SRC))
 

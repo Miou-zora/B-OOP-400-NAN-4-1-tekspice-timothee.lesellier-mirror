@@ -13,8 +13,7 @@ void nts::AComponent::setLink(std::size_t pin, nts::IComponent& other, std::size
     if (pin > _pinMax) {
         throw std::invalid_argument("The pin wished is out of range");
     }
-    _links[pin] = *(new nts::Link);
-    _links[pin].setComponent(&other);
+    _links[pin].setComponent(other);
     _links[pin].setPin(pin - 1);
     _links[pin].setOtherPin(otherPin);
 }
@@ -24,7 +23,7 @@ nts::Tristate nts::AComponent::getLink(std::size_t pin)
     if (pin > _pinMax) {
         throw std::invalid_argument("The pin wished is out of range");
     }
-    return (_links[pin].getComponent()->compute(_links[pin].getOtherPin()));
+    return (_links[pin].getComponent().compute(_links[pin].getOtherPin()));
 }
 
 // Getters
