@@ -298,3 +298,31 @@ Test(buildLinks, no_links)
         cr_assert_str_eq(e.what(), "No links found");
     }
 }
+
+Test(getLinkFirstName, casual)
+{
+    nts::Builder builder("tests/BuilderTestsFolder/test6");
+    std::string link = "ab:12 ba:21";
+    cr_assert_str_eq(builder.getLinkFirstName(link).c_str(), "ab");
+}
+
+Test(getLinkSecondName, casual)
+{
+    nts::Builder builder("tests/BuilderTestsFolder/test6");
+    std::string link = "ab:12 ba:21";
+    cr_assert_str_eq(builder.getLinkSecondName(link).c_str(), "ba");
+}
+
+Test(getLinkFirstPin, casual)
+{
+    nts::Builder builder("tests/BuilderTestsFolder/test6");
+    std::string link = "ab:12 ba:21";
+    cr_assert_eq(builder.getLinkFirstPin(link), 12);
+}
+
+Test(getLinkSecondPin, casual)
+{
+    nts::Builder builder("tests/BuilderTestsFolder/test6");
+    std::string link = "ab:12 ba:21";
+    cr_assert_eq(builder.getLinkSecondPin(link), 21);
+}

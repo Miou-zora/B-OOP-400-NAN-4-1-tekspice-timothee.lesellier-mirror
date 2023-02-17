@@ -124,9 +124,57 @@ std::list<std::string>::iterator nts::Builder::goToLinks(std::list<std::string> 
     return (it);
 }
 
+std::string nts::Builder::getLinkFirstName(std::string line)
+{
+    std::string lineWithOutComment(this->clearComment(line));
+    std::string name = lineWithOutComment.substr(0, lineWithOutComment.find(':'));
+    return (name);
+}
+
+std::string nts::Builder::getLinkSecondName(std::string line)
+{
+    std::string lineWithOutComment(this->clearComment(line));
+    reverse(lineWithOutComment.begin(), lineWithOutComment.end());
+    std::string name = lineWithOutComment.substr(0, lineWithOutComment.find(' '));
+    reverse(name.begin(), name.end());
+    name = name.substr(0, name.find(':'));
+    return (name);
+}
+
+std::size_t nts::Builder::getLinkFirstPin(std::string line)
+{
+    std::string lineWithOutComment(this->clearComment(line));
+    std::string pin = lineWithOutComment.substr(lineWithOutComment.find(':') + 1, lineWithOutComment.find(' '));
+    return (std::stoi(pin));
+}
+
+std::size_t nts::Builder::getLinkSecondPin(std::string line)
+{
+    std::string lineWithOutComment(this->clearComment(line));
+    reverse(lineWithOutComment.begin(), lineWithOutComment.end());
+    std::string pin = lineWithOutComment.substr(0, lineWithOutComment.find(':'));
+    reverse(pin.begin(), pin.end());
+    return (std::stoi(pin));
+}
+
+
+void nts::Builder::buildLink(std::string line)
+{
+
+}
+
 void nts::Builder::buildLinks(std::list<std::string> fileContent)
 {
     std::list<std::string>::iterator it = this->goToLinks(fileContent);
+
+    while (it != fileContent.end()) {
+        if (this->isValidLink(*it) == true) {
+            this->buildLink(*it);
+        } else if (*it != "") {
+            throw nts::FileError("Invalid line", *it);
+        }
+        it++;
+    }
 }
 
 std::unique_ptr<nts::IComponent> nts::Builder::buildComponent(std::string chip)
