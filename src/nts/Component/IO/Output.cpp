@@ -30,5 +30,4 @@ nts::Tristate nts::Output::compute(std::size_t pin)
 
 void nts::Output::display(void)
 {
-    std::cout << "Output: " << this->compute(1) << std::endl;
 }

@@ -333,8 +333,6 @@ Test(buildLinks, casual)
     std::list<std::string> fileContent = builder.getFileContent();
     builder.buildComponents(fileContent);
     builder.buildLinks(fileContent);
-
-    builder._circuit.compute(1);
 }
 
 Test(buildLinks, invalidLink)

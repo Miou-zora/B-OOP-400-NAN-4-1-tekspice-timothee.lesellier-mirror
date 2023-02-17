@@ -22,11 +22,13 @@ nts::Input::~Input()
 
 nts::Tristate nts::Input::compute(std::size_t pin)
 {
+    (void)pin;
     return _state;
 }
 
 void nts::Input::simulate(std::size_t tick)
 {
+    (void)tick;
     _state = _nextState;
 }
 

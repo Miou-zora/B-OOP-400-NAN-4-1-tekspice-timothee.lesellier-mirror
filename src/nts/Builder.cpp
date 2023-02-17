@@ -19,11 +19,13 @@ nts::Builder::~Builder(void)
 {
 }
 
-// std::unique_ptr<Circuit> nts::Builder::BuildCircuit(void)
-// {
-//     Circuit circuit();
-//     std::list<std::string> fileContent = this->getFileContent(_filepath);
-// }
+std::unique_ptr<nts::Circuit> nts::Builder::BuildCircuit(void)
+{
+    this->getFileContent();
+    this->buildComponents(_fileContent);
+    this->buildLinks(_fileContent);
+    return (std::make_unique<nts::Circuit>(_circuit));
+}
 
 void nts::Builder::initFactory(void)
 {

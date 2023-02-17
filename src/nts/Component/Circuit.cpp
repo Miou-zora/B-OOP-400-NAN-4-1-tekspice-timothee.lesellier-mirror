@@ -6,6 +6,7 @@
 */
 
 #include "Component/Circuit.hpp"
+#include "Component/IO/Output.hpp"
 
 nts::Circuit::Circuit(void)
 {
@@ -87,9 +88,13 @@ void nts::Circuit::simulate(std::size_t tick)
 
 nts::Tristate nts::Circuit::compute(std::size_t pin)
 {
+    (void)pin;
     for (auto &it : _output) {
         if (it.second != nullptr) {
-            // it.second->display();
+            if (it.second->compute(1) == -1)
+                std::cout << "  " << it.first << ": U" << std::endl;
+            else
+                std::cout << "  " << it.first << ": " << it.second->compute(1) << std::endl;
         }
     }
     return nts::Undefined;

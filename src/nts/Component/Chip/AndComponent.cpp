@@ -32,11 +32,9 @@ nts::Tristate ntsAnd(nts::Tristate v, nts::Tristate v2)
 
 nts::Tristate nts::AndComponent::compute(std::size_t pin)
 {
-    std::cout << "enterAnd" << std::endl;
     if (pin != _pinMax) {
         throw std::invalid_argument("Pin out of range");
     } else {
-        std::cout << "enterAnd2" << std::endl;
         return ntsAnd(_links[1].getComponent()->compute(_links[1].getOtherPin()), _links[2].getComponent()->compute(_links[2].getOtherPin()));
     }
 }
