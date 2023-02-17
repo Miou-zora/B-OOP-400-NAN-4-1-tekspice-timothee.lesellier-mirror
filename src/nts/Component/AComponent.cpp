@@ -7,6 +7,7 @@
 
 #include "Component/AComponent.hpp"
 #include <stdexcept>
+#include <iostream>
 
 void nts::AComponent::setLink(std::size_t pin, nts::IComponent& other, std::size_t otherPin)
 {

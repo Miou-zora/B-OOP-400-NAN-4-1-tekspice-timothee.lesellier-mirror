@@ -11,7 +11,8 @@
 
 nts::Input::Input() : _currentState(nts::Tristate::Undefined), _nextState(nts::Tristate::Undefined)
 {
-
+    _pinMax = 1;
+    _state = nts::Tristate::Undefined;
 }
 
 nts::Input::~Input()
@@ -21,12 +22,12 @@ nts::Input::~Input()
 
 nts::Tristate nts::Input::compute(std::size_t pin)
 {
-    return _currentState;
+    return _state;
 }
 
 void nts::Input::simulate(std::size_t tick)
 {
-    _currentState = _nextState;
+    _state = _nextState;
 }
 
 
@@ -37,7 +38,7 @@ nts::Tristate nts::Input::getNextState(void)
 
 nts::Tristate nts::Input::getCurrentState(void)
 {
-    return _currentState;
+    return _state;
 }
 
 
@@ -48,10 +49,10 @@ void nts::Input::setNextState(nts::Tristate nextState)
 
 void nts::Input::setCurrentState(nts::Tristate currentState)
 {
-    _currentState = currentState;
+    _state = currentState;
 }
 
 void nts::Input::display(void)
 {
-    std::cout << "Input: " << _currentState << std::endl;
+    std::cout << "Input: " << _state << std::endl;
 }

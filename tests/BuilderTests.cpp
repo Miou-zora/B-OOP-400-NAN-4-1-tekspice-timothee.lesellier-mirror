@@ -240,7 +240,7 @@ Test(buildComponents, input)
 
     builder.buildComponents(fileContent);
 
-    cr_assert_eq(builder._circuit._components.size(), 1);
+    cr_assert_eq(builder._circuit._components.size(), 3);
     cr_assert_eq(builder._circuit._input.size(), 1);
     cr_assert_eq(builder._circuit._output.size(), 1);
 
@@ -267,7 +267,7 @@ Test(buildComponents, output)
 
     builder.buildComponents(fileContent);
 
-    cr_assert_eq(builder._circuit._components.size(), 1);
+    cr_assert_eq(builder._circuit._components.size(), 3);
     cr_assert_eq(builder._circuit._input.size(), 1);
     cr_assert_eq(builder._circuit._output.size(), 1);
 
@@ -331,7 +331,9 @@ Test(buildLinks, casual)
 {
     nts::Builder builder("tests/BuilderTestsFolder/test7");
     std::list<std::string> fileContent = builder.getFileContent();
+    builder.buildComponents(fileContent);
     builder.buildLinks(fileContent);
+    std::cout << "there is an error when we destruct all" << std::endl;
 }
 
 Test(buildLinks, invalidLink)

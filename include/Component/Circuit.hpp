@@ -21,13 +21,13 @@ namespace nts {
             Circuit(void);
             ~Circuit(void);
 
-            std::unique_ptr<nts::IComponent> getInput(std::string name);
-            std::unique_ptr<nts::IComponent> getOutput(std::string name);
-            std::unique_ptr<nts::IComponent> getComponent(std::string name);
+            nts::IComponent &getInput(std::string name);
+            nts::IComponent &getOutput(std::string name);
+            nts::IComponent &getComponent(std::string name);
 
-            bool addInput(std::unique_ptr<nts::IComponent> input, std::string name);
-            bool addOutput(std::unique_ptr<nts::IComponent> output, std::string name);
-            bool addComponent(std::unique_ptr<nts::IComponent> component, std::string name);
+            bool addInput(std::shared_ptr<nts::IComponent> input, std::string name);
+            bool addOutput(std::shared_ptr<nts::IComponent> output, std::string name);
+            bool addComponent(std::shared_ptr<nts::IComponent> component, std::string name);
 
             void simulate(std::size_t tick);
             nts::Tristate compute(std::size_t pin);
@@ -37,9 +37,9 @@ namespace nts {
 
         protected:
         private:
-            std::map<std::string, std::unique_ptr<nts::IComponent>> _components;
-            std::map<std::string, std::unique_ptr<nts::IComponent>> _output;
-            std::map<std::string, std::unique_ptr<nts::IComponent>> _input;
+            std::map<std::string, std::shared_ptr<nts::IComponent>> _components;
+            std::map<std::string, std::shared_ptr<nts::IComponent>> _output;
+            std::map<std::string, std::shared_ptr<nts::IComponent>> _input;
 
     };
 }
