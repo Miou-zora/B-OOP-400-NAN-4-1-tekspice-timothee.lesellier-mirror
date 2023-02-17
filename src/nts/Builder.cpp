@@ -109,11 +109,8 @@ std::string nts::Builder::getComponentName(std::string line)
     return (lineWithOutComment);
 }
 
-
-
-void nts::Builder::buildLinks(std::list<std::string> fileContent)
+std::list<std::string>::iterator nts::Builder::goToLinks(std::list<std::string> fileContent)
 {
-    // Skip lines until ".links:" + 1 is found
     std::list<std::string>::iterator it = fileContent.begin();
     while (it != fileContent.end()) {
         if (*it == ".links:") {
@@ -124,6 +121,12 @@ void nts::Builder::buildLinks(std::list<std::string> fileContent)
     }
     if (it == fileContent.end())
         throw std::runtime_error("No links found");
+    return (it);
+}
+
+void nts::Builder::buildLinks(std::list<std::string> fileContent)
+{
+    std::list<std::string>::iterator it = this->goToLinks(fileContent);
 }
 
 std::unique_ptr<nts::IComponent> nts::Builder::buildComponent(std::string chip)
@@ -174,5 +177,10 @@ std::string nts::Builder::getComponentType(std::string line)
 
 std::string nts::Builder::clearComment(std::string line)
 {
-    return (line.substr(0, line.find('#')));
+    if (line.find('#') == std::string::npos)
+        return (line);
+    line = line.substr(0, line.find('#'));
+    while (line[line.size() - 1] == ' ')
+        line = line.substr(0, line.size() - 1);
+    return (line);
 }

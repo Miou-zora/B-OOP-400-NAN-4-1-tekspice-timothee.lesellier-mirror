@@ -34,7 +34,7 @@ Test(clearComment, casual)
 {
     nts::Builder builder("tests/BuilderTestsFolder/test1");
     std::string fileContentWithoutComment = builder.clearComment("Bonsoir a tous et a toutes #commentaire");
-    cr_assert_eq(fileContentWithoutComment.size(), 27);
+    cr_assert_eq(fileContentWithoutComment.size(), 26);
 }
 
 Test(clearComment, noComment)

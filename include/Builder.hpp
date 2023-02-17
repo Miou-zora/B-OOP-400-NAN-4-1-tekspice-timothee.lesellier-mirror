@@ -59,6 +59,7 @@ namespace nts {
             bool isValidLink(std::string line);
 
             std::string getComponentName(std::string line);
+            std::list<std::string>::iterator goToLinks(std::list<std::string> fileContent);
             void buildLinks(std::list<std::string> fileContent);
             std::unique_ptr<nts::IComponent> buildComponent(std::string chip);
             void buildComponents(std::list<std::string> fileContent);
