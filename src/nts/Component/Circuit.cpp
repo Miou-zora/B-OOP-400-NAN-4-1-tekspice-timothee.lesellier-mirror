@@ -81,3 +81,11 @@ void nts::Circuit::setLink(std::size_t pin, nts::IComponent& other, std::size_t 
     (void)other;
     (void)otherPin;
 }
+
+void nts::Circuit::setLink(std::string firstName, std::size_t firstPin, std::string secondName, std::size_t secondPin)
+{
+    (void)firstName;
+    (void)firstPin;
+    (void)secondName;
+    (void)secondPin;
+}

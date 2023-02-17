@@ -145,7 +145,12 @@ std::size_t nts::Builder::getLinkSecondPin(std::string line)
 
 void nts::Builder::buildLink(std::string line)
 {
+    std::string firstName = this->getLinkFirstName(line);
+    std::string secondName = this->getLinkSecondName(line);
+    std::size_t firstPin = this->getLinkFirstPin(line);
+    std::size_t secondPin = this->getLinkSecondPin(line);
 
+    _circuit.setLink(firstName, firstPin, secondName, secondPin);
 }
 
 void nts::Builder::buildLinks(std::list<std::string> fileContent)
