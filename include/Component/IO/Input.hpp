@@ -8,20 +8,25 @@
 #pragma once
 #include "AIO.hpp"
 
-class Input : public virtual nts::AIO {
-    public:
-        Input();
-        ~Input();
-        nts::Tristate compute(std::size_t pin);
+namespace nts {
+    class Input : public virtual nts::AIO {
+        public:
+            Input();
+            ~Input();
+            nts::Tristate compute(std::size_t pin);
+            void simulate(std::size_t tick);
 
-        nts::Tristate getNextState(void);
-        nts::Tristate getCurrentState(void);
+            nts::Tristate getNextState(void);
+            nts::Tristate getCurrentState(void);
 
-        void setNextState(nts::Tristate nextState);
-        void setCurrentState(nts::Tristate currentState);
+            void setNextState(nts::Tristate nextState);
+            void setCurrentState(nts::Tristate currentState);
 
-    protected:
-    private:
-        nts::Tristate _currentState;
-        nts::Tristate _nextState;
-};
+            void display(void);
+
+        protected:
+        private:
+            nts::Tristate _currentState;
+            nts::Tristate _nextState;
+    };
+}

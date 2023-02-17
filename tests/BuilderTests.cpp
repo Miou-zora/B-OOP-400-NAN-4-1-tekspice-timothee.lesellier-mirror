@@ -14,7 +14,7 @@
 Test(getFileContent, casual)
 {
     nts::Builder builder("tests/BuilderTestsFolder/test1");
-    std::list<std::string> fileContent = builder.getFileContent("tests/BuilderTestsFolder/test1");
+    std::list<std::string> fileContent = builder.getFileContent();
     cr_assert_eq(fileContent.size(), 22);
 }
 
@@ -22,7 +22,7 @@ Test(getFileContent, noFile)
 {
     nts::Builder builder("No_file");
     try {
-        std::list<std::string> fileContent = builder.getFileContent("No_file");
+        std::list<std::string> fileContent = builder.getFileContent();
         cr_assert_fail();
     } catch (nts::FileError &e) {
         cr_assert_str_eq(e.what(), "File not found");
@@ -34,7 +34,7 @@ Test(clearComment, casual)
 {
     nts::Builder builder("tests/BuilderTestsFolder/test1");
     std::string fileContentWithoutComment = builder.clearComment("Bonsoir a tous et a toutes #commentaire");
-    cr_assert_eq(fileContentWithoutComment.size(), 27);
+    cr_assert_eq(fileContentWithoutComment.size(), 26);
 }
 
 Test(clearComment, noComment)
@@ -178,16 +178,26 @@ Test(isValidLink, noName2)
 Test(buildComponents, casual)
 {
     nts::Builder builder("tests/BuilderTestsFolder/test2");
-    std::list<std::string> fileContent = builder.getFileContent("tests/BuilderTestsFolder/test2");
+    std::list<std::string> fileContent = builder.getFileContent();
     builder.buildComponents(fileContent);
 
+    cr_assert_eq(builder._circuit._components.size(), 2);
     builder._circuit.getComponent("hello");
+    builder._circuit.getComponent("helloo");
+    cr_assert_eq(builder._circuit._input.size(), 0);
+    cr_assert_eq(builder._circuit._output.size(), 0);
+    try {
+        builder._circuit.getComponent("hellooo");
+        cr_assert_fail();
+    } catch (std::runtime_error &e) {
+        cr_assert_str_eq(e.what(), "Component not found");
+    }
 }
 
 Test(buildComponents, invalidLine)
 {
     nts::Builder builder("tests/BuilderTestsFolder/test3");
-    std::list<std::string> fileContent = builder.getFileContent("tests/BuilderTestsFolder/test3");
+    std::list<std::string> fileContent = builder.getFileContent();
     fileContent.push_back("invalid line");
     try {
         builder.buildComponents(fileContent);
@@ -200,7 +210,7 @@ Test(buildComponents, invalidLine)
 Test(buildComponents, invalidComponent)
 {
     nts::Builder builder("tests/BuilderTestsFolder/test4");
-    std::list<std::string> fileContent = builder.getFileContent("tests/BuilderTestsFolder/test4");
+    std::list<std::string> fileContent = builder.getFileContent();
     fileContent.push_back("invalidComponent hello");
     try {
         builder.buildComponents(fileContent);
@@ -214,11 +224,139 @@ Test(buildComponents, invalidComponent)
 Test(buildComponents, noLinks)
 {
     nts::Builder builder("tests/BuilderTestsFolder/test5");
-    std::list<std::string> fileContent = builder.getFileContent("tests/BuilderTestsFolder/test5");
+    std::list<std::string> fileContent = builder.getFileContent();
     try {
         builder.buildComponents(fileContent);
         cr_assert_fail();
     } catch (std::runtime_error &e) {
         cr_assert_str_eq(e.what(), "No links found");
     }
+}
+
+Test(buildComponents, input)
+{
+    nts::Builder builder("tests/BuilderTestsFolder/test6");
+    std::list<std::string> fileContent = builder.getFileContent();
+
+    builder.buildComponents(fileContent);
+
+    cr_assert_eq(builder._circuit._components.size(), 3);
+    cr_assert_eq(builder._circuit._input.size(), 1);
+    cr_assert_eq(builder._circuit._output.size(), 1);
+
+    builder._circuit.getComponent("a");
+    builder._circuit.getInput("a");
+    try {
+        builder._circuit.getInput("b");
+        cr_assert_fail();
+    } catch (std::runtime_error &e) {
+        cr_assert_str_eq(e.what(), "Input not found");
+    }
+    try {
+        builder._circuit.getComponent("d");
+        cr_assert_fail();
+    } catch (std::runtime_error &e) {
+        cr_assert_str_eq(e.what(), "Component not found");
+    }
+}
+
+Test(buildComponents, output)
+{
+    nts::Builder builder("tests/BuilderTestsFolder/test6");
+    std::list<std::string> fileContent = builder.getFileContent();
+
+    builder.buildComponents(fileContent);
+
+    cr_assert_eq(builder._circuit._components.size(), 3);
+    cr_assert_eq(builder._circuit._input.size(), 1);
+    cr_assert_eq(builder._circuit._output.size(), 1);
+
+    builder._circuit.getComponent("b");
+    builder._circuit.getOutput("b");
+    try {
+        builder._circuit.getOutput("c");
+        cr_assert_fail();
+    } catch (std::runtime_error &e) {
+        cr_assert_str_eq(e.what(), "Output not found");
+    }
+    try {
+        builder._circuit.getComponent("d");
+        cr_assert_fail();
+    } catch (std::runtime_error &e) {
+        cr_assert_str_eq(e.what(), "Component not found");
+    }
+}
+
+Test(buildLinks, no_links)
+{
+    nts::Builder builder("tests/BuilderTestsFolder/test6");
+    std::list<std::string> fileContent = builder.getFileContent();
+    try {
+        builder.buildLinks(fileContent);
+        cr_assert_fail();
+    } catch (nts::FileError &e) {
+        cr_assert_str_eq(e.what(), "No links found");
+    }
+}
+
+Test(getLinkFirstName, casual)
+{
+    nts::Builder builder("tests/BuilderTestsFolder/test6");
+    std::string link = "ab:12 ba:21";
+    cr_assert_str_eq(builder.getLinkFirstName(link).c_str(), "ab");
+}
+
+Test(getLinkSecondName, casual)
+{
+    nts::Builder builder("tests/BuilderTestsFolder/test6");
+    std::string link = "ab:12 ba:21";
+    cr_assert_str_eq(builder.getLinkSecondName(link).c_str(), "ba");
+}
+
+Test(getLinkFirstPin, casual)
+{
+    nts::Builder builder("tests/BuilderTestsFolder/test6");
+    std::string link = "ab:12 ba:21";
+    cr_assert_eq(builder.getLinkFirstPin(link), 12);
+}
+
+Test(getLinkSecondPin, casual)
+{
+    nts::Builder builder("tests/BuilderTestsFolder/test6");
+    std::string link = "ab:12 ba:21";
+    cr_assert_eq(builder.getLinkSecondPin(link), 21);
+}
+
+Test(buildLinks, casual)
+{
+    nts::Builder builder("tests/BuilderTestsFolder/test7");
+    std::list<std::string> fileContent = builder.getFileContent();
+    builder.buildComponents(fileContent);
+    builder.buildLinks(fileContent);
+}
+
+Test(buildLinks, invalidLink)
+{
+    nts::Builder builder("tests/BuilderTestsFolder/test4");
+    std::list<std::string> fileContent = builder.getFileContent();
+    try {
+        builder.buildLinks(fileContent);
+        cr_assert_fail();
+    } catch (nts::FileError &e) {
+        cr_assert_str_eq(e.what(), "Invalid link");
+    }
+}
+
+Test(build, casual, .init = cr_redirect_stdout)
+{
+    nts::Builder builder("tests/BuilderTestsFolder/test7");
+    std::unique_ptr<nts::Circuit> testCircuit = builder.BuildCircuit();
+
+    cr_assert_eq(testCircuit->_components.size(), 4);
+    cr_assert_eq(testCircuit->_input.size(), 2);
+    cr_assert_eq(testCircuit->_output.size(), 1);
+
+    testCircuit->compute(1);
+
+    cr_assert_stdout_eq_str("  outputA: U\n");
 }

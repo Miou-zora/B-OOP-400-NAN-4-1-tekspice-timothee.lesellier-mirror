@@ -19,7 +19,7 @@ namespace nts
             AComponent() = default;
             virtual ~AComponent() = default;
 
-            void setLink(std::size_t pin, nts::IComponent& other, std::size_t otherPin);
+            void setLink(std::size_t pin, std::shared_ptr<nts::IComponent> other, std::size_t otherPin);
 
             nts::Tristate getLink(std::size_t pin);
             std::size_t getPinMax() const;

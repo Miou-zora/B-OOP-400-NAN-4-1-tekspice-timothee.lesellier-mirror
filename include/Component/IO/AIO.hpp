@@ -13,8 +13,8 @@
 namespace nts {
     class AIO : public nts::AComponent {
         public:
-            AIO();
-            virtual ~AIO();
+            AIO() = default;
+            virtual ~AIO() = default;
 
             virtual void display(void) = 0;
 

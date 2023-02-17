@@ -8,7 +8,6 @@
 #ifndef IO_H_
 #define IO_H_
 
-#include "Boolean/Boolean.hpp"
 #include "Input.hpp"
 #include "Output.hpp"
 #include "Clock.hpp"
