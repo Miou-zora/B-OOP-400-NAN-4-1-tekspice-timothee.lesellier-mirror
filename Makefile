@@ -32,6 +32,7 @@ TESTS		=	ComponentFactoryTests.cpp	\
 				Component/Chip/AndComponentTests.cpp	\
 				Component/IO/OutputTests.cpp	\
 				Component/IO/InputTests.cpp	\
+				Component/Boolean/UndefinedComponentTests.cpp	\
 
 TESTS		:=	$(addprefix tests/, $(TESTS))
 
