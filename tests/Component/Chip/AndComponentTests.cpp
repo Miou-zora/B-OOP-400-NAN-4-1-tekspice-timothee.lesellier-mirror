@@ -14,6 +14,18 @@
 #undef protected
 #include <memory>
 
+Test(AndComponent, invalid_pin)
+{
+    nts::AndComponent andComponent;
+
+    try {
+        andComponent.compute(1);
+        cr_assert_fail("Should have thrown an exception");
+    } catch (const std::invalid_argument &e) {
+        cr_assert_str_eq(e.what(), "Pin out of range");
+    }
+}
+
 Test(AndComponent, casual_undefined)
 {
     nts::AndComponent andComponent;
