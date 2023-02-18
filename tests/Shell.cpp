@@ -10,6 +10,8 @@
 #define private public
 #include "NTS.hpp"
 #undef private
+#include <iostream>
+#include <sstream>
 
 bool ctrlC = false;
 
@@ -53,4 +55,74 @@ Test(shell, getCommandName)
     cr_assert_eq(shell.getCommandName("display "), "display");
     cr_assert_eq(shell.getCommandName("exit  "), "exit");
     cr_assert_eq(shell.getCommandName("unvalidCommand  "), "unvalidCommand");
+}
+
+Test(shell, exit_command, .init = cr_redirect_stdout)
+{
+    Shell shell;
+
+    std::stringstream input("exit\n");
+    std::cin.rdbuf(input.rdbuf());
+
+    cr_assert_eq(shell._exit, false);
+    shell.run();
+    cr_assert_eq(shell._exit, true);
+    cr_assert_stdout_eq_str("> ");
+}
+
+Test(shell, invalid_command)
+{
+    Shell shell;
+
+    std::stringstream input("unvalidCommand\nexit\n");
+    std::cin.rdbuf(input.rdbuf());
+
+    cr_redirect_stdout();
+    cr_assert_eq(shell._exit, false);
+    shell.run();
+    cr_assert_eq(shell._exit, true);
+    cr_assert_stdout_eq_str("> Invalid command\n"
+                            "> ");
+}
+
+Test(shell, no_command)
+{
+    Shell shell;
+
+    std::stringstream input("");
+    std::cin.rdbuf(input.rdbuf());
+
+    cr_redirect_stdout();
+    cr_assert_eq(shell._exit, false);
+    shell.run();
+    cr_assert_eq(shell._exit, true);
+    cr_assert_stdout_eq_str("> ");
+}
+
+Test(isValueAttriution, casual)
+{
+    Shell shell;
+
+    cr_assert_eq(shell.isValueAttriution("a=1"), true);
+    cr_assert_eq(shell.isValueAttriution("a0    &é ze"), false);
+}
+
+Test(split, casual)
+{
+    Shell shell;
+
+    std::vector<std::string> result = shell.split("a=1", "=");
+    cr_assert_eq(result.size(), 2);
+    cr_assert_eq(result[0], "a");
+    cr_assert_eq(result[1], "1");
+}
+
+Test(excecuteValueAttriution, casual)
+{
+    nts::Builder builder("tests/BuilderTestsFolder/test7");
+    Shell shell;
+    shell._circuit.reset(builder.BuildCircuit().get());
+
+    cr_assert_eq(shell.excecuteValueAttriution("inputB=1"), true);
+    std::cout << "yes" << std::endl;
 }
