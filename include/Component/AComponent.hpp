@@ -21,7 +21,6 @@ namespace nts
 
             void setLink(std::size_t pin, std::shared_ptr<nts::IComponent> other, std::size_t otherPin);
 
-            nts::Tristate getLink(std::size_t pin);
             std::size_t getPinMax() const;
 
             virtual nts::Tristate compute(std::size_t pin) = 0;
