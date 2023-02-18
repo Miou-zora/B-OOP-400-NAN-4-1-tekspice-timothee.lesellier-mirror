@@ -39,12 +39,16 @@ Test(Input, getter_setter)
 
     input.setCurrentState(nts::Tristate::True);
     cr_assert_eq(input.compute(1), nts::Tristate::True);
+    cr_assert_eq(input.getCurrentState(), nts::Tristate::True);
+
 
     input.setCurrentState(nts::Tristate::False);
     cr_assert_eq(input.compute(1), nts::Tristate::False);
+    cr_assert_eq(input.getCurrentState(), nts::Tristate::False);
 
     input.setCurrentState(nts::Tristate::Undefined);
     cr_assert_eq(input.compute(1), nts::Tristate::Undefined);
+    cr_assert_eq(input.getCurrentState(), nts::Tristate::Undefined);
 
     input.setNextState(nts::Tristate::True);
     cr_assert_eq(input.compute(1), nts::Tristate::Undefined);
