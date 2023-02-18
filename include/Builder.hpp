@@ -50,7 +50,6 @@ namespace nts {
         private:
             std::string _filepath;
             std::list<std::string> _fileContent;
-            nts::ComponentFactory _factory;
             nts::Circuit _circuit;
 
             std::list<std::string> getFileContent(void);

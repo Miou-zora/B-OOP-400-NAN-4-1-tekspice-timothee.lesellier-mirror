@@ -40,3 +40,4 @@ nts::Tristate nts::AndComponent::compute(std::size_t pin)
         return ntsAnd(_links[1].getComponent()->compute(_links[1].getOtherPin()), _links[2].getComponent()->compute(_links[2].getOtherPin()));
     }
 }
+
