@@ -168,7 +168,7 @@ Test(display, casual)
     circuit.setLink("input2", 1, "andComponent", 2);
     circuit.setLink("andComponent", 3, "output", 1);
 
-    circuit.simulate(1);
+    circuit.simulate(3);
 
     cr_redirect_stdout();
 

@@ -10,6 +10,7 @@
 
 nts::Circuit::Circuit(void)
 {
+    _tick = 0;
 }
 
 nts::Circuit::~Circuit(void)
