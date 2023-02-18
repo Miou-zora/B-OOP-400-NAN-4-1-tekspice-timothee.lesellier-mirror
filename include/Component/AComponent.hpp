@@ -23,7 +23,6 @@ namespace nts
 
             nts::Tristate getLink(std::size_t pin);
             std::size_t getPinMax() const;
-            nts::Tristate getState() const;
 
             virtual nts::Tristate compute(std::size_t pin) = 0;
             void simulate(std::size_t pin) {(void)pin;};
@@ -31,7 +30,6 @@ namespace nts
         protected:
             std::map<std::size_t, nts::Link> _links;
             std::size_t _pinMax;
-            nts::Tristate _state;
     };
 
 } // namespace nts

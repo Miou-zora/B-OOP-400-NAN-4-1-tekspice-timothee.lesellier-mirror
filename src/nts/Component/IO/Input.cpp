@@ -13,7 +13,6 @@ nts::Input::Input()
 {
     _pinMax = 1;
     _state = nts::Tristate::Undefined;
-    _currentState = nts::Tristate::Undefined;
     _nextState = nts::Tristate::Undefined;
 }
 

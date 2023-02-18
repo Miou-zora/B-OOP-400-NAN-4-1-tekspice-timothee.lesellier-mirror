@@ -33,9 +33,3 @@ std::size_t nts::AComponent::getPinMax() const
 {
     return _pinMax;
 }
-
-
-nts::Tristate nts::AComponent::getState() const
-{
-    return _state;
-}
