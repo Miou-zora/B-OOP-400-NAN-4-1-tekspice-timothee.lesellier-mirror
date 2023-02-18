@@ -12,7 +12,6 @@
 
 nts::Builder::Builder(std::string filepath) : _filepath(filepath)
 {
-    this->initFactory();
 }
 
 nts::Builder::~Builder(void)
@@ -25,13 +24,6 @@ std::unique_ptr<nts::Circuit> nts::Builder::BuildCircuit(void)
     this->buildComponents(_fileContent);
     this->buildLinks(_fileContent);
     return (std::make_unique<nts::Circuit>(_circuit));
-}
-
-void nts::Builder::initFactory(void)
-{
-    _factory.addConstructor("and", []() { return std::make_unique<nts::AndComponent>(); });
-    _factory.addConstructor("output", []() { return std::make_unique<nts::Output>(); });
-    _factory.addConstructor("input", []() { return std::make_unique<nts::Input>(); });
 }
 
 std::list<std::string> nts::Builder::getFileContent(void)

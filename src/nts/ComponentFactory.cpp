@@ -6,7 +6,20 @@
 */
 
 #include "ComponentFactory.hpp"
+#include "Component/Component.hpp"
 #include <stdexcept>
+
+nts::ComponentFactory::ComponentFactory()
+{
+    this->addConstructor("input", []() { return std::make_unique<nts::Input>(); });
+    this->addConstructor("output", []() { return std::make_unique<nts::Output>(); });
+    this->addConstructor("and", []() { return std::make_unique<nts::AndComponent>(); });
+}
+
+nts::ComponentFactory::~ComponentFactory()
+{
+
+}
 
 void nts::ComponentFactory::addConstructor(std::string const& key, std::function<std::unique_ptr<nts::IComponent>()> const& creator)
 {
