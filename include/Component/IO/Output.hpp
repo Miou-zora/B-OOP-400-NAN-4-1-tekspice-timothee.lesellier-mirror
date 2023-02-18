@@ -14,6 +14,5 @@ namespace nts {
             Output();
             ~Output();
             nts::Tristate compute(std::size_t pin);
-            void display(void);
     };
 }

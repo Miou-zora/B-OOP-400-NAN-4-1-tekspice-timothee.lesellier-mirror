@@ -28,7 +28,10 @@ OBJ_MAIN	=	$(MAIN:%.cpp=%.o)
 TESTS		=	ComponentFactoryTests.cpp	\
 				Component/LinkTests.cpp		\
 				BuilderTests.cpp			\
-				Shell.cpp
+				Shell.cpp					\
+				Component/Chip/AndComponentTests.cpp	\
+				Component/IO/OutputTests.cpp	\
+				Component/IO/InputTests.cpp	\
 
 TESTS		:=	$(addprefix tests/, $(TESTS))
 
