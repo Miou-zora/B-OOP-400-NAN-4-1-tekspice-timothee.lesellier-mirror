@@ -25,9 +25,9 @@ namespace nts {
             nts::IComponent &getOutput(std::string name);
             nts::IComponent &getComponent(std::string name);
 
-            bool addInput(std::shared_ptr<nts::IComponent> input, std::string name);
-            bool addOutput(std::shared_ptr<nts::IComponent> output, std::string name);
-            bool addComponent(std::shared_ptr<nts::IComponent> component, std::string name);
+            void addInput(std::shared_ptr<nts::IComponent> input, std::string name);
+            void addOutput(std::shared_ptr<nts::IComponent> output, std::string name);
+            void addComponent(std::shared_ptr<nts::IComponent> component, std::string name);
 
             void simulate(std::size_t tick);
             nts::Tristate compute(std::size_t pin);
