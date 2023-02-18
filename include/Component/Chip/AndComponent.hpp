@@ -16,13 +16,13 @@ namespace nts
             AndComponent();
             ~AndComponent();
             nts::Tristate compute(std::size_t pin);
+        private:
             class Initializer {
                 public:
                     Initializer() {
                             nts::ComponentFactory::addConstructor("and", []() { return std::make_unique<nts::AndComponent>(); });
                     };
             };
-        private:
             static inline Initializer initializer;
     };
 }

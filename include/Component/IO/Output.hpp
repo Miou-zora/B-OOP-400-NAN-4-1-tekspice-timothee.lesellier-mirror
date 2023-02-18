@@ -16,13 +16,13 @@ namespace nts {
             Output();
             ~Output();
             nts::Tristate compute(std::size_t pin);
+        private:
             class Initializer {
                 public:
                     Initializer() {
                             nts::ComponentFactory::addConstructor("output", []() { return std::make_unique<nts::Output>(); });
                     };
             };
-        private:
             static inline Initializer initializer;
     };
 }
