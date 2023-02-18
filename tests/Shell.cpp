@@ -121,8 +121,7 @@ Test(excecuteValueAttriution, casual)
 {
     nts::Builder builder("tests/BuilderTestsFolder/test7");
     Shell shell;
-    shell._circuit.reset(builder.BuildCircuit().get());
+    shell._circuit = std::move(builder.BuildCircuit());
 
     cr_assert_eq(shell.excecuteValueAttriution("inputB=1"), true);
-    std::cout << "yes" << std::endl;
 }
