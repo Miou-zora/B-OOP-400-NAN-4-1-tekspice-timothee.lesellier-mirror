@@ -124,4 +124,8 @@ Test(excecuteValueAttriution, casual)
     shell._circuit = std::move(builder.BuildCircuit());
 
     cr_assert_eq(shell.excecuteValueAttriution("inputB=1"), true);
+    cr_assert_eq(shell.excecuteValueAttriution("inputB1"), false);
+    cr_assert_eq(shell.excecuteValueAttriution("andA=1"), false);
+    cr_assert_eq(shell.excecuteValueAttriution("inputA=2"), false);
+    cr_assert_eq(shell.executeCommand("inputA=1"), true);
 }

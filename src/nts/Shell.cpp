@@ -117,11 +117,9 @@ bool Shell::excecuteValueAttriution(std::string command)
 
     if (commandSplit.size() != 2)
         return false;
-    try {
-        temp = dynamic_cast<nts::AIO*>(&_circuit->getComponent(commandSplit.at(0)));
-    } catch (std::exception &e) {
+    temp = dynamic_cast<nts::AIO*>(&_circuit->getComponent(commandSplit.at(0)));
+    if (temp == nullptr)
         return false;
-    }
     for (int i = 0; i < 3; i++) {
         if (commandSplit.at(1) == states[i]) {
             temp->setNextState(ntsStates[i]);
