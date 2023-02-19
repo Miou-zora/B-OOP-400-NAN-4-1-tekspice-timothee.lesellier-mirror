@@ -15,7 +15,7 @@ Shell::Shell()
 {
     _exit = false;
     _command = "";
-    _circuit = nullptr;
+    _circuit = std::make_unique<nts::Circuit>();
 }
 
 Shell::~Shell()
