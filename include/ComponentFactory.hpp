@@ -13,16 +13,29 @@
 #include "Component/IComponent.hpp"
 #include <memory>
 #include <string>
+#include <iostream>
 
 namespace nts {
     class ComponentFactory {
-        public:
-            void addConstructor(std::string const& key, std::function<std::unique_ptr<nts::IComponent>()> const& creator);
-
-            std::unique_ptr<nts::IComponent> create(std::string const& key);
-
         private:
-            std::unordered_map<std::string, std::function<std::unique_ptr<nts::IComponent>()>> m_creators;
+            inline static std::unordered_map<std::string, std::function<std::unique_ptr<nts::IComponent>()>> m_creators;
+        public:
+
+            static void addConstructor(std::string const& key, std::function<std::unique_ptr<nts::IComponent>()> const& creator)
+            {
+                if (m_creators.find(key) != m_creators.end())
+                    throw std::runtime_error("Component already exists");
+                if (creator == nullptr)
+                    throw std::runtime_error("Creator is null");
+                m_creators[key] = creator;
+            }
+
+            static std::unique_ptr<nts::IComponent> create(std::string const& key)
+            {
+                if (m_creators.find(key) == m_creators.end())
+                    throw std::runtime_error("Component doesn't exist");
+                return m_creators[key]();
+            }
     };
 }
 

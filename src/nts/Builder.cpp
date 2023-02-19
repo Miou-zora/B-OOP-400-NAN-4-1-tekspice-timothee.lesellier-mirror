@@ -12,7 +12,6 @@
 
 nts::Builder::Builder(std::string filepath) : _filepath(filepath)
 {
-    this->initFactory();
 }
 
 nts::Builder::~Builder(void)
@@ -25,13 +24,6 @@ std::unique_ptr<nts::Circuit> nts::Builder::BuildCircuit(void)
     this->buildComponents(_fileContent);
     this->buildLinks(_fileContent);
     return (std::make_unique<nts::Circuit>(_circuit));
-}
-
-void nts::Builder::initFactory(void)
-{
-    _factory.addConstructor("and", []() { return std::make_unique<nts::AndComponent>(); });
-    _factory.addConstructor("output", []() { return std::make_unique<nts::Output>(); });
-    _factory.addConstructor("input", []() { return std::make_unique<nts::Input>(); });
 }
 
 std::list<std::string> nts::Builder::getFileContent(void)
@@ -181,7 +173,7 @@ void nts::Builder::buildLinks(std::list<std::string> fileContent)
 std::unique_ptr<nts::IComponent> nts::Builder::buildComponent(std::string chip)
 {
     try {
-        return (this->_factory.create(chip));
+        return (nts::ComponentFactory::create(chip));
     } catch (std::runtime_error &e) {
         throw e;
     }
@@ -199,11 +191,11 @@ void nts::Builder::buildComponents(std::list<std::string> fileContent)
             type = this->getComponentType(line);
             try {
                 if (type.compare("input") == 0 || type.compare("clock") == 0 || type.compare("false") == 0 || type.compare("true") == 0) {
-                    _circuit.addInput(std::shared_ptr<nts::IComponent>(_factory.create(type)), name);
+                    _circuit.addInput(std::shared_ptr<nts::IComponent>(nts::ComponentFactory::create(type)), name);
                 } else if (type.compare("output") == 0) {
-                    _circuit.addOutput(std::shared_ptr<nts::IComponent>(_factory.create(type)), name);
+                    _circuit.addOutput(std::shared_ptr<nts::IComponent>(nts::ComponentFactory::create(type)), name);
                 } else {
-                    _circuit.addComponent(std::shared_ptr<nts::IComponent>(_factory.create(type)), name);
+                    _circuit.addComponent(std::shared_ptr<nts::IComponent>(nts::ComponentFactory::create(type)), name);
                 }
             } catch (std::runtime_error &e) {
                 throw e;

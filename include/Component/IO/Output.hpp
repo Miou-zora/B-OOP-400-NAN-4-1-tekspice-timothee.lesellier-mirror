@@ -7,6 +7,8 @@
 
 #pragma once
 #include "AIO.hpp"
+#include <iostream>
+#include "ComponentFactory.hpp"
 
 namespace nts {
     class Output : public virtual nts::AIO {
@@ -14,5 +16,13 @@ namespace nts {
             Output();
             ~Output();
             nts::Tristate compute(std::size_t pin);
+        private:
+            class Initializer {
+                public:
+                    Initializer() {
+                            nts::ComponentFactory::addConstructor("output", []() { return std::make_unique<nts::Output>(); });
+                    };
+            };
+            static inline Initializer initializer;
     };
 }

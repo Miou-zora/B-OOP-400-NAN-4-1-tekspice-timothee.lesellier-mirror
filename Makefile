@@ -62,6 +62,9 @@ all:	$(NAME)
 $(NAME):	$(OBJ) $(OBJ_MAIN)
 		$(CC) -o $(NAME) $(OBJ_MAIN) $(OBJ) $(CFALGS) $(INCLUDE)
 
+debug:	CFLAGS += -g
+debug:	re
+
 tests_run: $(TESTS_OBJ)
 		$(CC) $(SRC) $(TESTS_OBJ) $(TESTS_FLAGS) $(LBFLAGS) \
 		-o $(TEST_BINARY) $(CFALGS) $(INCLUDE)

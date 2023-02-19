@@ -50,10 +50,8 @@ namespace nts {
         private:
             std::string _filepath;
             std::list<std::string> _fileContent;
-            nts::ComponentFactory _factory;
             nts::Circuit _circuit;
 
-            void initFactory(void);
             std::list<std::string> getFileContent(void);
             bool isValidChipset(std::string line);
             bool isValidLink(std::string line);
