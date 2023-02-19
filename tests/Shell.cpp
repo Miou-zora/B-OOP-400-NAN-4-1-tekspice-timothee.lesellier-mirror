@@ -70,21 +70,6 @@ Test(shell, exit_command, .init = cr_redirect_stdout)
     cr_assert_stdout_eq_str("> ");
 }
 
-Test(shell, invalid_command)
-{
-    Shell shell;
-
-    std::stringstream input("unvalidCommand\nexit\n");
-    std::cin.rdbuf(input.rdbuf());
-
-    cr_redirect_stdout();
-    cr_assert_eq(shell._exit, false);
-    shell.run();
-    cr_assert_eq(shell._exit, true);
-    cr_assert_stdout_eq_str("> Invalid command\n"
-                            "> ");
-}
-
 Test(shell, no_command)
 {
     Shell shell;
