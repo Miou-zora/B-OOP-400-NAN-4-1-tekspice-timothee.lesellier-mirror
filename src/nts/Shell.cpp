@@ -15,7 +15,7 @@ Shell::Shell()
 {
     _exit = false;
     _command = "";
-    _circuit = std::make_unique<nts::Circuit>();
+    _circuit = nullptr;
 }
 
 Shell::~Shell()
@@ -28,6 +28,11 @@ void Shell::run()
         this->_command = this->getCommand();
         this->executeCommand(this->_command);
     }
+}
+
+void Shell::setCircuit(std::unique_ptr<nts::Circuit> circuit)
+{
+    this->_circuit = std::move(circuit);
 }
 
 std::string Shell::getCommand()
