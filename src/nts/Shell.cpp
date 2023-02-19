@@ -26,9 +26,7 @@ void Shell::run()
 {
     while (!this->_exit) {
         this->_command = this->getCommand();
-        if (!this->executeCommand(this->_command) && !this->_exit) {
-            std::cout << "Invalid command" << std::endl;
-        }
+        this->executeCommand(this->_command);
     }
 }
 
