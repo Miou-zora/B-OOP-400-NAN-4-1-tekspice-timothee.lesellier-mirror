@@ -5,20 +5,17 @@
 ** Clock
 */
 
-#ifndef CLOCK_HPP_
-#define CLOCK_HPP_
+#pragma once
 
 #include "AIO.hpp"
 
-class Clock : public nts::AIO {
-    public:
-        Clock();
-        ~Clock();
-        nts::Tristate compute(std::size_t pin);
+namespace nts
+{
+    class Clock : public nts::AIO {
+        public:
+            Clock();
+            ~Clock();
 
-    protected:
-    private:
-
-};
-
-#endif /* !CLOCK_HPP_ */
+            nts::Tristate compute(std::size_t pin);
+    };
+}

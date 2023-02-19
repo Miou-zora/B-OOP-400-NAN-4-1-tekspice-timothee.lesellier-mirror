@@ -6,13 +6,16 @@
 */
 
 #pragma once
+
 #include "../AComponent.hpp"
 
-namespace nts {
+namespace nts
+{
     class UndefinedComponent : virtual public nts::AComponent {
         public:
             UndefinedComponent();
             ~UndefinedComponent();
+
             nts::Tristate compute(std::size_t pin);
     };
 }

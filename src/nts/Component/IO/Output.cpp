@@ -7,7 +7,6 @@
 
 #include "Component/IO/Output.hpp"
 #include <stdexcept>
-#include <iostream>
 
 nts::Output::Output()
 {

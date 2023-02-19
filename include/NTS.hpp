@@ -5,13 +5,9 @@
 ** NTS
 */
 
-#ifndef NTS_H_
-#define NTS_H_
+#pragma once
 
 #include "Component/Component.hpp"
 #include "Shell.hpp"
-#include "Management.hpp"
 #include "ComponentFactory.hpp"
 #include "Builder.hpp"
-
-#endif /* !NTS_H_ */

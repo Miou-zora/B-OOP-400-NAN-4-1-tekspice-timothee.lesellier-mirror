@@ -7,7 +7,6 @@
 
 #include "Component/AComponent.hpp"
 #include <stdexcept>
-#include <iostream>
 
 void nts::AComponent::setLink(std::size_t pin, std::shared_ptr<nts::IComponent> other, std::size_t otherPin)
 {
@@ -21,8 +20,6 @@ void nts::AComponent::setLink(std::size_t pin, std::shared_ptr<nts::IComponent> 
     _links[pin].setPin(pin - 1);
     _links[pin].setOtherPin(otherPin);
 }
-
-// Getters
 
 std::size_t nts::AComponent::getPinMax() const
 {

@@ -5,24 +5,18 @@
 ** Builder
 */
 
-#ifndef BUILDER_HPP_
-    #define BUILDER_HPP_
+#pragma once
 
-    #define CHIPSET "chipsets"
-    #define LINK "links"
+#include <string>
+#include <list>
+#include <memory>
 
-    #include <iostream>
-    #include <string>
-    #include <fstream>
-    #include <list>
-    #include <memory>
+#include "Component/Component.hpp"
+#include "Component/Circuit.hpp"
+#include "ComponentFactory.hpp"
 
-    #include "Component/Component.hpp"
-    #include "Component/Circuit.hpp"
-    #include "ComponentFactory.hpp"
-    #include <memory>
-
-namespace nts {
+namespace nts
+{
     class FileError : public std::exception {
         public:
             FileError(std::string const &message, const std::string &component="unknown") : _message(message), _component(component) {};
@@ -31,7 +25,6 @@ namespace nts {
             std::string const &GetComponent() const { return _component; };
             virtual const char* what() const throw() { return _message.c_str(); };
 
-        protected:
         private:
             std::string _message;
             std::string _component;
@@ -46,7 +39,6 @@ namespace nts {
 
             std::unique_ptr<Circuit> BuildCircuit(void);
 
-        protected:
         private:
             std::string _filepath;
             std::list<std::string> _fileContent;
@@ -70,5 +62,3 @@ namespace nts {
             std::string clearComment(std::string line);
     };
 }
-
-#endif /* !BUILDER_HPP_ */

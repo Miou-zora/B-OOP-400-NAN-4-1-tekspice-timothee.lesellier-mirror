@@ -5,8 +5,7 @@
 ** AComponent
 */
 
-#ifndef ACOMPONENT_HPP_
-    #define ACOMPONENT_HPP_
+#pragma once
 
 #include "IComponent.hpp"
 #include "Link.hpp"
@@ -31,6 +30,4 @@ namespace nts
             std::size_t _pinMax;
     };
 
-} // namespace nts
-
-#endif /* !ACOMPONENT_HPP_ */
+}
