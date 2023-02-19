@@ -24,10 +24,10 @@ nts::Tristate nts::Output::compute(std::size_t pin)
     if (pin != 1) {
         throw std::invalid_argument("Pin out of range");
     } else {
-        return _links[1].getComponent()->compute(_links[1].getOtherPin());
+        if (_links[1].getComponent() == nullptr) {
+            return nts::Tristate::Undefined;
+        } else {
+            return _links[1].getComponent()->compute(_links[1].getOtherPin());
+        }
     }
-}
-
-void nts::Output::display(void)
-{
 }

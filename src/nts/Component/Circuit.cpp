@@ -10,6 +10,7 @@
 
 nts::Circuit::Circuit(void)
 {
+    _tick = 0;
 }
 
 nts::Circuit::~Circuit(void)
@@ -20,8 +21,6 @@ nts::IComponent &nts::Circuit::getInput(std::string name)
 {
     if (_input.find(name) == _input.end())
         throw std::runtime_error("Input not found");
-    if (_input[name] == nullptr)
-        throw std::runtime_error("Input nullptr");
     return *_input[name];
 }
 
@@ -29,63 +28,46 @@ nts::IComponent &nts::Circuit::getOutput(std::string name)
 {
     if (_output.find(name) == _output.end())
         throw std::runtime_error("Output not found");
-    if (_output[name] == nullptr)
-        throw std::runtime_error("Output nullptr");
     return *_output[name];
 }
 
 nts::IComponent &nts::Circuit::getComponent(std::string name)
 {
     if (_components.find(name) != _components.end()) {
-        if (_components[name] == nullptr)
-            throw std::runtime_error("Component nullptr");
         return *_components[name];
-    }
-    if (_input.find(name) != _input.end()) {
-        if (_input[name] == nullptr)
-            throw std::runtime_error("Component nullptr");
-        return *_input[name];
-    }
-    if (_output.find(name) != _output.end()) {
-        if (_output[name] == nullptr)
-            throw std::runtime_error("Component nullptr");
-        return *_output[name];
     }
     throw std::runtime_error("Component not found");
 }
 
 
-bool nts::Circuit::addInput(std::shared_ptr<nts::IComponent> input, std::string name)
+void nts::Circuit::addInput(std::shared_ptr<nts::IComponent> input, std::string name)
 {
     if (_components.find(name) != _components.end())
-        return false;
+        throw std::runtime_error("Input already exists");
     _input[name] = input;
     _components[name] = input;
-    return true;
 }
 
-bool nts::Circuit::addOutput(std::shared_ptr<nts::IComponent> output, std::string name)
+void nts::Circuit::addOutput(std::shared_ptr<nts::IComponent> output, std::string name)
 {
     if (_components.find(name) != _components.end())
-        return false;
+        throw std::runtime_error("Output already exists");
     _output[name] = output;
     _components[name] = output;
-    return true;
 }
 
-bool nts::Circuit::addComponent(std::shared_ptr<nts::IComponent> component, std::string name)
+void nts::Circuit::addComponent(std::shared_ptr<nts::IComponent> component, std::string name)
 {
     if (_components.find(name) != _components.end())
-        return false;
+        throw std::runtime_error("Component already exists");
     _components[name] = component;
-    return true;
 }
 
 void nts::Circuit::simulate(std::size_t tick)
 {
     _tick += tick;
-    for (auto &input : _input) {
-        input.second->simulate(tick);
+    for (auto &component : _components) {
+        component.second->simulate(tick);
     }
 }
 
@@ -94,10 +76,7 @@ nts::Tristate nts::Circuit::compute(std::size_t pin)
     (void)pin;
     for (auto &it : _output) {
         if (it.second != nullptr) {
-            if (it.second->compute(1) == -1)
-                std::cout << "  " << it.first << ": U" << std::endl;
-            else
-                std::cout << "  " << it.first << ": " << it.second->compute(1) << std::endl;
+            return it.second->compute(pin);
         }
     }
     return nts::Undefined;
@@ -113,13 +92,13 @@ void nts::Circuit::setLink(std::size_t pin, std::shared_ptr<nts::IComponent> oth
 void nts::Circuit::display()
 {
     std::cout << "ticks: " << _tick << std::endl;
-    std::cout << "inputs(s): " << std::endl;
+    std::cout << "input(s):" << std::endl;
 
     for (auto &input : _input) {
         std::cout << "\t" << input.first << ": " << input.second->compute(1) << std::endl;
     }
 
-    std::cout << "output(s): " << std::endl;
+    std::cout << "output(s):" << std::endl;
     for (auto &output : _output) {
         std::cout << "\t" << output.first << ": " << output.second->compute(1) << std::endl;
     }

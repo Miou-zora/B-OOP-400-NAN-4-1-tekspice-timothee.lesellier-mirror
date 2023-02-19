@@ -15,10 +15,5 @@ namespace nts {
             ~Input();
             nts::Tristate compute(std::size_t pin);
             void simulate(std::size_t tick);
-
-            void display(void);
-
-        protected:
-        private:
     };
 }

@@ -14,17 +14,12 @@ void nts::AComponent::setLink(std::size_t pin, std::shared_ptr<nts::IComponent> 
     if (pin > _pinMax) {
         throw std::invalid_argument("The pin wished is out of range");
     }
+    if (this == other.get()) {
+        throw std::invalid_argument("You can't link a component to itself");
+    }
     _links[pin].setComponent(other);
     _links[pin].setPin(pin - 1);
     _links[pin].setOtherPin(otherPin);
-}
-
-nts::Tristate nts::AComponent::getLink(std::size_t pin)
-{
-    if (pin > _pinMax) {
-        throw std::invalid_argument("The pin wished is out of range");
-    }
-    return (_links[pin].getComponent()->compute(_links[pin].getOtherPin()));
 }
 
 // Getters
@@ -32,10 +27,4 @@ nts::Tristate nts::AComponent::getLink(std::size_t pin)
 std::size_t nts::AComponent::getPinMax() const
 {
     return _pinMax;
-}
-
-
-nts::Tristate nts::AComponent::getState() const
-{
-    return _state;
 }

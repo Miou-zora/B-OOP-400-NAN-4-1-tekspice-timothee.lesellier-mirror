@@ -356,7 +356,5 @@ Test(build, casual, .init = cr_redirect_stdout)
     cr_assert_eq(testCircuit->_input.size(), 2);
     cr_assert_eq(testCircuit->_output.size(), 1);
 
-    testCircuit->compute(1);
-
-    cr_assert_stdout_eq_str("  outputA: U\n");
+    cr_assert_eq(testCircuit->compute(1), nts::Tristate::Undefined);
 }

@@ -13,7 +13,6 @@ nts::Input::Input()
 {
     _pinMax = 1;
     _state = nts::Tristate::Undefined;
-    _currentState = nts::Tristate::Undefined;
     _nextState = nts::Tristate::Undefined;
 }
 
@@ -24,17 +23,15 @@ nts::Input::~Input()
 
 nts::Tristate nts::Input::compute(std::size_t pin)
 {
-    (void)pin;
-    return _state;
+    if (pin != 1) {
+        throw std::invalid_argument("Pin out of range");
+    } else {
+        return _state;
+    }
 }
 
 void nts::Input::simulate(std::size_t tick)
 {
     (void)tick;
     _state = _nextState;
-}
-
-void nts::Input::display(void)
-{
-    std::cout << "Input: " << _state << std::endl;
 }
