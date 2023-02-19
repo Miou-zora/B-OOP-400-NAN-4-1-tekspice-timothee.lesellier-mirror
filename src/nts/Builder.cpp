@@ -6,9 +6,8 @@
 */
 
 #include "Builder.hpp"
-#include <cstring>
+#include <fstream>
 #include <algorithm>
-#include "Component/Component.hpp"
 
 nts::Builder::Builder(std::string filepath) : _filepath(filepath)
 {

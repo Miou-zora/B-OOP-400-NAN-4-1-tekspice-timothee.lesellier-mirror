@@ -5,12 +5,9 @@
 ** IO
 */
 
-#ifndef IO_H_
-#define IO_H_
+#pragma once
 
 #include "Input.hpp"
 #include "Output.hpp"
 #include "Clock.hpp"
 #include "AIO.hpp"
-
-#endif /* !IO_H_ */

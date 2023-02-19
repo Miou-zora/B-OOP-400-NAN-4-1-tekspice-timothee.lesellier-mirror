@@ -6,17 +6,21 @@
 */
 
 #pragma once
+
 #include "AIO.hpp"
-#include <iostream>
 #include "ComponentFactory.hpp"
 
-namespace nts {
+namespace nts
+{
     class Output : public virtual nts::AIO {
         public:
             Output();
             ~Output();
+
             nts::Tristate compute(std::size_t pin);
+
         private:
+            // initializer for the factory
             class Initializer {
                 public:
                     Initializer() {

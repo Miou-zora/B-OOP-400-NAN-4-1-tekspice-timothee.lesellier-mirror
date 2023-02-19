@@ -5,22 +5,18 @@
 ** ComponentFactory
 */
 
-#ifndef COMPONENTFACTORY_HPP_
-#define COMPONENTFACTORY_HPP_
+#pragma once
 
 #include <unordered_map>
 #include <functional>
 #include "Component/IComponent.hpp"
 #include <memory>
 #include <string>
-#include <iostream>
 
-namespace nts {
+namespace nts
+{
     class ComponentFactory {
-        private:
-            inline static std::unordered_map<std::string, std::function<std::unique_ptr<nts::IComponent>()>> m_creators;
         public:
-
             static void addConstructor(std::string const& key, std::function<std::unique_ptr<nts::IComponent>()> const& creator)
             {
                 if (m_creators.find(key) != m_creators.end())
@@ -36,7 +32,8 @@ namespace nts {
                     throw std::runtime_error("Component doesn't exist");
                 return m_creators[key]();
             }
+
+        private:
+            inline static std::unordered_map<std::string, std::function<std::unique_ptr<nts::IComponent>()>> m_creators;
     };
 }
-
-#endif /* !COMPONENTFACTORY_HPP_ */

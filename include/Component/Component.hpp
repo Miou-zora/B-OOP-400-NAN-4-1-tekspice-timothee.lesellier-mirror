@@ -5,8 +5,7 @@
 ** Component
 */
 
-#ifndef COMPONENT_H_
-#define COMPONENT_H_
+#pragma once
 
 #include "IO/IO.hpp"
 #include "Boolean/Boolean.hpp"
@@ -15,5 +14,3 @@
 #include "Link.hpp"
 #include "IComponent.hpp"
 #include "AComponent.hpp"
-
-#endif /* !COMPONENT_H_ */

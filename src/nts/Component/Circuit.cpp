@@ -7,6 +7,7 @@
 
 #include "Component/Circuit.hpp"
 #include "Component/IO/Output.hpp"
+#include <iostream>
 
 nts::Circuit::Circuit(void)
 {

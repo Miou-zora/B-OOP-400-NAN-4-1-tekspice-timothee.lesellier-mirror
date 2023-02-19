@@ -5,24 +5,20 @@
 ** IComponent
 */
 
-#ifndef ICOMPONENT_HPP_
-    #define ICOMPONENT_HPP_
+#pragma once
 
-#include <cstddef>
 #include <memory>
 
 namespace nts
 {
-    // Types from the namespace
     enum Tristate {
         Undefined = (-true),
         True = true,
         False = false
     };
 
-    // Class from the namespace
     class IComponent {
-    public:
+        public:
             IComponent() = default;
             virtual ~IComponent() = default;
 
@@ -31,5 +27,3 @@ namespace nts
             virtual void setLink(std::size_t pin, std::shared_ptr<nts::IComponent> other, std::size_t otherPin) = 0;
     };
 }
-
-#endif /* !ICOMPONENT_HPP_ */

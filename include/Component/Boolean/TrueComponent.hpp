@@ -6,6 +6,7 @@
 */
 
 #pragma once
+
 #include "../AComponent.hpp"
 
 namespace nts
@@ -14,6 +15,7 @@ namespace nts
         public:
             TrueComponent();
             ~TrueComponent();
+
             nts::Tristate compute(std::size_t pin);
     };
 }

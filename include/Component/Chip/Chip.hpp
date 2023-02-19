@@ -5,9 +5,7 @@
 ** Chip
 */
 
-#ifndef CHIP_H_
-#define CHIP_H_
+#pragma once
 
 #include "AndComponent.hpp"
 
-#endif /* !CHIP_H_ */

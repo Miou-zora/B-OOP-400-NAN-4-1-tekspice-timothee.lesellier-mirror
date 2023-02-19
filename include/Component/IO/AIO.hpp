@@ -5,28 +5,25 @@
 ** AIO
 */
 
-#ifndef AIO_HPP_
-#define AIO_HPP_
+#pragma once
 
 #include "../AComponent.hpp"
 
-namespace nts {
+namespace nts
+{
     class AIO : public nts::AComponent {
         public:
             AIO() = default;
             virtual ~AIO() = default;
 
-            virtual nts::Tristate getNextState(void) {return (_nextState);};
-            virtual nts::Tristate getCurrentState(void) {return (_state);};
-
             virtual void setNextState(nts::Tristate nextState) {_nextState = nextState;};
+            virtual nts::Tristate getNextState(void) {return (_nextState);};
+
             virtual void setCurrentState(nts::Tristate currentState) {_state = currentState;};
+            virtual nts::Tristate getCurrentState(void) {return (_state);};
 
         protected:
                 nts::Tristate _state;
                 nts::Tristate _nextState;
-        private:
     };
 }
-
-#endif /* !AIO_HPP_ */

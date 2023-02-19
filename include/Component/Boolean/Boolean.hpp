@@ -5,11 +5,8 @@
 ** Boolean
 */
 
-#ifndef BOOLEAN_H_
-#define BOOLEAN_H_
+#pragma once
 
 #include "FalseComponent.hpp"
 #include "TrueComponent.hpp"
 #include "UndefinedComponent.hpp"
-
-#endif /* !BOOLEAN_H_ */

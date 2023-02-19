@@ -7,8 +7,7 @@
 
 SRC_NTS_DIR	=	src/nts
 
-SRC			=	ComponentFactory.cpp						\
-				Component/AComponent.cpp					\
+SRC			=	Component/AComponent.cpp					\
 				Builder.cpp									\
 				Component/Chip/AndComponent.cpp				\
 				Component/Circuit.cpp						\
