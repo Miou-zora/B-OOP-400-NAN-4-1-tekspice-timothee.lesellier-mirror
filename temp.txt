@@ -1,0 +1,31 @@
+==63973== Memcheck, a memory error detector
+==63973== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==63973== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==63973== Command: ./nanotekspice tests/BuilderTestsFolder/test7
+==63973== 
+==63973== 
+==63973== HEAP SUMMARY:
+==63973==     in use at exit: 664 bytes in 11 blocks
+==63973==   total heap usage: 116 allocs, 105 frees, 92,128 bytes allocated
+==63973== 
+==63973== 664 (80 direct, 584 indirect) bytes in 1 blocks are definitely lost in loss record 8 of 8
+==63973==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==63973==    by 0x10EAD3: std::_MakeUniq<nts::Input>::__single_object std::make_unique<nts::Input>() (in /home/miouzora/Epitech/nanotekspice/B-OOP-400-NAN-4-1-tekspice-timothee.lesellier-mirror/nanotekspice)
+==63973==    by 0x10E321: nts::Input::create() (in /home/miouzora/Epitech/nanotekspice/B-OOP-400-NAN-4-1-tekspice-timothee.lesellier-mirror/nanotekspice)
+==63973==    by 0x111768: std::unique_ptr<nts::IComponent, std::default_delete<nts::IComponent> > std::__invoke_impl<std::unique_ptr<nts::IComponent, std::default_delete<nts::IComponent> >, std::unique_ptr<nts::IComponent, std::default_delete<nts::IComponent> > (*&)()>(std::__invoke_other, std::unique_ptr<nts::IComponent, std::default_delete<nts::IComponent> > (*&)()) (in /home/miouzora/Epitech/nanotekspice/B-OOP-400-NAN-4-1-tekspice-timothee.lesellier-mirror/nanotekspice)
+==63973==    by 0x11096C: std::enable_if<is_invocable_r_v<std::unique_ptr<nts::IComponent, std::default_delete<nts::IComponent> >, std::unique_ptr<nts::IComponent, std::default_delete<nts::IComponent> > (*&)()>, std::unique_ptr<nts::IComponent, std::default_delete<nts::IComponent> > >::type std::__invoke_r<std::unique_ptr<nts::IComponent, std::default_delete<nts::IComponent> >, std::unique_ptr<nts::IComponent, std::default_delete<nts::IComponent> > (*&)()>(std::unique_ptr<nts::IComponent, std::default_delete<nts::IComponent> > (*&)()) (in /home/miouzora/Epitech/nanotekspice/B-OOP-400-NAN-4-1-tekspice-timothee.lesellier-mirror/nanotekspice)
+==63973==    by 0x10FB83: std::_Function_handler<std::unique_ptr<nts::IComponent, std::default_delete<nts::IComponent> > (), std::unique_ptr<nts::IComponent, std::default_delete<nts::IComponent> > (*)()>::_M_invoke(std::_Any_data const&) (in /home/miouzora/Epitech/nanotekspice/B-OOP-400-NAN-4-1-tekspice-timothee.lesellier-mirror/nanotekspice)
+==63973==    by 0x117FED: std::function<std::unique_ptr<nts::IComponent, std::default_delete<nts::IComponent> > ()>::operator()() const (in /home/miouzora/Epitech/nanotekspice/B-OOP-400-NAN-4-1-tekspice-timothee.lesellier-mirror/nanotekspice)
+==63973==    by 0x117A1A: nts::ComponentFactory::create(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /home/miouzora/Epitech/nanotekspice/B-OOP-400-NAN-4-1-tekspice-timothee.lesellier-mirror/nanotekspice)
+==63973==    by 0x116B96: nts::Builder::buildComponents(std::__cxx11::list<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >) (in /home/miouzora/Epitech/nanotekspice/B-OOP-400-NAN-4-1-tekspice-timothee.lesellier-mirror/nanotekspice)
+==63973==    by 0x114EF2: nts::Builder::BuildCircuit() (in /home/miouzora/Epitech/nanotekspice/B-OOP-400-NAN-4-1-tekspice-timothee.lesellier-mirror/nanotekspice)
+==63973==    by 0x10D993: main (in /home/miouzora/Epitech/nanotekspice/B-OOP-400-NAN-4-1-tekspice-timothee.lesellier-mirror/nanotekspice)
+==63973== 
+==63973== LEAK SUMMARY:
+==63973==    definitely lost: 80 bytes in 1 blocks
+==63973==    indirectly lost: 584 bytes in 10 blocks
+==63973==      possibly lost: 0 bytes in 0 blocks
+==63973==    still reachable: 0 bytes in 0 blocks
+==63973==         suppressed: 0 bytes in 0 blocks
+==63973== 
+==63973== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
