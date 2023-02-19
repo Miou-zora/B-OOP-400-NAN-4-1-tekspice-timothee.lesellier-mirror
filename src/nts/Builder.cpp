@@ -22,6 +22,7 @@ std::unique_ptr<nts::Circuit> nts::Builder::BuildCircuit(void)
     this->getFileContent();
     this->buildComponents(_fileContent);
     this->buildLinks(_fileContent);
+
     return (std::make_unique<nts::Circuit>(_circuit));
 }
 
@@ -44,16 +45,17 @@ bool nts::Builder::isValidChipset(std::string line)
     std::string lineWithOutComment(this->clearComment(line));
     char separator = ' ';
     size_t nbrOfWord = 0;
-    std::string s;
+    std::string buffer;
+
     for (char letter : lineWithOutComment) {
         if (letter != separator) {
-            s += letter;
-        } else if (letter == separator && s != "") {
+            buffer += letter;
+        } else if (letter == separator && buffer != "") {
             nbrOfWord++;
-            s.clear();
+            buffer.clear();
         }
     }
-    if (s != "")
+    if (buffer != "")
         nbrOfWord++;
     if (nbrOfWord == 2)
         return (true);
@@ -65,26 +67,27 @@ bool nts::Builder::isValidLink(std::string line)
     std::string lineWithOutComment(this->clearComment(line));
     char separator = ' ';
     size_t nbrOfWord = 0;
-    std::string s;
+    std::string buffer;
+
     for (char letter : lineWithOutComment) {
         if (letter != separator) {
-            s += letter;
-        } else if (letter == separator && s != "") {
-            if (s.find(':') == std::string::npos)
+            buffer += letter;
+        } else if (letter == separator && buffer != "") {
+            if (buffer.find(':') == std::string::npos)
                 return (false);
-            if (s.find(':') == 0 || s.find(':') == s.size() - 1)
+            if (buffer.find(':') == 0 || buffer.find(':') == buffer.size() - 1)
                 return (false);
             nbrOfWord++;
-            s.clear();
+            buffer.clear();
         }
     }
-    if (s != "") {
-        if (s.find(':') == std::string::npos)
+    if (buffer != "") {
+        if (buffer.find(':') == std::string::npos)
             return (false);
-        if (s.find(':') == 0 || s.find(':') == s.size() - 1)
+        if (buffer.find(':') == 0 || buffer.find(':') == buffer.size() - 1)
             return (false);
     }
-    if (s != "")
+    if (buffer != "")
         nbrOfWord++;
     if (nbrOfWord == 2)
         return (true);
@@ -93,9 +96,11 @@ bool nts::Builder::isValidLink(std::string line)
 
 std::string nts::Builder::getComponentName(std::string line)
 {
+    std::string lineWithOutComment;
+
     if (this->isValidChipset(line) == false)
         throw nts::FileError("Invalid line", line);
-    std::string lineWithOutComment(this->clearComment(line));
+    lineWithOutComment = (this->clearComment(line));
     std::reverse(lineWithOutComment.begin(), lineWithOutComment.end());
     lineWithOutComment = lineWithOutComment.substr(0, lineWithOutComment.find(' '));
     std::reverse(lineWithOutComment.begin(), lineWithOutComment.end());
@@ -106,14 +111,17 @@ std::string nts::Builder::getLinkFirstName(std::string line)
 {
     std::string lineWithOutComment(this->clearComment(line));
     std::string name = lineWithOutComment.substr(0, lineWithOutComment.find(':'));
+
     return (name);
 }
 
 std::string nts::Builder::getLinkSecondName(std::string line)
 {
     std::string lineWithOutComment(this->clearComment(line));
+    std::string name;
+
     reverse(lineWithOutComment.begin(), lineWithOutComment.end());
-    std::string name = lineWithOutComment.substr(0, lineWithOutComment.find(' '));
+    name = lineWithOutComment.substr(0, lineWithOutComment.find(' '));
     reverse(name.begin(), name.end());
     name = name.substr(0, name.find(':'));
     return (name);
@@ -123,14 +131,17 @@ std::size_t nts::Builder::getLinkFirstPin(std::string line)
 {
     std::string lineWithOutComment(this->clearComment(line));
     std::string pin = lineWithOutComment.substr(lineWithOutComment.find(':') + 1, lineWithOutComment.find(' '));
+
     return (std::stoi(pin));
 }
 
 std::size_t nts::Builder::getLinkSecondPin(std::string line)
 {
     std::string lineWithOutComment(this->clearComment(line));
+    std::string pin;
+
     reverse(lineWithOutComment.begin(), lineWithOutComment.end());
-    std::string pin = lineWithOutComment.substr(0, lineWithOutComment.find(':'));
+    pin = lineWithOutComment.substr(0, lineWithOutComment.find(':'));
     reverse(pin.begin(), pin.end());
     return (std::stoi(pin));
 }
@@ -209,9 +220,11 @@ void nts::Builder::buildComponents(std::list<std::string> fileContent)
 
 std::string nts::Builder::getComponentType(std::string line)
 {
+    std::string lineWithOutComment;
+
     if (this->isValidChipset(line) == false)
         throw nts::FileError("Invalid line", line);
-    std::string lineWithOutComment(this->clearComment(line));
+    lineWithOutComment = (this->clearComment(line));
     return (lineWithOutComment.substr(0, lineWithOutComment.find(' ')));
 }
 

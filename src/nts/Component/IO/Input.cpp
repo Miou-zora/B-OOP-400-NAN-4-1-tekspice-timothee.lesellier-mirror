@@ -7,7 +7,6 @@
 
 #include "Component/IO/Input.hpp"
 #include <stdexcept>
-#include <iostream>
 
 nts::Input::Input()
 {
