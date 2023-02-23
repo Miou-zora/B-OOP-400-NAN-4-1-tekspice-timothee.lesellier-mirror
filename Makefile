@@ -15,6 +15,7 @@ SRC			=	Component/AComponent.cpp					\
 				Component/IO/Input.cpp						\
 				Component/IO/Output.cpp						\
 				Component/Boolean/UndefinedComponent.cpp	\
+				Component/Chip/XorComponent.cpp		\
 
 SRC			:=	$(addprefix $(SRC_NTS_DIR)/, $(SRC))
 
@@ -34,6 +35,7 @@ TESTS		=	ComponentFactoryTests.cpp	\
 				Component/Boolean/UndefinedComponentTests.cpp	\
 				Component/AComponentTests.cpp	\
 				Component/CircuitTests.cpp	\
+				Component/Chip/XorComponentTests.cpp			\
 
 TESTS		:=	$(addprefix tests/, $(TESTS))
 
