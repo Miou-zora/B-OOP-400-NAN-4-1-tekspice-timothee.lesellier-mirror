@@ -8,4 +8,4 @@
 #pragma once
 
 #include "AndComponent.hpp"
-
+#include "NotComponent.hpp"
