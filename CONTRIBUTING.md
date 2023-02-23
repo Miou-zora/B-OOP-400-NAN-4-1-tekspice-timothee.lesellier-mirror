@@ -18,6 +18,8 @@ We want 80% coverage (if not for technical reason like testing a malloc or getli
 ### PR : -> other branch
 We want 60% coverage (if not, look above)
 
+## Memory Management
+If you want to check memory leaks, you can use `valgrind --track-fds=yes --show-leak-kinds=all --track-origins=yes --verbose --log-file=valgrind-out.txt  --leak-check=full -s ./nanotekspice tests/BuilderTestsFolder/test7` command.
 
 ## Commit
 Please use [Angular](https://www.conventionalcommits.org/en/v1.0.0-beta.4/).
@@ -28,7 +30,7 @@ Please use [Angular](https://www.conventionalcommits.org/en/v1.0.0-beta.4/).
 ### Code review
 For each PR we'll have a code review, the PR must be approved by the developpers team.
 
-### PR Stability 
+### PR Stability
 Look at the **Testing Policies**
 
 ## Coding style

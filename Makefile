@@ -41,7 +41,7 @@ TESTS_OBJ	=	$(TESTS:%.cpp=%.o)
 
 CC			=	g++
 
-CFALGS		=	-Wall -Wextra -std=c++20
+CFALGS		=	-Wall -Wextra -std=c++20 -Wshadow -Wpedantic
 
 TESTS_FLAGS	=	--coverage -lcriterion
 
@@ -61,7 +61,7 @@ all:	$(NAME)
 $(NAME):	$(OBJ) $(OBJ_MAIN)
 		$(CC) -o $(NAME) $(OBJ_MAIN) $(OBJ) $(CFALGS) $(INCLUDE)
 
-debug:	CFLAGS += -g
+debug:	CFALGS += -g
 debug:	re
 
 tests_run: $(TESTS_OBJ)

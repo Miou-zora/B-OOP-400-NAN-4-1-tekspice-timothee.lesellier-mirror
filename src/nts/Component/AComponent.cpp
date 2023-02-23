@@ -16,9 +16,8 @@ void nts::AComponent::setLink(std::size_t pin, std::shared_ptr<nts::IComponent> 
     if (this == other.get()) {
         throw std::invalid_argument("You can't link a component to itself");
     }
-    _links[pin].setComponent(other);
-    _links[pin].setPin(pin - 1);
-    _links[pin].setOtherPin(otherPin);
+    _links[pin].reset(new nts::Link(other, otherPin));
+    // _links[pin].setPin(pin - 1);
 }
 
 std::size_t nts::AComponent::getPinMax() const

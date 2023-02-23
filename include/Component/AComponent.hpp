@@ -26,7 +26,7 @@ namespace nts
             void simulate(std::size_t pin) {(void)pin;};
 
         protected:
-            std::map<std::size_t, nts::Link> _links;
+            std::map<std::size_t, std::unique_ptr<nts::Link>> _links;
             std::size_t _pinMax;
     };
 
