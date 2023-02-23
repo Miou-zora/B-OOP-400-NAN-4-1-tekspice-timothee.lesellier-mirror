@@ -8,6 +8,7 @@
 #pragma once
 
 #include <memory>
+#include <iostream>
 
 namespace nts
 {
@@ -26,4 +27,20 @@ namespace nts
             virtual nts::Tristate compute(std::size_t pin) = 0;
             virtual void setLink(std::size_t pin, std::shared_ptr<nts::IComponent> other, std::size_t otherPin) = 0;
     };
+}
+
+inline std::ostream& operator<<(std::ostream& stream, nts::Tristate v)
+{
+    switch (v) {
+        case nts::Tristate::True:
+            stream << "1";
+            break;
+        case nts::Tristate::False:
+            stream << "0";
+            break;
+        case nts::Tristate::Undefined:
+            stream << "U";
+            break;
+    }
+    return stream;
 }

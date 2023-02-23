@@ -1,0 +1,15 @@
+.chipsets:
+
+input inputA
+input inputB
+and andA
+output outputA
+
+.links:
+inputB:1 andA:1
+
+#   aze
+inputB:1 andA:2#aze
+
+
+andA:3 outputA:1

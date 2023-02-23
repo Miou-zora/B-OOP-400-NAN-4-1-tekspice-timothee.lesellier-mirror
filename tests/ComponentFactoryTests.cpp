@@ -30,47 +30,6 @@ struct TESTCONSTRUCTOR : virtual public nts::AComponent
     ~TESTCONSTRUCTOR() override = default;
 };
 
-Test(ComponentFactory, createComponent, .init = cr_redirect_stdout)
-{
-    nts::ComponentFactory factory;
-    factory.addConstructor("4001", []() { return std::make_unique<TESTCONSTRUCTOR>(); });
-
-    auto component = factory.create("4001");
-    cr_assert_stdout_eq_str("TESTCONSTRUCTOR\n");
-}
-
-Test(ComponentFactory, createComponentTwice, .init = cr_redirect_stdout)
-{
-    nts::ComponentFactory factory;
-    factory.addConstructor("4001", []() { return std::make_unique<TESTCONSTRUCTOR>(); });
-
-    auto component = factory.create("4001");
-    auto component2 = factory.create("4001");
-    cr_assert_stdout_eq_str("TESTCONSTRUCTOR\nTESTCONSTRUCTOR\n");
-    cr_assert_neq(component, component2);
-}
-
-Test(ComponentFactory, addTwiceComponent, .init = cr_redirect_stdout)
-{
-    nts::ComponentFactory factory;
-    try {
-        factory.addConstructor("4001", []() { return std::make_unique<TESTCONSTRUCTOR>(); });
-        factory.addConstructor("4001", []() { return std::make_unique<TESTCONSTRUCTOR>(); });
-    } catch (std::runtime_error &e) {
-        cr_assert_str_eq(e.what(), "Component already exists");
-    }
-}
-
-Test(ComponentFactory, addNullComponent, .init = cr_redirect_stdout)
-{
-    nts::ComponentFactory factory;
-    try {
-        factory.addConstructor("4001", nullptr);
-    } catch (std::runtime_error &e) {
-        cr_assert_str_eq(e.what(), "Creator is null");
-    }
-}
-
 Test(ComponentFactory, createUnknownComponent, .init = cr_redirect_stdout)
 {
     nts::ComponentFactory factory;

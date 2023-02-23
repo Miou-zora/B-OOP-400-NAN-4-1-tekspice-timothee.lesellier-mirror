@@ -23,6 +23,7 @@ class Shell {
         ~Shell();
 
         void run();
+        void setCircuit(std::unique_ptr<nts::Circuit> circuit);
 
     protected:
     private:
