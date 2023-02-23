@@ -39,6 +39,14 @@ Test(AndComponent, casual_undefined)
     cr_assert_eq(andComponent.compute(3), nts::Tristate::Undefined);
     input2->setCurrentState(nts::Tristate::True);
     input1->setCurrentState(nts::Tristate::Undefined);
+    std::cout << input1->getCurrentState() << std::endl;
+    std::cout << input2->getCurrentState() << std::endl;
+    std::cout << input1->compute(1) << std::endl;
+    std::cout << input2->compute(1) << std::endl;
+    std::cout << input1.get() << std::endl;
+    std::cout << input2.get() << std::endl;
+    std::cout << andComponent._links[1]->getComponent().get() << std::endl;
+    std::cout << andComponent._links[2]->getComponent().get() << std::endl;
     cr_assert_eq(andComponent.compute(3), nts::Tristate::Undefined);
 }
 
@@ -63,6 +71,8 @@ Test(AndComponent, casual_false)
 
     andComponent.setLink(1, input1, 1);
     andComponent.setLink(2, input2, 1);
+    printf("|%p|", andComponent._links[1].get());
+    fflush(stdout);
     input1->setCurrentState(nts::Tristate::True);
     input2->setCurrentState(nts::Tristate::False);
     cr_assert_eq(andComponent.compute(3), nts::Tristate::False);

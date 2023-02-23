@@ -11,6 +11,8 @@
 nts::Input::Input()
 {
     _pinMax = 1;
+    for (std::size_t i = 0; i < _pinMax; i++)
+        _links[i] = nullptr;
     _state = nts::Tristate::Undefined;
     _nextState = nts::Tristate::Undefined;
 }
