@@ -8,4 +8,5 @@
 #pragma once
 
 #include "AndComponent.hpp"
+#include "OrComponent.hpp"
 
