@@ -73,3 +73,34 @@ Test(AndComponent, casual_false)
     input2->setCurrentState(nts::Tristate::False);
     cr_assert_eq(andComponent.compute(3), nts::Tristate::False);
 }
+
+Test(AndComponent, pdf_bool_table)
+{
+    nts::AndComponent andComponent;
+    std::shared_ptr<nts::Input> input1 = std::make_shared<nts::Input>();
+    std::shared_ptr<nts::Input> input2 = std::make_shared<nts::Input>();
+
+    andComponent.setLink(1, input1, 1);
+    andComponent.setLink(2, input2, 1);
+    input1->setCurrentState(nts::Tristate::False);
+    input2->setCurrentState(nts::Tristate::False);
+    cr_assert_eq(andComponent.compute(3), nts::Tristate::False);
+    input2->setCurrentState(nts::Tristate::True);
+    cr_assert_eq(andComponent.compute(3), nts::Tristate::False);
+    input2->setCurrentState(nts::Tristate::Undefined);
+    cr_assert_eq(andComponent.compute(3), nts::Tristate::False);
+    input1->setCurrentState(nts::Tristate::True);
+    input2->setCurrentState(nts::Tristate::False);
+    cr_assert_eq(andComponent.compute(3), nts::Tristate::False);
+    input2->setCurrentState(nts::Tristate::True);
+    cr_assert_eq(andComponent.compute(3), nts::Tristate::True);
+    input2->setCurrentState(nts::Tristate::Undefined);
+    cr_assert_eq(andComponent.compute(3), nts::Tristate::Undefined);
+    input1->setCurrentState(nts::Tristate::Undefined);
+    input2->setCurrentState(nts::Tristate::False);
+    cr_assert_eq(andComponent.compute(3), nts::Tristate::False);
+    input2->setCurrentState(nts::Tristate::True);
+    cr_assert_eq(andComponent.compute(3), nts::Tristate::Undefined);
+    input2->setCurrentState(nts::Tristate::Undefined);
+    cr_assert_eq(andComponent.compute(3), nts::Tristate::Undefined);
+}
