@@ -8,4 +8,5 @@
 #pragma once
 
 #include "AndComponent.hpp"
-#include "Component/Chip/NorComponent.hpp"
+#include "NandComponent.hpp"
+#include "NorComponent.hpp"
