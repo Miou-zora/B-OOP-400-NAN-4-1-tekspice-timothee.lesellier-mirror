@@ -27,7 +27,6 @@ namespace nts
             std::vector<std::shared_ptr<nts::IComponent>> _andComponents;
             std::map<std::size_t, nts::IComponent&> _outputs;
             std::map<std::size_t, std::pair<std::size_t, nts::IComponent&>> _inputs;
-            // |^| map made of chip pin -> (component's pin || the component)
     };
 }
 
