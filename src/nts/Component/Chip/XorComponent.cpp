@@ -37,10 +37,10 @@ nts::Tristate nts::XorComponent::compute(std::size_t pin)
     if (pin != _pinMax) {
         throw std::invalid_argument("Pin out of range");
     } else {
-        if (_links[1].getComponent() == nullptr || _links[2].getComponent() == nullptr) {
+        if (_links[1] == nullptr || _links[2] == nullptr) {
             return nts::Tristate::Undefined;
         }
-        return ntsXor(_links[1].getComponent()->compute(_links[1].getOtherPin()), _links[2].getComponent()->compute(_links[2].getOtherPin()));
+        return ntsXor(_links[1]->getComponent().compute(_links[1]->getOtherPin()), _links[2]->getComponent().compute(_links[2]->getOtherPin()));
     }
 }
 

@@ -10,3 +10,5 @@
 #include "AndComponent.hpp"
 #include "XorComponent.hpp"
 
+#include "NandComponent.hpp"
+#include "NorComponent.hpp"
