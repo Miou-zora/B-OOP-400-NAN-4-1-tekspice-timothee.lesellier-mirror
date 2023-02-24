@@ -16,6 +16,11 @@ SRC			=	Component/AComponent.cpp					\
 				Component/IO/Output.cpp						\
 				Component/Boolean/UndefinedComponent.cpp	\
 				Component/Chip/Component4081.cpp			\
+				Component/Chip/OrComponent.cpp				\
+				Component/Chip/NotComponent.cpp				\
+				Component/Chip/XorComponent.cpp				\
+				Component/Chip/NandComponent.cpp			\
+				Component/Chip/NorComponent.cpp				\
 
 SRC			:=	$(addprefix $(SRC_NTS_DIR)/, $(SRC))
 
@@ -25,17 +30,22 @@ OBJ			=	$(SRC:%.cpp=%.o)
 
 OBJ_MAIN	=	$(MAIN:%.cpp=%.o)
 
-TESTS		=	ComponentFactoryTests.cpp	\
-				Component/LinkTests.cpp		\
-				BuilderTests.cpp			\
-				Shell.cpp					\
-				Component/Chip/AndComponentTests.cpp	\
-				Component/IO/OutputTests.cpp	\
-				Component/IO/InputTests.cpp	\
+TESTS		=	ComponentFactoryTests.cpp						\
+				Component/LinkTests.cpp							\
+				BuilderTests.cpp								\
+				Shell.cpp										\
+				Component/Chip/AndComponentTests.cpp			\
+				Component/IO/OutputTests.cpp					\
+				Component/IO/InputTests.cpp						\
 				Component/Boolean/UndefinedComponentTests.cpp	\
-				Component/AComponentTests.cpp	\
-				Component/CircuitTests.cpp	\
-				Component/Chip/Component4081.cpp
+				Component/AComponentTests.cpp					\
+				Component/CircuitTests.cpp						\
+				Component/Chip/Component4081.cpp				\
+				Component/Chip/OrComponentTests.cpp 			\
+				Component/Chip/NotComponentTests.cpp			\
+				Component/Chip/XorComponentTests.cpp			\
+				Component/Chip/NandComponentTests.cpp			\
+				Component/Chip/NorComponentTests.cpp			\
 
 TESTS		:=	$(addprefix tests/, $(TESTS))
 
