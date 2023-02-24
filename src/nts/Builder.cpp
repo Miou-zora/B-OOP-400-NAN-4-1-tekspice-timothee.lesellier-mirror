@@ -230,10 +230,11 @@ std::string nts::Builder::getComponentType(std::string line)
 
 std::string nts::Builder::clearComment(std::string line)
 {
+    std::string lineWithOutComment = "";
     if (line.find('#') == std::string::npos)
         return (line);
-    line = line.substr(0, line.find('#'));
-    while (line[line.size() - 1] == ' ')
-        line = line.substr(0, line.size() - 1);
-    return (line);
+    lineWithOutComment = line.substr(0, line.find('#'));
+    while (lineWithOutComment[lineWithOutComment.size() - 1] == ' ')
+        lineWithOutComment = lineWithOutComment.substr(0, lineWithOutComment.size() - 1);
+    return (lineWithOutComment);
 }

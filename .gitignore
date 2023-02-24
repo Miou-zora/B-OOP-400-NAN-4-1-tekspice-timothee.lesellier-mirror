@@ -2,3 +2,4 @@
 nanotekspice
 *.o
 *.a
+valgrind-out.txt
