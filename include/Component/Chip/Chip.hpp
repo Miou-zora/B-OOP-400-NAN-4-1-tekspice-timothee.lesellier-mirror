@@ -14,3 +14,4 @@
 #include "XorComponent.hpp"
 #include "NandComponent.hpp"
 #include "NorComponent.hpp"
+#include "Component4030.hpp"
