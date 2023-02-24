@@ -8,6 +8,7 @@
 #pragma once
 
 #include "AndComponent.hpp"
+#include "Component4081.hpp"
 #include "OrComponent.hpp"
 #include "NotComponent.hpp"
 #include "XorComponent.hpp"

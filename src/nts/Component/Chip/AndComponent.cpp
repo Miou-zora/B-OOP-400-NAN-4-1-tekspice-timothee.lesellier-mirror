@@ -22,13 +22,13 @@ nts::AndComponent::~AndComponent()
 
 nts::Tristate ntsAnd(nts::Tristate v, nts::Tristate v2)
 {
-    if (v == nts::Tristate::Undefined || v2 == nts::Tristate::Undefined) {
-        return (nts::Tristate::Undefined);
-    }
-    if (v == v2 && v == nts::Tristate::True) {
+    if (v == nts::Tristate::True && v2 == nts::Tristate::True) {
         return (nts::Tristate::True);
     }
-    return (nts::Tristate::False);
+    if (v == nts::Tristate::False || v2 == nts::Tristate::False) {
+        return (nts::Tristate::False);
+    }
+    return (nts::Tristate::Undefined);
 }
 
 nts::Tristate nts::AndComponent::compute(std::size_t pin)

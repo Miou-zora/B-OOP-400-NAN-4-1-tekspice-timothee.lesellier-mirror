@@ -28,7 +28,8 @@ namespace nts
             inline static std::unordered_map<std::string, std::function<std::unique_ptr<nts::IComponent>()>> m_creators = {
                 {"and", []() { return std::make_unique<nts::AndComponent>(); }},
                 {"input", []() { return std::make_unique<nts::Input>(); }},
-                {"output", []() { return std::make_unique<nts::Output>(); }}
+                {"output", []() { return std::make_unique<nts::Output>(); }},
+                {"4081", []() { return std::make_unique<nts::Component4081>();}}
             };
     };
 }
