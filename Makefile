@@ -15,7 +15,8 @@ SRC			=	Component/AComponent.cpp					\
 				Component/IO/Input.cpp						\
 				Component/IO/Output.cpp						\
 				Component/Boolean/UndefinedComponent.cpp	\
-				Component/Chip/XorComponent.cpp		\
+				Component/Chip/NotComponent.cpp				\
+				Component/Chip/XorComponent.cpp				\
 				Component/Chip/NandComponent.cpp			\
 				Component/Chip/NorComponent.cpp				\
 
@@ -37,6 +38,7 @@ TESTS		=	ComponentFactoryTests.cpp	\
 				Component/Boolean/UndefinedComponentTests.cpp	\
 				Component/AComponentTests.cpp	\
 				Component/CircuitTests.cpp	\
+				Component/Chip/NotComponentTests.cpp			\
 				Component/Chip/XorComponentTests.cpp			\
 				Component/Chip/NandComponentTests.cpp			\
 				Component/Chip/NorComponentTests.cpp
