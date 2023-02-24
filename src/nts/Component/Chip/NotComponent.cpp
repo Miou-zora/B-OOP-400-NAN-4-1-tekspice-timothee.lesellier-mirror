@@ -34,10 +34,10 @@ nts::Tristate nts::NotComponent::compute(std::size_t pin)
     if (pin != _pinMax) {
         throw std::invalid_argument("Pin out of range");
     } else {
-        if (_links[1].getComponent() == nullptr) {
+        if (_links[1] == nullptr) {
             return nts::Tristate::Undefined;
         }
-        return ntsNot(_links[1].getComponent()->compute(_links[1].getOtherPin()));
+        return ntsNot(_links[1]->getComponent().compute(_links[1]->getOtherPin()));
     }
 }
 

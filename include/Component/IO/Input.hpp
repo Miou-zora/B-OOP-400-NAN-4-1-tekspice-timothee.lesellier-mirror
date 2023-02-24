@@ -8,7 +8,6 @@
 #pragma once
 
 #include "AIO.hpp"
-#include "ComponentFactory.hpp"
 
 namespace nts
 {
@@ -19,15 +18,5 @@ namespace nts
 
             nts::Tristate compute(std::size_t pin);
             void simulate(std::size_t tick);
-
-        private:
-            // initializer for the factory
-            class Initializer {
-                public:
-                    Initializer() {
-                            nts::ComponentFactory::addConstructor("input", []() { return std::make_unique<nts::Input>(); });
-                    };
-            };
-            static inline Initializer initializer;
     };
 }

@@ -9,3 +9,6 @@
 
 #include "AndComponent.hpp"
 #include "NotComponent.hpp"
+#include "XorComponent.hpp"
+#include "NandComponent.hpp"
+#include "NorComponent.hpp"

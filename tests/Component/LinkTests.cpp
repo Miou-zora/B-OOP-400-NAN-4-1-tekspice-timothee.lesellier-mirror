@@ -8,19 +8,3 @@
 #include "Component/Link.hpp"
 #include <criterion/criterion.h>
 
-Test(Link, createLink)
-{
-    nts::Link link;
-}
-
-Test(Link, setter_getter)
-{
-    nts::Link link;
-
-    link.setPin(0);
-    link.setOtherPin(0);
-
-    cr_assert_eq(link.getPin(), 0);
-    cr_assert_eq(link.getOtherPin(), 0);
-}
-
