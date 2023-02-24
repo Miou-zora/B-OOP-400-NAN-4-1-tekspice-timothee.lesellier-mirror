@@ -28,9 +28,6 @@ nts::Tristate ntsAnd(nts::Tristate v, nts::Tristate v2)
     if (v == nts::Tristate::False || v2 == nts::Tristate::False) {
         return (nts::Tristate::False);
     }
-    if (v == nts::Tristate::Undefined || v2 == nts::Tristate::Undefined) {
-        return (nts::Tristate::Undefined);
-    }
     return (nts::Tristate::Undefined);
 }
 
