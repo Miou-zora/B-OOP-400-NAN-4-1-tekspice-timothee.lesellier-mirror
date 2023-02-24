@@ -30,6 +30,11 @@ void Shell::run()
     }
 }
 
+void Shell::setCircuit(std::unique_ptr<nts::Circuit> circuit)
+{
+    this->_circuit = std::move(circuit);
+}
+
 std::string Shell::getCommand()
 {
     std::string command;

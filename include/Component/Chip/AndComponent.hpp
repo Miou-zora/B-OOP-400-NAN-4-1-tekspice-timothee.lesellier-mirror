@@ -8,7 +8,6 @@
 #pragma once
 
 #include "../AComponent.hpp"
-#include "ComponentFactory.hpp"
 
 namespace nts
 {
@@ -18,14 +17,5 @@ namespace nts
             ~AndComponent();
 
             nts::Tristate compute(std::size_t pin);
-        private:
-            // initializer for the factory
-            class Initializer {
-                public:
-                    Initializer() {
-                            nts::ComponentFactory::addConstructor("and", []() { return std::make_unique<nts::AndComponent>(); });
-                    };
-            };
-            static inline Initializer initializer;
     };
 }

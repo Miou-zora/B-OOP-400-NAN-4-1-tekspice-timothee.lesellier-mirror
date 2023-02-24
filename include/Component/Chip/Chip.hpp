@@ -9,4 +9,7 @@
 
 #include "AndComponent.hpp"
 #include "OrComponent.hpp"
-
+#include "NotComponent.hpp"
+#include "XorComponent.hpp"
+#include "NandComponent.hpp"
+#include "NorComponent.hpp"

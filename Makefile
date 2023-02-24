@@ -16,6 +16,10 @@ SRC			=	Component/AComponent.cpp					\
 				Component/IO/Output.cpp						\
 				Component/Boolean/UndefinedComponent.cpp	\
 				Component/Chip/OrComponent.cpp				\
+				Component/Chip/NotComponent.cpp				\
+				Component/Chip/XorComponent.cpp				\
+				Component/Chip/NandComponent.cpp			\
+				Component/Chip/NorComponent.cpp				\
 
 SRC			:=	$(addprefix $(SRC_NTS_DIR)/, $(SRC))
 
@@ -36,6 +40,10 @@ TESTS		=	ComponentFactoryTests.cpp	\
 				Component/AComponentTests.cpp	\
 				Component/CircuitTests.cpp	\
 				Component/Chip/OrComponentTests.cpp \
+				Component/Chip/NotComponentTests.cpp			\
+				Component/Chip/XorComponentTests.cpp			\
+				Component/Chip/NandComponentTests.cpp			\
+				Component/Chip/NorComponentTests.cpp
 
 TESTS		:=	$(addprefix tests/, $(TESTS))
 
@@ -43,7 +51,7 @@ TESTS_OBJ	=	$(TESTS:%.cpp=%.o)
 
 CC			=	g++
 
-CFALGS		=	-Wall -Wextra -std=c++20
+CFALGS		=	-Wall -Wextra -std=c++20 -Wshadow -Wpedantic
 
 TESTS_FLAGS	=	--coverage -lcriterion
 
@@ -63,7 +71,7 @@ all:	$(NAME)
 $(NAME):	$(OBJ) $(OBJ_MAIN)
 		$(CC) -o $(NAME) $(OBJ_MAIN) $(OBJ) $(CFALGS) $(INCLUDE)
 
-debug:	CFLAGS += -g
+debug:	CFALGS += -g
 debug:	re
 
 tests_run: $(TESTS_OBJ)
