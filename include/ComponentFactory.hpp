@@ -9,7 +9,7 @@
 
 #include <unordered_map>
 #include <functional>
-#include "Component/IComponent.hpp"
+#include "Component/Component.hpp"
 #include <memory>
 #include <string>
 
@@ -17,15 +17,6 @@ namespace nts
 {
     class ComponentFactory {
         public:
-            static void addConstructor(std::string const& key, std::function<std::unique_ptr<nts::IComponent>()> const& creator)
-            {
-                if (m_creators.find(key) != m_creators.end())
-                    throw std::runtime_error("Component already exists");
-                if (creator == nullptr)
-                    throw std::runtime_error("Creator is null");
-                m_creators[key] = creator;
-            }
-
             static std::unique_ptr<nts::IComponent> create(std::string const& key)
             {
                 if (m_creators.find(key) == m_creators.end())
@@ -34,6 +25,10 @@ namespace nts
             }
 
         private:
-            inline static std::unordered_map<std::string, std::function<std::unique_ptr<nts::IComponent>()>> m_creators;
+            inline static std::unordered_map<std::string, std::function<std::unique_ptr<nts::IComponent>()>> m_creators = {
+                {"and", []() { return std::make_unique<nts::AndComponent>(); }},
+                {"input", []() { return std::make_unique<nts::Input>(); }},
+                {"output", []() { return std::make_unique<nts::Output>(); }}
+            };
     };
 }
