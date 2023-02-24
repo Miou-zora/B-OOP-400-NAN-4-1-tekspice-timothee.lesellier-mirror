@@ -9,4 +9,4 @@
 
 #include "AndComponent.hpp"
 #include "NandComponent.hpp"
-
+#include "NorComponent.hpp"
