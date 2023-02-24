@@ -12,48 +12,48 @@
 nts::Component4081::Component4081()
 {
     _pinMax= 13;
-    _andComponent = std::make_shared<nts::AndComponent>();
-    _inputPin1 = std::make_shared<nts::Input>();
-    _inputPin2 = std::make_shared<nts::Input>();
-    _andComponent->setLink(1, _inputPin1, 1);
-    _andComponent->setLink(2, _inputPin2, 1);
-    _outputs = {3, 4, 10, 11};
-    _inputs = {{3, {1, 2}}, {4, {5, 6}}, {11, {12, 13}}, {10, {8, 9}}};
+    _andComponents = {std::make_shared<nts::AndComponent>(), std::make_shared<nts::AndComponent>(),
+                    std::make_shared<nts::AndComponent>(), std::make_shared<nts::AndComponent>()};
+    _outputs = {{3, *(_andComponents.at(0).get())}, {4, *(_andComponents.at(1).get())}, {10,
+                *(_andComponents.at(2).get())}, {11, *(_andComponents.at(3).get())}};
+
+    /*
+        We virtualize the connexion, each input of the cheap is linked to a AndGate and the pin of connexion
+    */
+    _inputs =  {{1, std::pair<std::size_t, nts::IComponent&>(1, *(_andComponents.at(0).get()))},
+                {2, std::pair<std::size_t, nts::IComponent&>(2, *(_andComponents.at(0).get()))},
+                {5, std::pair<std::size_t, nts::IComponent&>(1, *(_andComponents.at(1).get()))},
+                {6, std::pair<std::size_t, nts::IComponent&>(2, *(_andComponents.at(1).get()))},
+                {8, std::pair<std::size_t, nts::IComponent&>(1, *(_andComponents.at(2).get()))},
+                {9, std::pair<std::size_t, nts::IComponent&>(2, *(_andComponents.at(2).get()))},
+                {12, std::pair<std::size_t, nts::IComponent&>(1, *(_andComponents.at(3).get()))},
+                {13, std::pair<std::size_t, nts::IComponent&>(2, *(_andComponents.at(3).get()))},
+                };
 }
 
 nts::Component4081::~Component4081()
 {
 }
 
-nts::Tristate nts::Component4081::safeCompute(std::size_t pin)
+nts::Tristate nts::Component4081::compute(std::size_t pin)
 {
-    std::size_t pin1 = _inputs.at(pin).at(0);
-    std::size_t pin2 = _inputs.at(pin).at(1);
-    std::shared_ptr<IComponent> cmpnt1;
-    std::shared_ptr<IComponent> cmpnt2;
-    std::size_t pinCompute = 0;
-
-    if (!_links.contains(pin1) || !_links.contains(pin2) )
-        return (nts::Tristate::Undefined);
-    cmpnt1 = _links.at(pin1).getComponent();
-    cmpnt2 = _links.at(pin2).getComponent();
-    if (cmpnt1.get() == nullptr || cmpnt2.get() == nullptr)
-        return (nts::Tristate::Undefined);
-    pinCompute = _links.at(pin1).getOtherPin();
-    if (pinCompute > 0)
-        _inputPin1->setCurrentState(cmpnt1->compute(pinCompute));
-    pinCompute = _links.at(pin2).getOtherPin();
-    if (pinCompute > 0)
-        _inputPin2->setCurrentState(cmpnt2->compute(pinCompute));
-    return (_andComponent->compute(3));
-}
-
-nts::Tristate nts::Component4081::compute(size_t pin)
-{
-    for (auto &output_pin: _outputs) {
-        if (output_pin == pin) {
-            return (safeCompute(output_pin));
+    for (auto &output : _outputs) {
+        if (output.first == pin) {
+            return output.second.compute(3);
         }
     }
     throw std::invalid_argument("Pin out of range");
+}
+
+void nts::Component4081::setLink(std::size_t pin, std::shared_ptr<nts::IComponent> other, std::size_t otherPin)
+{
+    if (pin == 7 || pin == 14) {
+        throw std::invalid_argument("Pin out of range");
+    }
+    for (auto &input : _inputs) {
+        if (input.first == pin) {
+            input.second.second.setLink(input.second.first, other, otherPin);
+            return;
+        }
+    }
 }

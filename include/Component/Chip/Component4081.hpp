@@ -11,6 +11,7 @@
 #include "../AComponent.hpp"
 #include "Component/IO/Input.hpp"
 #include <map>
+#include <vector>
 
 namespace nts
 {
@@ -20,15 +21,13 @@ namespace nts
             ~Component4081();
 
             nts::Tristate compute(std::size_t pin);
+            void setLink(std::size_t pin, std::shared_ptr<nts::IComponent> other, std::size_t otherPin);
 
         private:
-            std::shared_ptr<IComponent> _andComponent;
-            std::shared_ptr<nts::AIO> _inputPin1;
-            std::shared_ptr<nts::AIO> _inputPin2;
-            std::vector<std::size_t> _outputs;
-            std::map<std::size_t, std::vector<std::size_t>> _inputs;
-
-            nts::Tristate safeCompute(std::size_t pin);
+            std::vector<std::shared_ptr<nts::IComponent>> _andComponents;
+            std::map<std::size_t, nts::IComponent&> _outputs;
+            std::map<std::size_t, std::pair<std::size_t, nts::IComponent&>> _inputs;
+            // |^| map made of chip pin -> (component's pin || the component)
     };
 }
 
