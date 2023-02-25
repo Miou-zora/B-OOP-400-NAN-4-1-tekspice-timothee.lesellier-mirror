@@ -69,6 +69,9 @@ void nts::Circuit::simulate(std::size_t tick)
     for (auto &component : _components) {
         component.second->simulate(tick);
     }
+    for (auto &component : _components) {
+        component.second->resetUpdate();
+    }
 }
 
 nts::Tristate nts::Circuit::compute(std::size_t pin)
@@ -82,6 +85,13 @@ nts::Tristate nts::Circuit::compute(std::size_t pin)
     return nts::Undefined;
 }
 
+void nts::Circuit::resetUpdate()
+{
+    for (auto &component : _components) {
+        component.second->resetUpdate();
+    }
+}
+
 void nts::Circuit::setLink(std::size_t pin, std::shared_ptr<nts::IComponent> other, std::size_t otherPin)
 {
     (void)pin;
@@ -91,16 +101,16 @@ void nts::Circuit::setLink(std::size_t pin, std::shared_ptr<nts::IComponent> oth
 
 void nts::Circuit::display()
 {
-    std::cout << "ticks: " << _tick << std::endl;
+    std::cout << "tick: " << _tick << std::endl;
     std::cout << "input(s):" << std::endl;
 
     for (auto &input : _input) {
-        std::cout << "\t" << input.first << ": " << input.second->compute(1) << std::endl;
+        std::cout << " " << input.first << ": " << input.second->compute(1) << std::endl;
     }
 
     std::cout << "output(s):" << std::endl;
     for (auto &output : _output) {
-        std::cout << "\t" << output.first << ": " << output.second->compute(1) << std::endl;
+        std::cout << " " << output.first << ": " << output.second->compute(1) << std::endl;
     }
 }
 
