@@ -24,6 +24,7 @@ namespace nts
 
             virtual nts::Tristate compute(std::size_t pin) = 0;
             void simulate(std::size_t pin) { (void)pin; if (!_updated) _updated = true; };
+            void resetUpdate(void);
 
         protected:
             std::map<std::size_t, std::unique_ptr<nts::Link>> _links;

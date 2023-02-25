@@ -29,7 +29,8 @@ namespace nts
                 {"and", []() { return std::make_unique<nts::AndComponent>(); }},
                 {"input", []() { return std::make_unique<nts::Input>(); }},
                 {"output", []() { return std::make_unique<nts::Output>(); }},
-                {"4081", []() { return std::make_unique<nts::Component4081>();}}
+                {"4081", []() { return std::make_unique<nts::Component4081>();}},
+                {"dlatch", []() { return std::make_unique<nts::DLatchComponent>();}}
             };
     };
 }
