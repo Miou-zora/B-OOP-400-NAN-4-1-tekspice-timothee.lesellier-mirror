@@ -23,3 +23,7 @@ std::size_t nts::AComponent::getPinMax() const
 {
     return _pinMax;
 }
+
+void nts::AComponent::resetUpdate(void) {
+    _updated = false;
+}

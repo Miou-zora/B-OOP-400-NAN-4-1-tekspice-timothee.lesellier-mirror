@@ -15,11 +15,7 @@ namespace nts
 {
     class AComponent : virtual public nts::IComponent {
         public:
-            AComponent() {
-                _pinMax = 0;
-                for (std::size_t i = 0; i < _pinMax; i++)
-                    _links[i] = nullptr;
-            };
+            AComponent() : _pinMax(0), _updated(false) {};
             virtual ~AComponent() = default;
 
             void setLink(std::size_t pin, std::shared_ptr<nts::IComponent> other, std::size_t otherPin);
@@ -27,11 +23,13 @@ namespace nts
             std::size_t getPinMax() const;
 
             virtual nts::Tristate compute(std::size_t pin) = 0;
-            void simulate(std::size_t pin) {(void)pin;};
+            void simulate(std::size_t pin) { (void)pin; if (!_updated) _updated = true; };
+            void resetUpdate(void);
 
         protected:
             std::map<std::size_t, std::unique_ptr<nts::Link>> _links;
             std::size_t _pinMax;
+            bool _updated;
     };
 
 }
