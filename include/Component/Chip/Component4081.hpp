@@ -9,7 +9,6 @@
 #define COMPONENT4081_HPP_
 
 #include "../AComponent.hpp"
-#include "Component/IO/Input.hpp"
 #include <map>
 #include <vector>
 
