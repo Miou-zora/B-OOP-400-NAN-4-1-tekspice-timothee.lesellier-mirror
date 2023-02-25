@@ -21,6 +21,7 @@ SRC			=	Component/AComponent.cpp					\
 				Component/Chip/XorComponent.cpp				\
 				Component/Chip/NandComponent.cpp			\
 				Component/Chip/NorComponent.cpp				\
+				Component/Chip/Component4030.cpp			\
 				Component/Chip/Component4001.cpp			\
 				Component/Chip/Component4011.cpp			\
 				Component/Chip/DLatchComponent.cpp			\
@@ -49,6 +50,7 @@ TESTS		=	ComponentFactoryTests.cpp						\
 				Component/Chip/XorComponentTests.cpp			\
 				Component/Chip/NandComponentTests.cpp			\
 				Component/Chip/NorComponentTests.cpp			\
+				Component/Chip/Component4030.cpp				\
 				Component/Chip/Component4001.cpp				\
 				Component/Chip/Component4011.cpp				\
 				Component/Chip/DLatchComponentTests.cpp			\
