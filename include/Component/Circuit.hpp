@@ -34,6 +34,7 @@ namespace nts
             nts::Tristate compute(std::size_t pin);
             void simulate(std::size_t tick);
             void display();
+            void resetUpdate(void);
         private:
             std::map<std::string, std::shared_ptr<nts::IComponent>> _components;
             std::map<std::string, std::shared_ptr<nts::IComponent>> _output;
