@@ -83,10 +83,12 @@ Test(DLatchComponent, casual_undefined)
     input1->setNextState(nts::Undefined);
     input2->setNextState(nts::True);
     DLatchComponent.simulate(1);
+    DLatchComponent.resetUpdate();
     cr_assert(DLatchComponent.compute(3) == nts::Undefined);
     cr_assert(DLatchComponent.compute(4) == nts::Undefined);
     input1->setNextState(nts::False);
     DLatchComponent.simulate(1);
+    DLatchComponent.resetUpdate();
     cr_assert(DLatchComponent.compute(3) == nts::Undefined);
     cr_assert(DLatchComponent.compute(4) == nts::Undefined);
 }
@@ -134,29 +136,35 @@ Test(DLatchComponent, CasualState)
     input1->setNextState(nts::True);
     input2->setNextState(nts::False);
     DLatchComponent.simulate(1);
+    DLatchComponent.resetUpdate();
     cr_assert(DLatchComponent.compute(3) == nts::False);
     cr_assert(DLatchComponent.compute(4) == nts::True);
     input1->setNextState(nts::False);
     input2->setNextState(nts::Undefined);
     DLatchComponent.simulate(1);
+    DLatchComponent.resetUpdate();
     cr_assert(DLatchComponent.compute(3) == nts::False);
     cr_assert(DLatchComponent.compute(4) == nts::True);
     input1->setNextState(nts::False);
     input2->setNextState(nts::True);
     DLatchComponent.simulate(1);
+    DLatchComponent.resetUpdate();
     cr_assert(DLatchComponent.compute(3) == nts::False);
     cr_assert(DLatchComponent.compute(4) == nts::True);
     input1->setNextState(nts::False);
     input2->setNextState(nts::False);
     DLatchComponent.simulate(1);
+    DLatchComponent.resetUpdate();
     cr_assert(DLatchComponent.compute(3) == nts::False);
     cr_assert(DLatchComponent.compute(4) == nts::True);
     input1->setNextState(nts::True);
     input2->setNextState(nts::True);
     DLatchComponent.simulate(1);
+    DLatchComponent.resetUpdate();
     input1->setNextState(nts::False);
     input2->setNextState(nts::False);
     DLatchComponent.simulate(1);
+    DLatchComponent.resetUpdate();
     cr_assert(DLatchComponent.compute(3) == nts::True);
     cr_assert(DLatchComponent.compute(4) == nts::False);
 }
@@ -173,8 +181,29 @@ Test(DLatchComponent, notLinks)
     }
     try {
         DLatchComponent.simulate(4);
+        DLatchComponent.resetUpdate();
         cr_assert_fail("Should have thrown an exception");
     } catch (const std::invalid_argument &e) {
         cr_assert_str_eq(e.what(), "Pin not linked");
     }
+}
+
+Test(DLatchComponent, doubleSimulate)
+{
+    nts::DLatchComponent DLatchComponent;
+    std::shared_ptr<nts::Input> input1 = std::make_shared<nts::Input>();
+    std::shared_ptr<nts::Input> input2 = std::make_shared<nts::Input>();
+
+    DLatchComponent.setLink(1, input1, 1);
+    DLatchComponent.setLink(2, input2, 1);
+    input1->setNextState(nts::True);
+    input2->setNextState(nts::False);
+    DLatchComponent.simulate(1);
+    cr_assert(DLatchComponent.compute(3) == nts::False);
+    cr_assert(DLatchComponent.compute(4) == nts::True);
+    input1->setNextState(nts::True);
+    input2->setNextState(nts::True);
+    DLatchComponent.simulate(1);
+    cr_assert(DLatchComponent.compute(3) == nts::False);
+    cr_assert(DLatchComponent.compute(4) == nts::True);
 }

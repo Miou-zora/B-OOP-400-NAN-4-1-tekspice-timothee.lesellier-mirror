@@ -26,15 +26,15 @@ void nts::DLatchComponent::simulate(std::size_t ticks)
 {
     if (_links[1] == nullptr || _links[2] == nullptr)
         throw std::invalid_argument("Pin not linked");
-    // if (_updated == true)
-    //     return;
+    if (_updated == true)
+        return;
     _links[1]->getComponent().simulate(ticks);
     _links[2]->getComponent().simulate(ticks);
     if (_links[1]->getComponent().compute(_links[1]->getOtherPin()) == nts::True)
         _state = _links[2]->getComponent().compute(_links[2]->getOtherPin());
     else if (_links[1]->getComponent().compute(_links[1]->getOtherPin()) == nts::Undefined)
         _state = nts::Undefined;
-    // _updated = true;
+    _updated = true;
 }
 
 nts::Tristate nts::DLatchComponent::compute(std::size_t pin)

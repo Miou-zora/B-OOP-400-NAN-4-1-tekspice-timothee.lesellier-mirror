@@ -23,6 +23,5 @@ namespace nts
 
         private:
             nts::Tristate _state;
-            // bool _updated;
     };
 }
