@@ -14,6 +14,6 @@
 #include "XorComponent.hpp"
 #include "NandComponent.hpp"
 #include "NorComponent.hpp"
-#include "Component/Chip/Component4001.hpp"
+#include "Component4001.hpp"
 #include "Component4011.hpp"
 #include "DLatchComponent.hpp"
