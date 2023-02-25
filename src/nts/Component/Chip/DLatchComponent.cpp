@@ -14,7 +14,6 @@ nts::DLatchComponent::DLatchComponent()
     _pinMax= 4;
     for (std::size_t i = 0; i < _pinMax; i++)
         _links[i] = nullptr;
-    // _updated = false;
     _state = nts::Undefined;
 }
 
