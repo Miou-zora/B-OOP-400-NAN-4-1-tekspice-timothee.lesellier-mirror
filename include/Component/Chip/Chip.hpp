@@ -22,3 +22,5 @@
 #include "DLatchComponent.hpp"
 #include "SAdder.hpp"
 #include "Component4008.hpp"
+#include "SRLatchComponent.hpp"
+#include "SAdder.hpp"

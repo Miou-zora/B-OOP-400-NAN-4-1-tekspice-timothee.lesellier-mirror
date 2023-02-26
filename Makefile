@@ -14,6 +14,7 @@ SRC			=	Component/AComponent.cpp					\
 				Shell.cpp									\
 				Component/IO/Input.cpp						\
 				Component/IO/Output.cpp						\
+				Component/IO/Clock.cpp						\
 				Component/Boolean/UndefinedComponent.cpp	\
 				Component/Chip/Component4081.cpp			\
 				Component/Chip/OrComponent.cpp				\
@@ -27,6 +28,7 @@ SRC			=	Component/AComponent.cpp					\
 				Component/Chip/Component4001.cpp			\
 				Component/Chip/Component4011.cpp			\
 				Component/Chip/DLatchComponent.cpp			\
+				Component/Chip/SRLatchComponent.cpp			\
 				Component/Chip/SAdder.cpp					\
 				Component/Chip/Component4008.cpp			\
 
@@ -45,6 +47,7 @@ TESTS		=	ComponentFactoryTests.cpp						\
 				Component/Chip/AndComponentTests.cpp			\
 				Component/IO/OutputTests.cpp					\
 				Component/IO/InputTests.cpp						\
+				Component/IO/ClockTests.cpp						\
 				Component/Boolean/UndefinedComponentTests.cpp	\
 				Component/AComponentTests.cpp					\
 				Component/CircuitTests.cpp						\
@@ -60,6 +63,7 @@ TESTS		=	ComponentFactoryTests.cpp						\
 				Component/Chip/Component4001.cpp				\
 				Component/Chip/Component4011.cpp				\
 				Component/Chip/DLatchComponentTests.cpp			\
+				Component/Chip/SRLatchComponentTests.cpp		\
 				Component/Chip/SAdderTests.cpp				    \
 				Component/Chip/Component4008.cpp				\
 
