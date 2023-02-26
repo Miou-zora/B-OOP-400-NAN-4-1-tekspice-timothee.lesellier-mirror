@@ -11,11 +11,12 @@
 
 namespace nts
 {
-    class Clock : public nts::AIO {
+    class Clock : public virtual nts::AIO {
         public:
             Clock();
             ~Clock();
 
             nts::Tristate compute(std::size_t pin);
+            void simulate(std::size_t tick);
     };
 }
