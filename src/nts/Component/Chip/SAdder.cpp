@@ -20,24 +20,15 @@ nts::SAdder::SAdder()
                 std::make_shared<nts::AndComponent>(), // AND P1:XOR1->3 && P2:3
                 std::make_shared<nts::OrComponent>(), // OR P1:AND->3 && P2:AND1->3
     };
-
-    /* OutPuts Components */
-
     _outputs = {
             {5, *_components[4]}, // OR->3
             {4, *_components[2]}, // XOR->3
     };
-
-    /* Inputs Components */
-
     _inputs = {
             {1, {{1, *_components[0]}, {1, *_components[1]}}},
             {2, {{2, *_components[0]}, {2, *_components[1]}}},
             {3, {{2, *_components[2]}, {2, *_components[3]}}},
     };
-
-    /* Link Components */
-
     _components[2]->setLink(1, _components[0], 3);
     _components[3]->setLink(1, _components[0], 3);
     _components[4]->setLink(1, _components[3], 3);

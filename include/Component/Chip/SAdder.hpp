@@ -16,10 +16,10 @@ namespace nts {
 
         public:
 
-        enum PIN {
-            CARRY_OUT = 5,
-            SUM_OUT = 4
-        };
+            enum PIN {
+                CARRY_OUT = 5,
+                SUM_OUT = 4
+            };
 
             SAdder();
             ~SAdder();
