@@ -19,11 +19,20 @@ nts::Builder::~Builder(void)
 
 std::unique_ptr<nts::Circuit> nts::Builder::BuildCircuit(void)
 {
+    this->checkExtension(_filepath);
     this->getFileContent();
     this->buildComponents(_fileContent);
     this->buildLinks(_fileContent);
 
     return (std::make_unique<nts::Circuit>(_circuit));
+}
+
+void nts::Builder::checkExtension(std::string filepath)
+{
+    std::string extension = filepath.substr(filepath.find_last_of(".") + 1);
+
+    if (extension != "nts")
+        throw nts::FileError("Invalid file extension");
 }
 
 std::list<std::string> nts::Builder::getFileContent(void)

@@ -53,6 +53,7 @@ namespace nts {
             std::size_t getLinkFirstPin(std::string line);
             std::size_t getLinkSecondPin(std::string line);
 
+            void checkExtension(std::string filepath);
             std::string getComponentName(std::string line);
             void buildLink(std::string line);
             void buildLinks(std::list<std::string> fileContent);
