@@ -29,6 +29,7 @@ nts::SAdder::SAdder()
             {2, {{2, *_components[0]}, {2, *_components[1]}}},
             {3, {{2, *_components[2]}, {2, *_components[3]}}},
     };
+
     _components[2]->setLink(1, _components[0], 3);
     _components[3]->setLink(1, _components[0], 3);
     _components[4]->setLink(1, _components[3], 3);

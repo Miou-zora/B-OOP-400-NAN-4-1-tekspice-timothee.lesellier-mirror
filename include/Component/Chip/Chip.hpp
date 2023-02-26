@@ -21,3 +21,4 @@
 #include "Component4011.hpp"
 #include "DLatchComponent.hpp"
 #include "SAdder.hpp"
+#include "Component4008.hpp"
