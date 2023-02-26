@@ -104,7 +104,7 @@ Test(split, casual)
 
 Test(excecuteValueAttriution, casual)
 {
-    nts::Builder builder("tests/BuilderTestsFolder/test7");
+    nts::Builder builder("tests/BuilderTestsFolder/test8.nts");
     Shell shell;
     shell._circuit = std::move(builder.BuildCircuit());
 

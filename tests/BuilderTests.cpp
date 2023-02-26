@@ -347,9 +347,20 @@ Test(buildLinks, invalidLink)
     }
 }
 
-Test(build, casual, .init = cr_redirect_stdout)
+Test(checkExtension, casual)
 {
     nts::Builder builder("tests/BuilderTestsFolder/test7");
+
+    try {
+        builder.checkExtension(builder._filepath);
+    } catch (nts::FileError &e) {
+        cr_assert_str_eq(e.what(), "Invalid file extension");
+    }
+}
+
+Test(build, casual, .init = cr_redirect_stdout)
+{
+    nts::Builder builder("tests/BuilderTestsFolder/test8.nts");
     std::unique_ptr<nts::Circuit> testCircuit = builder.BuildCircuit();
 
     cr_assert_eq(testCircuit->_components.size(), 4);
