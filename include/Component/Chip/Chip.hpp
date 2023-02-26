@@ -20,3 +20,4 @@
 #include "Component4001.hpp"
 #include "Component4011.hpp"
 #include "DLatchComponent.hpp"
+#include "SRLatchComponent.hpp"
