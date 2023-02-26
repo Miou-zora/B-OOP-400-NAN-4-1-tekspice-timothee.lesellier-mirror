@@ -27,7 +27,11 @@ SRC			=	Component/AComponent.cpp					\
 				Component/Chip/Component4001.cpp			\
 				Component/Chip/Component4011.cpp			\
 				Component/Chip/DLatchComponent.cpp			\
+<<<<<<< HEAD
 				Component/Chip/SRLatchComponent.cpp			\
+=======
+				Component/Chip/SAdder.cpp					\
+>>>>>>> main
 
 SRC			:=	$(addprefix $(SRC_NTS_DIR)/, $(SRC))
 
@@ -59,7 +63,11 @@ TESTS		=	ComponentFactoryTests.cpp						\
 				Component/Chip/Component4001.cpp				\
 				Component/Chip/Component4011.cpp				\
 				Component/Chip/DLatchComponentTests.cpp			\
+<<<<<<< HEAD
 				Component/Chip/SRLatchComponentTests.cpp		\
+=======
+				Component/Chip/SAdderTests.cpp				    \
+>>>>>>> main
 
 TESTS		:=	$(addprefix tests/, $(TESTS))
 
