@@ -23,7 +23,7 @@ namespace nts
             std::size_t getPinMax() const;
 
             virtual nts::Tristate compute(std::size_t pin) = 0;
-            void simulate(std::size_t pin) { (void)pin; if (!_updated) _updated = true; };
+            void simulate(std::size_t pin);
             void resetUpdate(void);
 
         protected:
