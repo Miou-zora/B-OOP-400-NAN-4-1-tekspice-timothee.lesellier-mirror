@@ -25,5 +25,25 @@ std::size_t nts::AComponent::getPinMax() const
 }
 
 void nts::AComponent::resetUpdate(void) {
+    if (_updated == false)
+        return;
     _updated = false;
+    for (auto &link: _links) {
+        if (link.second != nullptr) {
+            link.second->getComponent().resetUpdate();
+        }
+    }
+}
+
+void nts::AComponent::simulate(std::size_t tick)
+{
+    if (_updated == true) {
+        return;
+    }
+    _updated = true;
+    for (auto &link: _links) {
+        if (link.second.get() != nullptr) {
+            link.second->getComponent().simulate(tick);
+        }
+    }
 }

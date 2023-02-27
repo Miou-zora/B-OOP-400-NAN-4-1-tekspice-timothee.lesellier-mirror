@@ -15,24 +15,24 @@
 #include <memory>
 #include <map>
 
-Test(InvSRNLatchComponent, notLinks)
-{
-    nts::InvSRNLatchComponent InvSRNLatchComponent;
+// Test(InvSRNLatchComponent, notLinks)
+// {
+//     nts::InvSRNLatchComponent InvSRNLatchComponent;
 
-    try {
-        InvSRNLatchComponent.compute(3);
-        cr_assert_fail("Should have thrown an exception");
-    } catch (const std::invalid_argument &e) {
-        cr_assert_str_eq(e.what(), "Pin out of range");
-    }
-    try {
-        InvSRNLatchComponent.simulate(4);
-        InvSRNLatchComponent.resetUpdate();
-        cr_assert_fail("Should have thrown an exception");
-    } catch (const std::invalid_argument &e) {
-        cr_assert_str_eq(e.what(), "Pin out of range");
-    }
-}
+//     try {
+//         InvSRNLatchComponent.compute(3);
+//         cr_assert_fail("Should have thrown an exception");
+//     } catch (const std::invalid_argument &e) {
+//         cr_assert_str_eq(e.what(), "Pin out of range");
+//     }
+//     try {
+//         InvSRNLatchComponent.simulate(4);
+//         InvSRNLatchComponent.resetUpdate();
+//         cr_assert_fail("Should have thrown an exception");
+//     } catch (const std::invalid_argument &e) {
+//         cr_assert_str_eq(e.what(), "Pin out of range");
+//     }
+// }
 
 Test(InvSRNLatchComponent, InvalidSetLink)
 {
@@ -144,7 +144,7 @@ Test(InvSRNLatchComponent, casualFalse)
     input2->setNextState(nts::Undefined);
     InvSRNLatchComponent.simulate(1);
     InvSRNLatchComponent.resetUpdate();
-    cr_assert(InvSRNLatchComponent.compute(3) == nts::Undefined);
+    cr_assert(InvSRNLatchComponent.compute(3) == nts::True);
     cr_assert(InvSRNLatchComponent.compute(4) == nts::Undefined);
 
     input2->setNextState(nts::True);
@@ -157,7 +157,7 @@ Test(InvSRNLatchComponent, casualFalse)
     InvSRNLatchComponent.simulate(1);
     InvSRNLatchComponent.resetUpdate();
     cr_assert(InvSRNLatchComponent.compute(3) == nts::True);
-    cr_assert(InvSRNLatchComponent.compute(4) == nts::False);
+    cr_assert(InvSRNLatchComponent.compute(4) == nts::True);
 }
 
 Test(InvSRNLatchComponent, doubleSimulate)

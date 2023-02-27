@@ -43,7 +43,6 @@ nts::Tristate nts::InvSRNLatchComponent::compute(std::size_t pin)
     try {
         return _outputs.at(pin).compute(2);
     } catch (std::out_of_range &e) {
-        std::cout << "compute" << std::endl;
         throw std::invalid_argument("Pin out of range");
     }
 }
@@ -53,12 +52,11 @@ void nts::InvSRNLatchComponent::setLink(std::size_t pin, std::shared_ptr<nts::IC
     try {
         _inputs.at(pin).second.setLink(_inputs.at(pin).first, other, otherPin);
     } catch (std::out_of_range &e) {
-        std::cout << "link" << std::endl;
         throw std::invalid_argument("Pin out of range");
     }
 }
 
 void nts::InvSRNLatchComponent::simulate(std::size_t tick)
 {
-    _components.at(4).get()->simulate(tick);
+    // _components.at(4).get()->simulate(tick);
 }

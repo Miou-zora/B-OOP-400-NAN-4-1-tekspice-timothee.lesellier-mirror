@@ -144,9 +144,7 @@ Test(SRLatchComponent, casualFalse)
     input2->setNextState(nts::Undefined);
     SRLatchComponent.simulate(1);
     SRLatchComponent.resetUpdate();
-    std::cout << 3 << std::endl;
     cr_assert(SRLatchComponent.compute(3) == nts::Undefined);
-    std::cout << 4 << std::endl;
     cr_assert(SRLatchComponent.compute(4) == nts::Undefined);
 
     input2->setNextState(nts::True);
