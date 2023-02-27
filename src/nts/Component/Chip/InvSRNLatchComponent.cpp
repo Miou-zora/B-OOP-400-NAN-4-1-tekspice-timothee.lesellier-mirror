@@ -30,8 +30,8 @@ nts::InvSRNLatchComponent::InvSRNLatchComponent()
                 };
     _components.at(4).get()->setLink(1, _components.at(0), 2); // In 1:2 <- SRL:1
     _components.at(4).get()->setLink(2, _components.at(1), 2); // In 2:2 <- SRL:2
-    _components.at(2).get()->setLink(2, _components.at(4), 3); // SRL:3 <- Out 1:2
-    _components.at(3).get()->setLink(2, _components.at(4), 4); // SRL:4 <- Out 2:2
+    _components.at(2).get()->setLink(1, _components.at(4), 3); // SRL:3 <- Out 1:1
+    _components.at(3).get()->setLink(1, _components.at(4), 4); // SRL:4 <- Out 2:1
 }
 
 nts::InvSRNLatchComponent::~InvSRNLatchComponent()
@@ -58,5 +58,20 @@ void nts::InvSRNLatchComponent::setLink(std::size_t pin, std::shared_ptr<nts::IC
 
 void nts::InvSRNLatchComponent::simulate(std::size_t tick)
 {
-    // _components.at(4).get()->simulate(tick);
+    if (_updated == true)
+        return;
+    for (auto &component : _components) {
+        component.get()->simulate(tick);
+    }
+    _updated = true;
+}
+
+void nts::InvSRNLatchComponent::resetUpdate(void)
+{
+    if (_updated == false)
+        return;
+    _updated = false;
+    for (auto &component : _components) {
+        component.get()->resetUpdate();
+    }
 }

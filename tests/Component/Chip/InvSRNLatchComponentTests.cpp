@@ -91,13 +91,13 @@ Test(InvSRNLatchComponent, casualUndefined)
     InvSRNLatchComponent.simulate(1);
     InvSRNLatchComponent.resetUpdate();
     cr_assert(InvSRNLatchComponent.compute(3) == nts::Undefined);
-    cr_assert(InvSRNLatchComponent.compute(4) == nts::Undefined);
+    cr_assert(InvSRNLatchComponent.compute(4) == nts::True);
 
     input2->setNextState(nts::True);
     InvSRNLatchComponent.simulate(1);
     InvSRNLatchComponent.resetUpdate();
     cr_assert(InvSRNLatchComponent.compute(3) == nts::Undefined);
-    cr_assert(InvSRNLatchComponent.compute(4) == nts::False);
+    cr_assert(InvSRNLatchComponent.compute(4) == nts::Undefined);
 }
 
 Test(InvSRNLatchComponent, casualTrue)
@@ -114,7 +114,7 @@ Test(InvSRNLatchComponent, casualTrue)
     input2->setNextState(nts::Undefined);
     InvSRNLatchComponent.simulate(1);
     InvSRNLatchComponent.resetUpdate();
-    cr_assert(InvSRNLatchComponent.compute(3) == nts::False);
+    cr_assert(InvSRNLatchComponent.compute(3) == nts::Undefined);
     cr_assert(InvSRNLatchComponent.compute(4) == nts::Undefined);
 
     input2->setNextState(nts::False);
@@ -127,7 +127,7 @@ Test(InvSRNLatchComponent, casualTrue)
     InvSRNLatchComponent.simulate(1);
     InvSRNLatchComponent.resetUpdate();
     cr_assert(InvSRNLatchComponent.compute(3) == nts::False);
-    cr_assert(InvSRNLatchComponent.compute(4) == nts::False);
+    cr_assert(InvSRNLatchComponent.compute(4) == nts::True);
 }
 
 Test(InvSRNLatchComponent, casualFalse)
@@ -180,6 +180,6 @@ Test(InvSRNLatchComponent, doubleSimulate)
     input1->setNextState(nts::False);
     input2->setNextState(nts::False);
     InvSRNLatchComponent.resetUpdate();
-    cr_assert(InvSRNLatchComponent.compute(3) == nts::Undefined);
+    cr_assert(InvSRNLatchComponent.compute(3) == nts::True);
     cr_assert(InvSRNLatchComponent.compute(4) == nts::Undefined);
 }

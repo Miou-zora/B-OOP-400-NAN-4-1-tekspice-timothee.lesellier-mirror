@@ -24,12 +24,13 @@ std::size_t nts::AComponent::getPinMax() const
     return _pinMax;
 }
 
-void nts::AComponent::resetUpdate(void) {
+void nts::AComponent::resetUpdate(void)
+{
     if (_updated == false)
         return;
     _updated = false;
     for (auto &link: _links) {
-        if (link.second != nullptr) {
+        if (link.second.get() != nullptr) {
             link.second->getComponent().resetUpdate();
         }
     }
