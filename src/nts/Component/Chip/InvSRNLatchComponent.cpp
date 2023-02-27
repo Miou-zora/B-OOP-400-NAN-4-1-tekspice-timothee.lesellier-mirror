@@ -26,12 +26,12 @@ nts::InvSRNLatchComponent::InvSRNLatchComponent()
 
     _inputs = {
                 {1, std::pair<std::size_t, nts::IComponent&>(1, *(_components.at(0).get()))},
-                {2, std::pair<std::size_t, nts::IComponent&>(2, *(_components.at(1).get()))}
+                {2, std::pair<std::size_t, nts::IComponent&>(1, *(_components.at(1).get()))}
                 };
-    _components.at(4).get()->setLink(1, _components.at(0), 1);
-    _components.at(4).get()->setLink(2, _components.at(1), 1);
-    _components.at(2).get()->setLink(2, _components.at(4), 3);
-    _components.at(3).get()->setLink(2, _components.at(4), 4);
+    _components.at(4).get()->setLink(1, _components.at(0), 2); // In 1:2 <- SRL:1
+    _components.at(4).get()->setLink(2, _components.at(1), 2); // In 2:2 <- SRL:2
+    _components.at(2).get()->setLink(2, _components.at(4), 3); // SRL:3 <- Out 1:2
+    _components.at(3).get()->setLink(2, _components.at(4), 4); // SRL:4 <- Out 2:2
 }
 
 nts::InvSRNLatchComponent::~InvSRNLatchComponent()
@@ -43,6 +43,7 @@ nts::Tristate nts::InvSRNLatchComponent::compute(std::size_t pin)
     try {
         return _outputs.at(pin).compute(2);
     } catch (std::out_of_range &e) {
+        std::cout << "compute" << std::endl;
         throw std::invalid_argument("Pin out of range");
     }
 }
@@ -52,6 +53,7 @@ void nts::InvSRNLatchComponent::setLink(std::size_t pin, std::shared_ptr<nts::IC
     try {
         _inputs.at(pin).second.setLink(_inputs.at(pin).first, other, otherPin);
     } catch (std::out_of_range &e) {
+        std::cout << "link" << std::endl;
         throw std::invalid_argument("Pin out of range");
     }
 }
