@@ -20,6 +20,8 @@
 #include "Component4001.hpp"
 #include "Component4011.hpp"
 #include "DLatchComponent.hpp"
+#include "SAdder.hpp"
+#include "Component4008.hpp"
 #include "SRLatchComponent.hpp"
 #include "InvSRNLatchComponent.hpp"
 #include "SAdder.hpp"

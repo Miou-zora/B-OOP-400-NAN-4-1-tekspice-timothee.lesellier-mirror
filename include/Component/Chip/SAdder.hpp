@@ -17,8 +17,9 @@ namespace nts {
         public:
 
             enum PIN {
+                CARRY_IN = 3,
                 CARRY_OUT = 5,
-                SUM_OUT = 4
+                SUM_OUT = 4,
             };
 
             SAdder();
