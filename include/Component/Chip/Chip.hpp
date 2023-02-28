@@ -25,4 +25,5 @@
 #include "SRLatchComponent.hpp"
 #include "InvSRNLatchComponent.hpp"
 #include "SAdder.hpp"
+#include "FlipFlopComponent.hpp"
 
