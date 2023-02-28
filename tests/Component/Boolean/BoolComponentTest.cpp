@@ -58,3 +58,19 @@ Test(FalseComponent, casual)
         cr_assert_str_eq(e.what(), "Pin out of range");
     }
 }
+
+Test(UndefinedComponent, casual)
+{
+    nts::UndefinedComponent undefinedComponent;
+
+    cr_assert_eq(undefinedComponent.compute(1), nts::Tristate::Undefined);
+    undefinedComponent.simulate(1);
+    cr_assert_eq(undefinedComponent.compute(1), nts::Tristate::Undefined);
+
+    try {
+        undefinedComponent.compute(2);
+        cr_assert_fail("Should have thrown an exception");
+    } catch (const std::invalid_argument &e) {
+        cr_assert_str_eq(e.what(), "Pin out of range");
+    }
+}

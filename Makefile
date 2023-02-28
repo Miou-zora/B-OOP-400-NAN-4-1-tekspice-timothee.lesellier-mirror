@@ -49,7 +49,6 @@ TESTS		=	ComponentFactoryTests.cpp						\
 				Component/IO/OutputTests.cpp					\
 				Component/IO/InputTests.cpp						\
 				Component/IO/ClockTests.cpp						\
-				Component/Boolean/UndefinedComponentTests.cpp	\
 				Component/AComponentTests.cpp					\
 				Component/CircuitTests.cpp						\
 				Component/Chip/Component4081.cpp				\
