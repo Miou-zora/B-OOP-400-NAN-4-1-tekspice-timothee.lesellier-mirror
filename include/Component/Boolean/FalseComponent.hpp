@@ -16,7 +16,12 @@ namespace nts
             FalseComponent() {_pinMax = 1;};
             ~FalseComponent() {};
 
-            nts::Tristate compute(std::size_t pin) {pin++; return nts::Tristate::False;}
+            nts::Tristate compute(std::size_t pin)
+            {
+                if (pin != 1)
+                    throw std::invalid_argument("Pin out of range");
+                return nts::Tristate::False;
+            };
     };
 }
 
