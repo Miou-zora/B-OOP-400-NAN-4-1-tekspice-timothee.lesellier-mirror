@@ -105,12 +105,12 @@ void nts::Circuit::display()
     std::cout << "input(s):" << std::endl;
 
     for (auto &input : _input) {
-        std::cout << " " << input.first << ": " << input.second->compute(1) << std::endl;
+        std::cout << "  " << input.first << ": " << input.second->compute(1) << std::endl;
     }
 
     std::cout << "output(s):" << std::endl;
     for (auto &output : _output) {
-        std::cout << " " << output.first << ": " << output.second->compute(1) << std::endl;
+        std::cout << "  " << output.first << ": " << output.second->compute(1) << std::endl;
     }
 }
 
