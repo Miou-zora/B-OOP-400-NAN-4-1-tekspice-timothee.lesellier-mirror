@@ -13,10 +13,10 @@ namespace nts
 {
     class TrueComponent : virtual public nts::AComponent {
         public:
-            TrueComponent();
-            ~TrueComponent();
+            TrueComponent() {};
+            ~TrueComponent() {};
 
-            nts::Tristate compute(std::size_t pin);
+            nts::Tristate compute(std::size_t pin) { pin++;return nts::Tristate::True;}
     };
 }
 
