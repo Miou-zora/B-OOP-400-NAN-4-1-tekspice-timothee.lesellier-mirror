@@ -13,10 +13,15 @@ namespace nts
 {
     class TrueComponent : virtual public nts::AComponent {
         public:
-            TrueComponent() {};
+            TrueComponent() {_pinMax = 1;};
             ~TrueComponent() {};
 
-            nts::Tristate compute(std::size_t pin) { pin++;return nts::Tristate::True;}
+            nts::Tristate compute(std::size_t pin)
+            {
+                if (pin != 1)
+                    throw std::invalid_argument("Pin out of range");
+                return nts::Tristate::True;
+            };
     };
 }
 

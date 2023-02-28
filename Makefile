@@ -68,6 +68,7 @@ TESTS		=	ComponentFactoryTests.cpp						\
 				Component/Chip/SAdderTests.cpp				    \
 				Component/Chip/Component4008.cpp				\
 				Component/Chip/InvSRNLatchComponentTests.cpp	\
+				Component/IO/TrueComponent.cpp					\
 
 TESTS		:=	$(addprefix tests/, $(TESTS))
 
