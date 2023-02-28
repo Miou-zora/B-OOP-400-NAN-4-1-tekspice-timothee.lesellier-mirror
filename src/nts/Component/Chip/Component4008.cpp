@@ -92,6 +92,8 @@ void nts::Component4008::setLink(std::size_t pin, std::shared_ptr<nts::IComponen
     try {
         if ((pin >= 1 && pin < 10) || pin == 15) {
             _inputs.at(pin).second.setLink(_inputs.at(pin).first, other, otherPin);
+        } else {
+            throw std::invalid_argument("Pin out of range");
         }
     } catch (std::out_of_range &e) {
         throw std::invalid_argument("Pin out of range");
