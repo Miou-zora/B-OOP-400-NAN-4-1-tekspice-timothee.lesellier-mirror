@@ -176,10 +176,10 @@ Test(display, casual)
 
     cr_assert_stdout_eq_str("tick: 3\n"
                             "input(s):\n"
-                            " input1: 1\n"
-                            " input2: 1\n"
+                            "  input1: 1\n"
+                            "  input2: 1\n"
                             "output(s):\n"
-                            " output: 1\n");
+                            "  output: 1\n");
 }
 
 Test(setLink, name1_not_exist)
