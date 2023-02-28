@@ -81,7 +81,7 @@ void nts::FlipFlopComponent::setLink(std::size_t pin, std::shared_ptr<nts::IComp
         _components.at(5)->setLink(1, other, otherPin);
     } else if (pin == 4) {
         _components.at(6)->setLink(1, other, otherPin);
-    } else {
+    } else if (!(pin == 5 || pin == 6)) {
         throw std::invalid_argument("Pin out of range");
     }
 }

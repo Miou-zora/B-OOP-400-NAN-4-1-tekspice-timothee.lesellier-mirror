@@ -46,6 +46,10 @@ namespace nts
                 {"4011", []() { return std::make_unique<nts::Component4011>();}},
                 {"dlatch", []() { return std::make_unique<nts::DLatchComponent>();}},
                 {"4008", []() { return std::make_unique<nts::Component4008>();}},
+                {"flipflop", []() { return std::make_unique<nts::FlipFlopComponent>();}},
+                {"SRLatch", []() { return std::make_unique<nts::SRLatchComponent>();}},
+                {"InvSRNLatch", []() { return std::make_unique<nts::InvSRNLatchComponent>();}},
+                {"SAdder", []() { return std::make_unique<nts::SAdder>();}},
             };
     };
 }
