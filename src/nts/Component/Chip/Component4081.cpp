@@ -54,6 +54,10 @@ nts::Tristate nts::Component4081::compute(std::size_t pin)
 void nts::Component4081::setLink(std::size_t pin, std::shared_ptr<nts::IComponent> other, std::size_t otherPin)
 {
     try {
+        for (auto &ouput: _outputs) {
+            if (ouput.first == pin)
+                return;
+        }
         _inputs.at(pin).second.setLink(_inputs.at(pin).first, other, otherPin);
     } catch (std::out_of_range &e) {
         throw std::invalid_argument("Pin out of range");
