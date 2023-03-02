@@ -90,6 +90,10 @@ nts::Tristate nts::Component4008::compute(std::size_t pin)
 void nts::Component4008::setLink(std::size_t pin, std::shared_ptr<nts::IComponent> other, std::size_t otherPin)
 {
     try {
+        for (auto &ouput: _outputs) {
+            if (ouput.first == pin)
+                return;
+        }
         if ((pin >= 1 && pin < 10) || pin == 15) {
             _inputs.at(pin).second.setLink(_inputs.at(pin).first, other, otherPin);
         } else {
