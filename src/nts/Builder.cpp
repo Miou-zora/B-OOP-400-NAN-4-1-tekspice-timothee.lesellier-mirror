@@ -6,6 +6,7 @@
 */
 
 #include "Builder.hpp"
+#include "StringUtils.hpp"
 #include <fstream>
 #include <algorithm>
 #include <sstream>
@@ -102,24 +103,6 @@ bool nts::Builder::isValidLink(std::string line)
     return (false);
 }
 
-std::unique_ptr<std::vector<std::string>> nts::Builder::splitString(std::string line)
-{
-    std::vector<std::string> list;
-    std::string buffer;
-    std::stringstream ss(line);
-
-    while (ss >> buffer)
-        list.push_back(buffer);
-    return (std::make_unique<std::vector<std::string>>(list));
-}
-
-std::string nts::Builder::getStringFromString(std::string line, size_t pos)
-{
-    std::unique_ptr<std::vector<std::string>> list = this->splitString(line);
-
-    return (list->at(pos));
-}
-
 std::string nts::Builder::getComponentType(std::string line)
 {
     std::string lineWithOutComment;
@@ -128,7 +111,7 @@ std::string nts::Builder::getComponentType(std::string line)
         throw nts::FileError("Invalid line", line);
     lineWithOutComment = (this->clearComment(line));
 
-    std::unique_ptr<std::vector<std::string>> list = this->splitString(lineWithOutComment);
+    std::unique_ptr<std::vector<std::string>> list = StringUtils::splitString(lineWithOutComment);
 
     if (list->size() < 1)
         throw nts::FileError("Invalid line", line);
@@ -144,7 +127,7 @@ std::string nts::Builder::getComponentName(std::string line)
         throw nts::FileError("Invalid line", line);
     lineWithOutComment = (this->clearComment(line));
 
-    std::unique_ptr<std::vector<std::string>> list = this->splitString(lineWithOutComment);
+    std::unique_ptr<std::vector<std::string>> list = StringUtils::splitString(lineWithOutComment);
 
     if (list->size() < 2)
         throw nts::FileError("Invalid line", line);
@@ -163,7 +146,7 @@ std::string nts::Builder::getLinkFirstName(std::string line)
 std::string nts::Builder::getLinkSecondName(std::string line)
 {
     std::string lineWithOutComment(this->clearComment(line));
-    std::unique_ptr<std::vector<std::string>> list = this->splitString(lineWithOutComment);
+    std::unique_ptr<std::vector<std::string>> list = StringUtils::splitString(lineWithOutComment);
     std::string secondPart = list->at(1);
     std::string name = secondPart.substr(0, secondPart.find(':'));
 
@@ -173,7 +156,7 @@ std::string nts::Builder::getLinkSecondName(std::string line)
 std::size_t nts::Builder::getLinkFirstPin(std::string line)
 {
     std::string lineWithOutComment(this->clearComment(line));
-    std::unique_ptr<std::vector<std::string>> list = this->splitString(lineWithOutComment);
+    std::unique_ptr<std::vector<std::string>> list = StringUtils::splitString(lineWithOutComment);
     std::string firstPart = list->at(0);
     std::string pin = firstPart.substr(firstPart.find(':') + 1, firstPart.size());
 
@@ -183,7 +166,7 @@ std::size_t nts::Builder::getLinkFirstPin(std::string line)
 std::size_t nts::Builder::getLinkSecondPin(std::string line)
 {
     std::string lineWithOutComment(this->clearComment(line));
-    std::unique_ptr<std::vector<std::string>> list = this->splitString(lineWithOutComment);
+    std::unique_ptr<std::vector<std::string>> list = StringUtils::splitString(lineWithOutComment);
     std::string firstPart = list->at(1);
     std::string pin = firstPart.substr(firstPart.find(':') + 1, firstPart.size());
 
@@ -264,10 +247,8 @@ void nts::Builder::buildComponents(std::list<std::string> fileContent)
 
 std::string nts::Builder::clearComment(std::string line)
 {
-    std::string lineWithOutComment = "";
-    if (line.find('#') == std::string::npos)
-        return (line);
-    lineWithOutComment = line.substr(0, line.find('#'));
+    std::string lineWithOutComment = StringUtils::clearAfter(line, '#');
+
     while (std::isspace(lineWithOutComment[lineWithOutComment.size() - 1]))
         lineWithOutComment = lineWithOutComment.substr(0, lineWithOutComment.size() - 1);
     return (lineWithOutComment);

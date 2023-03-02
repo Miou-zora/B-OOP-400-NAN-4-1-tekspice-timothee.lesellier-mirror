@@ -61,7 +61,5 @@ namespace nts {
             void buildComponents(std::list<std::string> fileContent);
             std::string getComponentType(std::string name);
             std::string clearComment(std::string line);
-            std::unique_ptr<std::vector<std::string>> splitString(std::string line);
-            std::string getStringFromString(std::string line, size_t pos);
     };
 }
