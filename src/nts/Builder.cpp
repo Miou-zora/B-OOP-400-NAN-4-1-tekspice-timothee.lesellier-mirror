@@ -209,7 +209,7 @@ void nts::Builder::buildComponents(std::list<std::string> fileContent)
             name = this->getComponentName(line);
             type = this->getComponentType(line);
             try {
-                if (type.compare("input") == 0 || type.compare("clock") == 0 || type.compare("false") == 0 || type.compare("true") == 0) {
+                if (type.compare("input") == 0 || type.compare("clock") == 0) {
                     _circuit.addInput(std::shared_ptr<nts::IComponent>(nts::ComponentFactory::create(type)), name);
                 } else if (type.compare("output") == 0) {
                     _circuit.addOutput(std::shared_ptr<nts::IComponent>(nts::ComponentFactory::create(type)), name);
