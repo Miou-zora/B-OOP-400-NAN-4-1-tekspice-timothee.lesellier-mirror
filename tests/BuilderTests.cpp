@@ -62,6 +62,24 @@ Test(isValidChipset, tooMuchSpace)
     cr_assert_eq(builder.isValidChipset("input  a   a  "), false);
 }
 
+Test(isValidChipset, tabulation)
+{
+    nts::Builder builder("tests/BuilderTestsFolder/test1");
+    cr_assert_eq(builder.isValidChipset("input\ta"), true);
+}
+
+Test(isValidChipset, formFeed)
+{
+    nts::Builder builder("tests/BuilderTestsFolder/test1");
+    cr_assert_eq(builder.isValidChipset("input\fa"), true);
+}
+
+Test(isValidChipset, verticaltab)
+{
+    nts::Builder builder("tests/BuilderTestsFolder/test1");
+    cr_assert_eq(builder.isValidChipset("input\va"), true);
+}
+
 Test(getComponentName, casual)
 {
     nts::Builder builder("tests/BuilderTestsFolder/test1");
