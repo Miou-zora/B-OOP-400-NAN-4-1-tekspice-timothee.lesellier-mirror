@@ -33,6 +33,7 @@ SRC			=	Component/AComponent.cpp					\
 				Component/Chip/Component4008.cpp			\
 				Component/Chip/InvSRNLatchComponent.cpp		\
 				Component/Chip/FlipFlopComponent.cpp		\
+				Component/Chip/Component4013.cpp
 
 SRC			:=	$(addprefix $(SRC_NTS_DIR)/, $(SRC))
 
