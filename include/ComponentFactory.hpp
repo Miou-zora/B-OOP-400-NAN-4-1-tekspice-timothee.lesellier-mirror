@@ -50,6 +50,7 @@ namespace nts
                 {"SRLatch", []() { return std::make_unique<nts::SRLatchComponent>();}},
                 {"InvSRNLatch", []() { return std::make_unique<nts::InvSRNLatchComponent>();}},
                 {"SAdder", []() { return std::make_unique<nts::SAdder>();}},
+                {"4013", []() { return std::make_unique<nts::Component4013>();}},
             };
     };
 }

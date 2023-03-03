@@ -2,30 +2,27 @@
 ** EPITECH PROJECT, 2023
 ** B-OOP-400-NAN-4-1-tekspice-timothee.lesellier-mirror
 ** File description:
-** Component4013
+** TNandGate
 */
 
-#ifndef COMPONENT4013_HPP_
-#define COMPONENT4013_HPP_
-
+#pragma once
+#include "AndComponent.hpp"
 #include "../AComponent.hpp"
+#include "NotComponent.hpp"
 #include <vector>
-#include "FlipFlopComponent.hpp"
 
-namespace nts
-{
-    class Component4013 : public virtual nts::AComponent {
+namespace nts {
+    class TNandGate : public virtual nts::AComponent {
         public:
-            Component4013();
-            ~Component4013();
+            TNandGate();
+            ~TNandGate();
 
-            nts::Tristate compute(std::size_t pin);
             void setLink(std::size_t pin, std::shared_ptr<nts::IComponent> other, std::size_t otherPin);
+            nts::Tristate compute(std::size_t pin);
+
         private:
             std::vector<std::shared_ptr<nts::IComponent>> _components;
             std::map<std::size_t, nts::IComponent&> _outputs;
             std::map<std::size_t, std::pair<std::size_t, nts::IComponent&>> _inputs;
     };
-}
-
-#endif /* !COMPONENT4013_HPP_ */
+};
