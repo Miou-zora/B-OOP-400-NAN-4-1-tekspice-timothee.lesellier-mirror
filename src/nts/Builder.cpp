@@ -6,8 +6,10 @@
 */
 
 #include "Builder.hpp"
+#include "StringUtils.hpp"
 #include <fstream>
 #include <algorithm>
+#include <sstream>
 
 nts::Builder::Builder(std::string filepath) : _filepath(filepath)
 {
@@ -52,14 +54,13 @@ std::list<std::string> nts::Builder::getFileContent(void)
 bool nts::Builder::isValidChipset(std::string line)
 {
     std::string lineWithOutComment(this->clearComment(line));
-    char separator = ' ';
     size_t nbrOfWord = 0;
     std::string buffer;
 
     for (char letter : lineWithOutComment) {
-        if (letter != separator) {
+        if (!std::isspace(letter)) {
             buffer += letter;
-        } else if (letter == separator && buffer != "") {
+        } else if (std::isspace(letter) && buffer != "") {
             nbrOfWord++;
             buffer.clear();
         }
@@ -74,14 +75,13 @@ bool nts::Builder::isValidChipset(std::string line)
 bool nts::Builder::isValidLink(std::string line)
 {
     std::string lineWithOutComment(this->clearComment(line));
-    char separator = ' ';
     size_t nbrOfWord = 0;
     std::string buffer;
 
     for (char letter : lineWithOutComment) {
-        if (letter != separator) {
+        if (!std::isspace(letter)) {
             buffer += letter;
-        } else if (letter == separator && buffer != "") {
+        } else if (std::isspace(letter) && buffer != "") {
             if (buffer.find(':') == std::string::npos)
                 return (false);
             if (buffer.find(':') == 0 || buffer.find(':') == buffer.size() - 1)
@@ -103,6 +103,22 @@ bool nts::Builder::isValidLink(std::string line)
     return (false);
 }
 
+std::string nts::Builder::getComponentType(std::string line)
+{
+    std::string lineWithOutComment;
+
+    if (this->isValidChipset(line) == false)
+        throw nts::FileError("Invalid line", line);
+    lineWithOutComment = (this->clearComment(line));
+
+    std::unique_ptr<std::vector<std::string>> list = StringUtils::splitString(lineWithOutComment);
+
+    if (list->size() < 1)
+        throw nts::FileError("Invalid line", line);
+
+    return (list->at(0));
+}
+
 std::string nts::Builder::getComponentName(std::string line)
 {
     std::string lineWithOutComment;
@@ -110,10 +126,13 @@ std::string nts::Builder::getComponentName(std::string line)
     if (this->isValidChipset(line) == false)
         throw nts::FileError("Invalid line", line);
     lineWithOutComment = (this->clearComment(line));
-    std::reverse(lineWithOutComment.begin(), lineWithOutComment.end());
-    lineWithOutComment = lineWithOutComment.substr(0, lineWithOutComment.find(' '));
-    std::reverse(lineWithOutComment.begin(), lineWithOutComment.end());
-    return (lineWithOutComment);
+
+    std::unique_ptr<std::vector<std::string>> list = StringUtils::splitString(lineWithOutComment);
+
+    if (list->size() < 2)
+        throw nts::FileError("Invalid line", line);
+
+    return (list->at(1));
 }
 
 std::string nts::Builder::getLinkFirstName(std::string line)
@@ -127,19 +146,19 @@ std::string nts::Builder::getLinkFirstName(std::string line)
 std::string nts::Builder::getLinkSecondName(std::string line)
 {
     std::string lineWithOutComment(this->clearComment(line));
-    std::string name;
+    std::unique_ptr<std::vector<std::string>> list = StringUtils::splitString(lineWithOutComment);
+    std::string secondPart = list->at(1);
+    std::string name = secondPart.substr(0, secondPart.find(':'));
 
-    reverse(lineWithOutComment.begin(), lineWithOutComment.end());
-    name = lineWithOutComment.substr(0, lineWithOutComment.find(' '));
-    reverse(name.begin(), name.end());
-    name = name.substr(0, name.find(':'));
     return (name);
 }
 
 std::size_t nts::Builder::getLinkFirstPin(std::string line)
 {
     std::string lineWithOutComment(this->clearComment(line));
-    std::string pin = lineWithOutComment.substr(lineWithOutComment.find(':') + 1, lineWithOutComment.find(' '));
+    std::unique_ptr<std::vector<std::string>> list = StringUtils::splitString(lineWithOutComment);
+    std::string firstPart = list->at(0);
+    std::string pin = firstPart.substr(firstPart.find(':') + 1, firstPart.size());
 
     return (std::stoi(pin));
 }
@@ -147,11 +166,10 @@ std::size_t nts::Builder::getLinkFirstPin(std::string line)
 std::size_t nts::Builder::getLinkSecondPin(std::string line)
 {
     std::string lineWithOutComment(this->clearComment(line));
-    std::string pin;
+    std::unique_ptr<std::vector<std::string>> list = StringUtils::splitString(lineWithOutComment);
+    std::string firstPart = list->at(1);
+    std::string pin = firstPart.substr(firstPart.find(':') + 1, firstPart.size());
 
-    reverse(lineWithOutComment.begin(), lineWithOutComment.end());
-    pin = lineWithOutComment.substr(0, lineWithOutComment.find(':'));
-    reverse(pin.begin(), pin.end());
     return (std::stoi(pin));
 }
 
@@ -227,23 +245,11 @@ void nts::Builder::buildComponents(std::list<std::string> fileContent)
     throw std::runtime_error("No links found");
 }
 
-std::string nts::Builder::getComponentType(std::string line)
-{
-    std::string lineWithOutComment;
-
-    if (this->isValidChipset(line) == false)
-        throw nts::FileError("Invalid line", line);
-    lineWithOutComment = (this->clearComment(line));
-    return (lineWithOutComment.substr(0, lineWithOutComment.find(' ')));
-}
-
 std::string nts::Builder::clearComment(std::string line)
 {
-    std::string lineWithOutComment = "";
-    if (line.find('#') == std::string::npos)
-        return (line);
-    lineWithOutComment = line.substr(0, line.find('#'));
-    while (lineWithOutComment[lineWithOutComment.size() - 1] == ' ')
+    std::string lineWithOutComment = StringUtils::clearAfter(line, '#');
+
+    while (std::isspace(lineWithOutComment[lineWithOutComment.size() - 1]))
         lineWithOutComment = lineWithOutComment.substr(0, lineWithOutComment.size() - 1);
     return (lineWithOutComment);
 }

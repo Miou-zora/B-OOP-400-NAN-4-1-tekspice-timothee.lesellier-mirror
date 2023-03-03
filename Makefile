@@ -80,7 +80,7 @@ CFALGS		=	-Wall -Wextra -std=c++20 -Wshadow -Wpedantic
 
 TESTS_FLAGS	=	--coverage -lcriterion
 
-INCLUDE		=	-I./include
+INCLUDE		=	-I./include -I./include/Utils
 
 TEST_BINARY	=	test_bin
 
