@@ -51,6 +51,25 @@ nts::Tristate nts::Component4013::compute(std::size_t pin)
     }
 }
 
+void nts::Component4013::simulate(std::size_t tick)
+{
+    if (_updated == true)
+        return;
+    _updated = true;
+    for (auto &component : _components) {
+        component.get()->simulate(tick);
+    }
+}
+
+void nts::Component4013::resetUpdate(void)
+{
+    if (_updated == false)
+        return;
+    _updated = false;
+    for (auto &component : _components) {
+        component.get()->resetUpdate();
+    }
+}
 
 void nts::Component4013::setLink(std::size_t pin, std::shared_ptr<nts::IComponent> other, std::size_t otherPin)
 {
