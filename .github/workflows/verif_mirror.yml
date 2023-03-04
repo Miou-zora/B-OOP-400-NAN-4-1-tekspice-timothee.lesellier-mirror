@@ -53,7 +53,7 @@ jobs:
           fetch-depth: 0
 
       - run: make
-        timeout-minutes: 2
+        timeout-minutes: 4
 
       - run: make clean
 
