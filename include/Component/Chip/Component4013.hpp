@@ -14,13 +14,15 @@
 
 namespace nts
 {
-    class Component4013 : public virtual nts::AComponent {
+    class Component4013 final : public virtual nts::AComponent {
         public:
             Component4013();
             ~Component4013();
 
-            nts::Tristate compute(std::size_t pin);
-            void setLink(std::size_t pin, std::shared_ptr<nts::IComponent> other, std::size_t otherPin);
+            nts::Tristate compute(std::size_t pin) override;
+            void setLink(std::size_t pin, std::shared_ptr<nts::IComponent> other, std::size_t otherPin) override;
+            void simulate(std::size_t tick) override;
+            void resetUpdate(void) override;
         private:
             std::vector<std::shared_ptr<nts::IComponent>> _components;
             std::map<std::size_t, nts::IComponent&> _outputs;

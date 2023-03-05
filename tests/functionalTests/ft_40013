@@ -1,0 +1,5 @@
+#! /bin/bash
+
+command="cl_1_clock=1\ncl_2_clock=1\nin_1_data=1\nin_1_reset=0\nin_1_set=0\nin_2_data=1\nin_2_reset=0\nin_2_set=0\nsimulate\ndisplay\nsimulate\ndisplay\nsimulate\ndisplay\n"
+
+echo -e $command | ./nanotekspice tests/functionalTests/4013_flipflop.nts
